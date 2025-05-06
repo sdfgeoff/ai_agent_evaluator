@@ -1,0 +1,6 @@
+{
+    "docker_image": "node:latest",
+    "blurb": "Can the model set up a simple react application",
+    "initial_prompt": "Set up a simple react application",
+    "thumbnail_command": ""
+}
