@@ -4,7 +4,6 @@ import os
 import time
 import traceback
 import httpx
-from pydantic import BaseModel
 import structlog
 
 from .log_to_html import generate_log_html
@@ -26,7 +25,7 @@ from .tool_manager import Tool, ToolManager
 def make_provider(url: str, token: str, model: str):
     llm_client = httpx.AsyncClient(
         base_url=url,
-        timeout=60 * 5,
+        timeout=60 * 10,
         headers={
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
@@ -74,17 +73,23 @@ async def main(test: TestToRun):
 
     async def bash_tool(args: dict[str, str]) -> types.CallToolResult:
         command = args["command"]
-        loop = asyncio.get_event_loop()
-        result = await loop.run_in_executor(None, os.system, command)
+        process = await asyncio.create_subprocess_shell(
+            command,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+        stdout, stderr = await process.communicate()
+        status = process.returncode
         content: list[
             types.TextContent | types.ImageContent | types.EmbeddedResource
         ] = [
             types.TextContent(
-                type="text",
-                text=json.dumps({
-                    "output": str(result),
-                    "status": result,
-                }),
+            type="text",
+            text=json.dumps({
+                "output": stdout.decode().strip(),
+                "error": stderr.decode().strip(),
+                "status": status,
+            }),
             )
         ]
         return types.CallToolResult(content=content)

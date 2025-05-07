@@ -3,10 +3,9 @@ import os
 import shutil
 import subprocess
 import structlog
-import asyncio
 
 from .config import get_config
-from agent.agent.datatypes import Result, TestParameters, TestToRun
+from agent.agent.datatypes import TestParameters, TestToRun
 
 
 LOG = structlog.get_logger(__name__)
@@ -15,7 +14,7 @@ LOG = structlog.get_logger(__name__)
 def run_test(
     output_folder: str,
     test: TestToRun,
-) -> Result:
+):
     LOG.info(
         "starting_test",
         provider=test.provider.name,
@@ -41,7 +40,6 @@ def run_test(
     name=f"{test.name}_{test.provider.name}_{test.model}"
     docker_name = "".join([c for c in name if c.isalnum() or c in "_-"])
     agent_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "agent"))
-    print(agent_folder)
     LOG.info(f"start_container", name={docker_name}, image=test.test_parameters.docker_image)
     
     # We're reapping paths when we go into docker
@@ -57,7 +55,7 @@ def run_test(
         "run",
         "--rm",
         "-v", f"{output_folder}:/project",
-        "-v", f"{agent_folder}:/agent",
+        "-v", f"{agent_folder}:/agent:ro",
         "-w", "/agent",
         '-e', f"TEST_CONFIG={local_test_config.model_dump_json()}",
         "--name", docker_name,
@@ -106,7 +104,26 @@ def main():
             test.model,
             test.name,
         )
-        run_test(output_folder, test)
+
+        if os.path.exists(output_folder):
+            LOG.info(
+                "skipping_test",
+                provider=test.provider.name,
+                model=test.model,
+                test_folder=test.test_folder,
+            )
+            continue
+
+        try:
+            run_test(output_folder, test)
+        except Exception as e:
+            LOG.exception(
+                "test_failed",
+                provider=test.provider.name,
+                model=test.model,
+                test_folder=test.test_folder,
+            )
+            continue
 
 
 if __name__ == "__main__":

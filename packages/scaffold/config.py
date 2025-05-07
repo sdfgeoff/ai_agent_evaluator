@@ -14,7 +14,9 @@ class Config(BaseModel):
                 "qwen3-0.6b",
                 "qwen3-4b",
                 "qwen3-30b-a3b",
-
+                "qwq-32b",
+                "qwen2.5-14b-instruct",
+                "qwen2.5-7b-instruct-1m"
             ],
         ),
     ]
