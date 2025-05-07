@@ -1,0 +1,6 @@
+{
+    "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
+    "blurb": "Can the model create a simple html webpage with some demo content",
+    "initial_prompt": "I'd like to create a plain HTML site for a plumbing business. Make it look modern. Output it into index.html",
+    "thumbnail_command": ""
+}

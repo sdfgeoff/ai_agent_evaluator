@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Any, List, Literal, Optional
+import mcp.types as types
 
 
 class ToolFunctionCall(BaseModel):
@@ -28,7 +29,7 @@ class ToolResponseMessage(BaseModel):
     tool_call_id: str
     role: Literal["tool"]
     name: str
-    content: str | Any
+    content: str | list[types.TextContent | types.ImageContent | types.EmbeddedResource]
 
 
 class ToolFunction(BaseModel):

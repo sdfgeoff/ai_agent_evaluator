@@ -19,7 +19,7 @@ Each test case is a folder, with a config.json file. The config.json file looks 
 Then in config.py, there is a list of providers and models, eg:
 ```python
 providers=[
-    TestParameters(
+    ModelProvider(
         name: "local",
         base_url: "http://localhost",
         token: <your token>,
@@ -45,11 +45,8 @@ Some metadata about the run is then placed in a `_results` folder, This includes
 
 When running each agent it will provide the following tools:
 ```
+task_stop
 bash
-create_file
-read_file
-write_file
-get_url
 ```
 The rest is up to the model.
 

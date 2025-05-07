@@ -9,13 +9,6 @@ class ModelProvider(BaseModel):
     models: List[str]
 
 
-class TestParameters(BaseModel):
-    docker_image: str
-    blurb: str
-    initial_prompt: str
-    thumbnail_command: str
-
-
 class ResultStats(BaseModel):
     time_seconds: float
 
@@ -26,6 +19,11 @@ class Result(BaseModel):
     log: str
 
 
+class TestParameters(BaseModel):
+    docker_image: str
+    blurb: str
+    initial_prompt: str
+    thumbnail_command: str
 
 
 class TestToRun(BaseModel):

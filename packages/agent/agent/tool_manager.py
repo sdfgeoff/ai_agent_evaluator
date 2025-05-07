@@ -1,22 +1,32 @@
 from typing import Any, Awaitable, Callable, NamedTuple
 import structlog
 import mcp.types as types
-from evaluator.mcp_manager import MCPManager
-from evaluator.provider.openai_types import Message, ToolCall, ToolDefinition, ToolFunction, ToolResponseMessage
+from .mcp_manager import MCPManager
+from .provider.openai_types import (
+    Message,
+    ToolCall,
+    ToolDefinition,
+    ToolFunction,
+    ToolResponseMessage,
+)
 import json
 
 log = structlog.get_logger(__name__)
+
 
 class Tool(NamedTuple):
     definition: ToolDefinition
     callable: Callable[[dict[str, Any]], Awaitable[types.CallToolResult]]
 
 
-def make_callable(mcp_manager: MCPManager, tool_name: str) -> Callable[[dict[str, Any]], Awaitable[types.CallToolResult]]:
+def make_callable(
+    mcp_manager: MCPManager, tool_name: str
+) -> Callable[[dict[str, Any]], Awaitable[types.CallToolResult]]:
     async def callable(args: dict[str, Any]) -> types.CallToolResult:
         return await mcp_manager.call_tool(tool_name, args)
 
     return callable
+
 
 class ToolManager:
     def __init__(self, mcp_manager: MCPManager, extra_tools: list[Tool]):
@@ -24,14 +34,17 @@ class ToolManager:
 
         self.tools: list[Tool] = []
         self.tools = [
-            Tool(ToolDefinition(
-                type="function",
-                function=ToolFunction(
-                    name=t.name,
-                    description=t.description,
-                    parameters=t.inputSchema,
+            Tool(
+                ToolDefinition(
+                    type="function",
+                    function=ToolFunction(
+                        name=t.name,
+                        description=t.description,
+                        parameters=t.inputSchema,
+                    ),
                 ),
-            ), make_callable(self.mcp_manager, t.name))
+                make_callable(self.mcp_manager, t.name),
+            )
             for t in self.mcp_manager.get_tools()
         ] + extra_tools
 
@@ -44,6 +57,7 @@ class ToolManager:
         return [t.definition for t in self.tools]
 
     async def call_tool(self, function_call: ToolCall) -> Message:
+        log.info("function_call_received", function=function_call.function.name)
         # Check tool exists
         functions = [
             t
