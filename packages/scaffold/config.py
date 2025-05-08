@@ -1,3 +1,4 @@
+# import os
 from typing import List
 
 from pydantic import BaseModel
@@ -19,6 +20,14 @@ class Config(BaseModel):
                 "qwen2.5-7b-instruct-1m"
             ],
         ),
+        # ModelProvider(
+        #     name="OpenAI",
+        #     base_url="https://api.openai.com",
+        #     token=os.getenv("OPENAI_API_KEY", ""),
+        #     models=[
+        #         "o4-mini",
+        #     ],
+        # ),
     ]
 
     test_input_directory: str = "/home/geoffrey/Projects/ai-agent-evaluator/inputs"

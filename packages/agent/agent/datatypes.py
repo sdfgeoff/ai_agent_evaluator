@@ -1,5 +1,6 @@
 from typing import List
 from pydantic import BaseModel
+from .provider.openai_types import Message
 
 
 class ModelProvider(BaseModel):
@@ -11,6 +12,7 @@ class ModelProvider(BaseModel):
 
 class ResultStats(BaseModel):
     time_seconds: float
+    log: list[Message]
 
 
 class Result(BaseModel):
@@ -31,4 +33,5 @@ class TestToRun(BaseModel):
     test_parameters: TestParameters
     provider: ModelProvider
     model: str
-    test_folder: str
+    input_folder: str
+    output_folder: str

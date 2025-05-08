@@ -12,14 +12,13 @@ LOG = structlog.get_logger(__name__)
 
 
 def run_test(
-    output_folder: str,
     test: TestToRun,
 ):
     LOG.info(
         "starting_test",
         provider=test.provider.name,
         model=test.model,
-        test_folder=test.test_folder,
+        test_folder=test.input_folder,
     )
 
     LOG.info(
@@ -28,10 +27,10 @@ def run_test(
         model=test.model,
     )
     # Set up environment
-    os.makedirs(output_folder, exist_ok=True)
+    os.makedirs(test.output_folder, exist_ok=True)
     shutil.copytree(
-        os.path.join(test.test_folder),
-        os.path.join(output_folder),
+        os.path.join(test.input_folder),
+        os.path.join(test.output_folder),
         dirs_exist_ok=True,
         ignore=shutil.ignore_patterns("config.json"),
     )
@@ -48,13 +47,14 @@ def run_test(
         test_parameters=test.test_parameters,
         provider=test.provider,
         model=test.model,
-        test_folder="/project",  
+        input_folder="/project",  
+        output_folder="/project",
     )
     res = subprocess.run([
         "docker",
         "run",
         "--rm",
-        "-v", f"{output_folder}:/project",
+        "-v", f"{test.output_folder}:/project",
         "-v", f"{agent_folder}:/agent:ro",
         "-w", "/agent",
         '-e', f"TEST_CONFIG={local_test_config.model_dump_json()}",
@@ -65,6 +65,12 @@ def run_test(
     ])
     if res.returncode != 0:
         raise RuntimeError(f"Agent Failed to Run: {res.stderr}")
+    
+    # copy the config.py file to the output folder so we can compare config between runs
+    shutil.copy(
+        os.path.join(test.input_folder, "config.json"),
+        os.path.join(test.output_folder, "config.json"),
+    )
 
 
 def main():
@@ -82,46 +88,57 @@ def main():
         )
         for provider in providers:
             for model in provider.models:
+                output_folder = os.path.join(
+                    os.path.abspath(config.test_output_directory),
+                    provider.name,
+                    model,
+                    test_folder,
+                )
+
                 tests_to_run.append(
                     TestToRun(
                         name=test_folder,
                         test_parameters=test_parameters,
                         provider=provider,
                         model=model,
-                        test_folder=os.path.join(
+                        input_folder=os.path.join(
                             config.test_input_directory, test_folder
                         ),
+                        output_folder=output_folder,
                     )
                 )
 
     # Sort by provider name and model name
     tests_to_run.sort(key=lambda x: (x.provider.name, x.model))
 
+    # create_index(tests_to_run)
+
     for test in tests_to_run:
-        output_folder = os.path.join(
-            os.path.abspath(config.test_output_directory),
-            test.provider.name,
-            test.model,
-            test.name,
-        )
 
-        if os.path.exists(output_folder):
-            LOG.info(
-                "skipping_test",
-                provider=test.provider.name,
-                model=test.model,
-                test_folder=test.test_folder,
-            )
-            continue
+        existing_config_file = os.path.join(test.output_folder, "config.json")
+        if os.path.exists(existing_config_file):
+            with open(existing_config_file, "r") as f:
+                existing_config = f.read()
+            with open(os.path.join(test.input_folder, "config.json"), "r") as f:
+                new_config = f.read()
 
+            if existing_config == new_config:
+                LOG.info(
+                    "skipping_test",
+                    provider=test.provider.name,
+                    model=test.model,
+                    test_folder=test.input_folder,
+                    output_folder=test.output_folder,
+                )
+                continue
         try:
-            run_test(output_folder, test)
+            run_test(test)
         except Exception as e:
             LOG.exception(
                 "test_failed",
                 provider=test.provider.name,
                 model=test.model,
-                test_folder=test.test_folder,
+                test_folder=test.input_folder,
             )
             continue
 

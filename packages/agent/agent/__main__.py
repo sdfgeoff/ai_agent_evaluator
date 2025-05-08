@@ -25,7 +25,7 @@ from .tool_manager import Tool, ToolManager
 def make_provider(url: str, token: str, model: str):
     llm_client = httpx.AsyncClient(
         base_url=url,
-        timeout=60 * 10,
+        timeout=60 * 20,
         headers={
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
@@ -59,7 +59,7 @@ LOG = structlog.get_logger(__name__)
 
 async def main(test: TestToRun):
     # Create the provider
-    os.chdir(test.test_folder)
+    os.chdir(test.output_folder)
 
     make_request = make_provider(
         url=test.provider.base_url,
@@ -162,19 +162,20 @@ async def main(test: TestToRun):
     results = Result(
         stats=ResultStats(
             time_seconds=end_time - start_time,
+            log=log
         ),
         thumbnail=thumbnail_base64,
         log=log_html,
     )
 
     # Save the results
-    with open(os.path.join(test.test_folder, "log.html"), "w") as f:
+    with open(os.path.join(test.output_folder, "log.html"), "w") as f:
         f.write(results.log)
 
-    with open(os.path.join(test.test_folder, "stats.json"), "w") as f:
+    with open(os.path.join(test.output_folder, "stats.json"), "w") as f:
         f.write(results.stats.model_dump_json())
 
-    with open(os.path.join(test.test_folder, "thumbnail.png"), "wb") as f:
+    with open(os.path.join(test.output_folder, "thumbnail.png"), "wb") as f:
         f.write(results.thumbnail)
 
 

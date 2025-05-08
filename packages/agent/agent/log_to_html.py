@@ -30,11 +30,13 @@ def generate_log_html(log: list[Message]) -> str:
                         content += f'<p>{escape(item.text)}</p>'
                     elif isinstance(item, types.ImageContent):
                         content += f'<img src="{item.data}" alt="Image" />'
-                    elif isinstance(item, types.EmbeddedResource):
+                    else:
+                        assert isinstance(item, types.EmbeddedResource)
                         resource = item.resource
                         if isinstance(resource, types.TextResourceContents):
                             content += f'<p>Embedded Resource: {escape(resource.text)}</p>'
-                        elif isinstance(resource, types.BlobResourceContents):
+                        else:
+                            assert isinstance(resource, types.BlobResourceContents)
                             content += f'<p>Embedded Resource: {escape(resource.blob)}</p>'
             else:
                 content = escape(message.content)
