@@ -1,4 +1,5 @@
 {
+	"name": "Hello World HTML",
     "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
     "blurb": "Can the model create a simple html webpage",
     "initial_prompt": "Create a single index.html file containing a hello world. Include styling in a dark theme with bold and striking color choice",

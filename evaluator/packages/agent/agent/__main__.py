@@ -6,8 +6,6 @@ import traceback
 import httpx
 import structlog
 
-from .log_to_html import generate_log_html
-
 from .datatypes import Result, ResultStats, TestToRun
 from .provider.openai_client import OpenAIClient
 from .provider.openai_types import (
@@ -157,20 +155,13 @@ async def main(test: TestToRun):
     # Generate the thumbnail
     thumbnail_base64 = b""  # generate_thumbnail()
 
-    log_html = generate_log_html(log)
-
     results = Result(
         stats=ResultStats(
             time_seconds=end_time - start_time,
             log=log
         ),
         thumbnail=thumbnail_base64,
-        log=log_html,
     )
-
-    # Save the results
-    with open(os.path.join(test.output_folder, "log.html"), "w") as f:
-        f.write(results.log)
 
     with open(os.path.join(test.output_folder, "stats.json"), "w") as f:
         f.write(results.stats.model_dump_json())

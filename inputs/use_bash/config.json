@@ -1,4 +1,5 @@
 {
+	"name": "Use Bash",
     "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
     "blurb": "Extract current data using bash",
     "initial_prompt": "Read the file `/project/instructions.md`. There are more instructions for you there.",

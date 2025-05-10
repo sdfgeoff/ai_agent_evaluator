@@ -18,10 +18,10 @@ class ResultStats(BaseModel):
 class Result(BaseModel):
     stats: ResultStats
     thumbnail: bytes
-    log: str
 
 
 class TestParameters(BaseModel):
+    name: str
     docker_image: str
     blurb: str
     initial_prompt: str

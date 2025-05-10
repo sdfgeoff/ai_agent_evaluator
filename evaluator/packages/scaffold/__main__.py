@@ -1,14 +1,99 @@
+from collections import defaultdict
 import json
 import os
 import shutil
 import subprocess
 import structlog
 
+from .html import Tag
+
 from .config import get_config
 from agent.agent.datatypes import TestParameters, TestToRun
 
 
 LOG = structlog.get_logger(__name__)
+
+
+def create_index(output_file: str, tests_to_run: list[TestToRun]):
+
+    by_model: dict[str, list[TestToRun]] = defaultdict(list)
+    for test in tests_to_run:
+        model = test.provider.name + "_" + test.model
+        if model not in by_model:
+            by_model[model].append(test)
+
+    by_test_name: dict[str, list[TestToRun]] = defaultdict(list)
+    for test in tests_to_run:
+        test_name = test.test_parameters.name
+        by_test_name[test_name].append(test)
+
+    with Tag("html") as html:
+        with Tag("head", html) as head:
+            with Tag("title", head) as title:
+                title.add("Evaluation Results")
+            with Tag("style", head) as style:
+                style.add(
+                    """
+                    body {
+                        font-family: Arial, sans-serif;
+                        margin: 20px;
+                        padding: 20px;
+                        background-color: #f4f4f4;
+                    }
+                    h1 {
+                        color: #333;
+                    }
+                    .zoom-outer {
+                        width: 480px;
+                        height: 270px;
+                        background-color: #fff;
+                    }
+                    .zoom-inner {
+                        transform: scale(0.25);
+                        transform-origin: 0 0;
+                    }
+
+                    .run_card {
+                        background-color: #ddd;
+                        border-radius: 5px;   
+                        padding: 10px;   
+                    }
+
+                    .run_container {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 20px;
+                    }
+
+                    """
+                )
+        with Tag("body", html) as body:
+            for test, tests in by_test_name.items():
+                with Tag("div", body) as test_div:
+                    with Tag("h1", test_div) as h1:
+                        h1.add(test)
+                    with Tag("p", test_div) as p:
+                        p.add(tests[0].test_parameters.blurb)
+                    with Tag("p", test_div) as p:
+                        p.add("Initial Prompt: " + tests[0].test_parameters.initial_prompt)
+
+                    with Tag("div", test_div, class_="run_container") as run_container:
+                        for run in tests:
+                            with Tag("div", run_container, class_="run_card") as run_div:
+                                with Tag("h2", run_div) as h2:
+                                    h2.add(f"{run.provider.name} - {run.model}")
+                                # iframe of output_folder.index.html
+                                with Tag("div", run_div, class_="zoom-outer") as zoom_div_outer:
+                                    with Tag("div", zoom_div_outer, class_="zoom-inner") as zoom_div:
+                                        with Tag("iframe", zoom_div, src=f"{run.output_folder}/index.html", width="1920", height="1080") as iframe: 
+                                            pass    
+                                with Tag("a", run_div, href=f"{run.output_folder}/index.html") as a:
+                                    a.add("View Full Size")
+                                run_div.add(" ")
+                                with Tag("a", run_div, href=f"{run.output_folder}/log.html") as a:
+                                    a.add("View Message Log")
+    with open(output_file, "w") as f:
+        f.write(str(html))
 
 
 def run_test(
@@ -79,6 +164,7 @@ def main():
     test_folders = os.listdir(config.test_input_directory)
 
     tests_to_run: list[TestToRun] = []
+    test_names: list[str] = []
     for test_folder in test_folders:
         test_settings_file = os.path.join(
             config.test_input_directory, test_folder, "config.json"
@@ -86,6 +172,9 @@ def main():
         test_parameters = TestParameters.model_validate(
             json.load(open(test_settings_file, "r"))
         )
+        assert test_parameters.name not in test_names, f"Duplicate test name: {test_parameters.name}"
+        test_names.append(test_parameters.name)
+
         for provider in providers:
             for model in provider.models:
                 output_folder = os.path.join(
@@ -111,10 +200,9 @@ def main():
     # Sort by provider name and model name
     tests_to_run.sort(key=lambda x: (x.provider.name, x.model))
 
-    # create_index(tests_to_run)
+    create_index(os.path.join(config.test_output_directory, "index.html"), tests_to_run)
 
     for test in tests_to_run:
-
         existing_config_file = os.path.join(test.output_folder, "config.json")
         if os.path.exists(existing_config_file):
             with open(existing_config_file, "r") as f:
