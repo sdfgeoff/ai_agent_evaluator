@@ -1,11 +1,15 @@
-from agent.agent.provider.openai_types import Message
-from agent.agent.provider.openai_types import TextMessage, ToolRequestMessage, ToolResponseMessage
+from agent.provider.openai_types import Message
+from agent.provider.openai_types import (
+    TextMessage,
+    ToolRequestMessage,
+    ToolResponseMessage,
+)
 import mcp.types as types
 
 
 from xml.sax.saxutils import escape
 
-from .html import Tag
+from .pages.html import Tag
 
 
 def generate_log_html(log: list[Message]) -> str:
@@ -29,19 +33,23 @@ def generate_log_html(log: list[Message]) -> str:
                         for tool in message.tool_calls:
                             with Tag("strong", div) as strong:
                                 strong.add(f"Tool Request:")
-                            div.add(f" {tool.id} - {tool.function.name} - {escape(tool.function.arguments)}")
+                            div.add(
+                                f" {tool.id} - {tool.function.name} - {escape(tool.function.arguments)}"
+                            )
                     else:
                         assert isinstance(message, ToolResponseMessage)
                         with Tag("strong", div) as strong:
                             strong.add(f"Tool Response:")
-                        
+
                         if isinstance(message.content, list):
                             for item in message.content:
                                 if isinstance(item, types.TextContent):
                                     with Tag("p", div) as p:
                                         p.add(escape(item.text))
                                 elif isinstance(item, types.ImageContent):
-                                    with Tag("img", div, src=item.data, alt="Image") as img:
+                                    with Tag(
+                                        "img", div, src=item.data, alt="Image"
+                                    ) as img:
                                         pass
                                 else:
                                     assert isinstance(item, types.EmbeddedResource)
@@ -51,7 +59,9 @@ def generate_log_html(log: list[Message]) -> str:
                                             p.add("Embedded Resource: ")
                                             p.add(escape(resource.text))
                                     else:
-                                        assert isinstance(resource, types.BlobResourceContents)
+                                        assert isinstance(
+                                            resource, types.BlobResourceContents
+                                        )
                                         with Tag("p", div) as p:
                                             p.add("Embedded Resource: ")
                                             p.add(escape(resource.blob))

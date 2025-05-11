@@ -1,6 +1,7 @@
 import httpx
 from .openai_types import ChatParameters, ChatResponse
 
+
 class OpenAIClient:
     def __init__(self, connection: httpx.AsyncClient):
         self.connection = connection

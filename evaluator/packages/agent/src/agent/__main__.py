@@ -82,12 +82,14 @@ async def main(test: TestToRun):
             types.TextContent | types.ImageContent | types.EmbeddedResource
         ] = [
             types.TextContent(
-            type="text",
-            text=json.dumps({
-                "output": stdout.decode().strip(),
-                "error": stderr.decode().strip(),
-                "status": status,
-            }),
+                type="text",
+                text=json.dumps(
+                    {
+                        "output": stdout.decode().strip(),
+                        "error": stderr.decode().strip(),
+                        "status": status,
+                    }
+                ),
             )
         ]
         return types.CallToolResult(content=content)
@@ -135,7 +137,7 @@ async def main(test: TestToRun):
     try:
         await agent.run(initial_messages=initial_messages)
         log = agent.messages
-    except Exception as e:
+    except Exception as _e:
         log = agent.messages
         LOG.exception(
             "agent_run_failed",
@@ -156,10 +158,7 @@ async def main(test: TestToRun):
     thumbnail_base64 = b""  # generate_thumbnail()
 
     results = Result(
-        stats=ResultStats(
-            time_seconds=end_time - start_time,
-            log=log
-        ),
+        stats=ResultStats(time_seconds=end_time - start_time, log=log),
         thumbnail=thumbnail_base64,
     )
 

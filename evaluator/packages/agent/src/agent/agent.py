@@ -32,9 +32,7 @@ class Agent:
 
         self.messages: list[Message] = []
 
-    async def run(
-        self, initial_messages: list[Message], max_iter: int = 100
-    ):
+    async def run(self, initial_messages: list[Message], max_iter: int = 100):
         self.messages = initial_messages
 
         for _ in range(max_iter):
@@ -54,7 +52,7 @@ class Agent:
                 results: list[Message] = []
                 for call in message.tool_calls:
                     if call.function.name == TASK_COMPLETE_TOOL.function.name:
-                        stop = 'stop_tool'
+                        stop = "stop_tool"
                         break
                     else:
                         result = await self.tool_manager.call_tool(call)
@@ -64,8 +62,8 @@ class Agent:
             else:
                 if message.content == "":
                     # No content, we are probably done
-                    stop = 'empty_content'
-        
+                    stop = "empty_content"
+
             if stop:
                 log.info("task_complete", reason=stop)
                 break

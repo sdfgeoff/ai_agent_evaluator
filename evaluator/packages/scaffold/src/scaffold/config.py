@@ -2,7 +2,7 @@
 from typing import List
 
 from pydantic import BaseModel
-from agent.agent.datatypes import ModelProvider
+from agent.datatypes import ModelProvider
 
 
 class Config(BaseModel):
@@ -15,9 +15,20 @@ class Config(BaseModel):
                 "qwen3-0.6b",
                 "qwen3-4b",
                 "qwen3-30b-a3b",
-                #"qwen-3-32b",
-                #"qwen2.5-14b-instruct",
-                #"qwen2.5-7b-instruct-1m"
+                # "qwen-3-32b",
+                # "qwen2.5-14b-instruct",
+                # "qwen2.5-7b-instruct-1m"
+            ],
+        ),
+        ModelProvider(
+            name="THUDM",
+            base_url="http://192.168.18.10:1234",
+            token="asdf",
+            models=[
+                "glm-4-9b-0414",
+                # "qwen-3-32b",
+                # "qwen2.5-14b-instruct",
+                # "qwen2.5-7b-instruct-1m"
             ],
         ),
         # ModelProvider(
