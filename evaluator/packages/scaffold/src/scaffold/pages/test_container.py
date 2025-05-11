@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from agent.datatypes import TestToRun
 from .html import Tag
-from .test_card import test_card
+from .run_card import run_card
 
 
 def test_container(test: str, tests: list[TestToRun]):
@@ -24,5 +24,5 @@ def test_container(test: str, tests: list[TestToRun]):
                 h2.add(provider)
             with Tag("div", test_div, class_="run_container") as run_container:
                 for run in tests:
-                    run_container.add(test_card(run))
+                    run_container.add(run_card(run))
     return str(test_div)

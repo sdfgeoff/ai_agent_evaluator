@@ -15,8 +15,8 @@ from agent.datatypes import TestParameters, TestToRun, ResultStats
 LOG = structlog.get_logger(__name__)
 
 
-def create_index(output_file: str, tests_to_run: list[TestToRun]):
-    html = index_html(tests=tests_to_run)
+def create_site(output_file: str, tests: list[TestToRun]):
+    html = index_html(tests)
     with open(output_file, "w") as f:
         f.write(str(html))
 
@@ -94,6 +94,7 @@ def run_test(
         os.path.join(test.output_folder, "config.json"),
     )
 
+
 def generate_html_log_file(test: TestToRun):
     stats = open(os.path.join(test.output_folder, "stats.json"), "r")
     stats = ResultStats.model_validate_json(stats.read())
@@ -102,7 +103,6 @@ def generate_html_log_file(test: TestToRun):
     log_html = generate_log_html(log)
     with open(os.path.join(test.output_folder, "log.html"), "w") as f:
         f.write(log_html)
-
 
 
 def main():
@@ -149,7 +149,7 @@ def main():
     # Sort by provider name and model name
     tests_to_run.sort(key=lambda x: (x.provider.name, x.model))
 
-    create_index(os.path.join(config.test_output_directory, "index.html"), tests_to_run)
+    create_site(os.path.join(config.test_output_directory, "index.html"), tests_to_run)
 
     for test in tests_to_run:
         generate_html_log_file(test)
@@ -182,11 +182,6 @@ def main():
             continue
 
 
-
-
-
-
-
 def run():
     structlog.configure(
         processors=[
@@ -202,4 +197,3 @@ def run():
 
 if __name__ == "__main__":
     run()
-    

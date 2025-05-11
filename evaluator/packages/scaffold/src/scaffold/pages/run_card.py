@@ -2,7 +2,7 @@ from agent.datatypes import TestToRun
 from .html import Tag
 
 
-def test_card(run: TestToRun):
+def run_card(run: TestToRun):
     with Tag("div", class_="run_card") as run_div:
         with Tag("h2", run_div) as h2:
             h2.add(run.model)
