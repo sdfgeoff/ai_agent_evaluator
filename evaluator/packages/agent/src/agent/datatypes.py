@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Literal
 from pydantic import BaseModel
 from .provider.openai_types import Message
 
@@ -20,12 +20,17 @@ class Result(BaseModel):
     thumbnail: bytes
 
 
+Tools = Literal["bash", "create_file"]
+
+
 class TestParameters(BaseModel):
     name: str
     docker_image: str
     blurb: str
     initial_prompt: str
     thumbnail_command: str
+
+    allowed_tools: list[Tools] = ["bash", "create_file"]
 
 
 class TestToRun(BaseModel):

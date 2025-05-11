@@ -152,8 +152,6 @@ def main():
     create_site(os.path.join(config.test_output_directory, "index.html"), tests_to_run)
 
     for test in tests_to_run:
-        generate_html_log_file(test)
-
         existing_config_file = os.path.join(test.output_folder, "config.json")
         if os.path.exists(existing_config_file):
             with open(existing_config_file, "r") as f:
@@ -180,6 +178,9 @@ def main():
                 test_folder=test.input_folder,
             )
             continue
+
+        generate_html_log_file(test)
+
 
 
 def run():

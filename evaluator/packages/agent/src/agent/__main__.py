@@ -1,29 +1,28 @@
 import asyncio
-import json
 import os
 import time
 import traceback
 import httpx
 import structlog
 
+from .default_tools import BASH_TOOL, CREATE_FILE_TOOL
+
 from .datatypes import Result, ResultStats, TestToRun
 from .provider.openai_client import OpenAIClient
 from .provider.openai_types import (
     ChatParameters,
     ToolDefinition,
-    ToolFunction,
 )
 from .provider.openai_types import Message, TextMessage
 from .agent import Agent
 from .mcp_manager import MCPManager
-import mcp.types as types
 from .tool_manager import Tool, ToolManager
 
 
 def make_provider(url: str, token: str, model: str):
     llm_client = httpx.AsyncClient(
         base_url=url,
-        timeout=60 * 20,
+        timeout=60 * 30,
         headers={
             "Authorization": f"Bearer {token}",
             "Content-Type": "application/json",
@@ -69,55 +68,16 @@ async def main(test: TestToRun):
     mcp_manager = MCPManager({})
     await mcp_manager.start()
 
-    async def bash_tool(args: dict[str, str]) -> types.CallToolResult:
-        command = args["command"]
-        process = await asyncio.create_subprocess_shell(
-            command,
-            stdout=asyncio.subprocess.PIPE,
-            stderr=asyncio.subprocess.PIPE,
-        )
-        stdout, stderr = await process.communicate()
-        status = process.returncode
-        content: list[
-            types.TextContent | types.ImageContent | types.EmbeddedResource
-        ] = [
-            types.TextContent(
-                type="text",
-                text=json.dumps(
-                    {
-                        "output": stdout.decode().strip(),
-                        "error": stderr.decode().strip(),
-                        "status": status,
-                    }
-                ),
-            )
-        ]
-        return types.CallToolResult(content=content)
+    
+    extra_tools: list[Tool] = []
+    if "bash" in test.test_parameters.allowed_tools:
+        extra_tools.append(BASH_TOOL)
+    if "create_file" in test.test_parameters.allowed_tools:
+        extra_tools.append(CREATE_FILE_TOOL)
 
     tool_manager = ToolManager(
         mcp_manager,
-        extra_tools=[
-            Tool(
-                ToolDefinition(
-                    type="function",
-                    function=ToolFunction(
-                        name="bash",
-                        description="Run a bash command",
-                        parameters={
-                            "type": "object",
-                            "properties": {
-                                "command": {
-                                    "type": "string",
-                                    "description": "The command to run",
-                                },
-                            },
-                            "required": ["command"],
-                        },
-                    ),
-                ),
-                bash_tool,
-            ),
-        ],
+        extra_tools=extra_tools,
     )
 
     # Create the agent

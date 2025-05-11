@@ -4,7 +4,7 @@ from .html import Tag
 
 def run_card(run: TestToRun):
     with Tag("div", class_="run_card") as run_div:
-        with Tag("h2", run_div) as h2:
+        with Tag("h4", run_div) as h2:
             h2.add(run.model)
         # iframe of output_folder.index.html
         with Tag("div", run_div, class_="zoom-outer") as zoom_div_outer:

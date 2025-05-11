@@ -1,4 +1,5 @@
 # import os
+import os
 from typing import List
 
 from pydantic import BaseModel
@@ -15,36 +16,42 @@ class Config(BaseModel):
                 "qwen3-0.6b",
                 "qwen3-4b",
                 "qwen3-30b-a3b",
-                # "qwen-3-32b",
-                # "qwen2.5-14b-instruct",
-                # "qwen2.5-7b-instruct-1m"
-            ],
-        ),
-        ModelProvider(
-            name="THUDM",
-            base_url="http://192.168.18.10:1234",
-            token="asdf",
-            models=[
-                "glm-4-9b-0414",
-                # "qwen-3-32b",
-                # "qwen2.5-14b-instruct",
-                # "qwen2.5-7b-instruct-1m"
+                "qwen-3-32b",
+                "qwen2.5-14b-instruct",
+                "qwen2.5-7b-instruct-1m"
             ],
         ),
         # ModelProvider(
-        #     name="QWQ",
+        #     name="THUDM",
         #     base_url="http://192.168.18.10:1234",
         #     token="asdf",
         #     models=[
-        #         "qwq-32b",
+        #         "glm-4-9b-0414",
         #     ],
         # ),
         ModelProvider(
+            name="QWQ",
+            base_url="http://192.168.18.10:1234",
+            token="asdf",
+            models=[
+                "qwq-32b",
+            ],
+        ),
+        ModelProvider(
+            name="Meta",
+            base_url="http://192.168.18.10:1234",
+            token="asdf",
+            models=[
+                "meta-llama-3.1-8b-instruct",
+            ],
+        ),
+        ModelProvider(
             name="OpenAI",
             base_url="https://api.openai.com",
-            token="",  # os.getenv("OPENAI_API_KEY", ""),
+            token=os.getenv("OPENAI_API_KEY", ""),
             models=[
                 "o4-mini",
+                "o3-mini",
             ],
         ),
     ]

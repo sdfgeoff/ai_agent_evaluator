@@ -46,6 +46,7 @@ Some metadata about the run is then placed in a `_results` folder, This includes
 When running each agent it will provide the following tools:
 ```
 task_stop
+create_file
 bash
 ```
 The rest is up to the model.
