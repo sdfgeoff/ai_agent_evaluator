@@ -1,0 +1,7 @@
+<svg width="400" height="350">
+  <rect width="100%" height="25%" fill="#FFD700"/>
+  <rect y="80" width="100%" height="25%" fill="#C69B6E"/>
+  <!-- Mountains -->
+  <polygon points="140,300 170,280 220,300" fill="#9EAACB" stroke="#3D4F72" stroke-width="5" />
+  <polygon points="230,300 260,280 310,300" fill="#AABBD2" stroke="#3D4F72" stroke-width="5" />
+</svg>

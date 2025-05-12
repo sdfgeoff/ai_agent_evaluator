@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rotating Hexagon with Bouncing Balls</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+<script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas size
+    canvas.width = 800;
+    canvas.height = 600;
+
+    // Hexagon points
+    const hexPoints = [
+        {x: 400, y: 100},
+        {x: 530, y: 250},
+        {x: 400, y: 400},
+        {x: 270, y: 400},
+        {x: 200, y: 250},
+        {x: 400, y: 100}
+    ];
+
+    // Ball properties
+    const balls = [];
+    for (let i = 0; i < 5; i++) {
+        balls.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            dx: (Math.random() - 0.5) * 4,
+            dy: (Math.random() - 0.5) * 4,
+            radius: 10
+        });
+    }
+
+    function drawHexagon() {
+        ctx.beginPath();
+        ctx.moveTo(hexPoints[0].x, hexPoints[0].y);
+        for (let i = 1; i < hexPoints.length; i++) {
+            ctx.lineTo(hexPoints[i].x, hexPoints[i].y);
+        }
+        ctx.closePath();
+        ctx.fillStyle = 'red';
+        ctx.fill();
+    }
+
+    function drawBalls() {
+        balls.forEach(ball => {
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'blue';
+            ctx.fill();
+        });
+    }
+
+    function animate() {
+        // Clear canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw hexagon
+        drawHexagon();
+
+        // Update ball positions
+        balls.forEach(ball => {
+            ball.x += ball.dx;
+            ball.y += ball.dy;
+
+            // Bounce off walls
+            if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
+                ball.dx = -ball.dx;
+            }
+            if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
+                ball.dy = -ball.dy;
+            }
+        });
+
+        // Draw balls
+        drawBalls();
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+</body>
+</html>

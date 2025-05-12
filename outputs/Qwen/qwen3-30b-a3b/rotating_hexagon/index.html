@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rotating Hexagon with Bouncing Balls</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #222;
+        }
+        #hexagon-container {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background: #444;
+            animation: rotate 10s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .ball {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: red;
+            border-radius: 50%;
+            animation-timing-function: linear;
+        }
+    </style>
+</head>
+<body>
+    <div id="hexagon-container"></div>
+    <script>
+        const container = document.getElementById('hexagon-container');
+        const balls = [];
+        const numBalls = 10;
+
+        for (let i = 0; i < numBalls; i++) {
+            const ball = document.createElement('div');
+            ball.className = 'ball';
+            ball.style.left = Math.random() * (container.clientWidth - 10) + 'px';
+            ball.style.top = Math.random() * (container.clientHeight - 10) + 'px';
+            container.appendChild(ball);
+            balls.push({
+                el: ball,
+                x: (Math.random() - 0.5) * 2,
+                y: (Math.random() - 0.5) * 2
+            });
+        }
+
+        function animate() {
+            for (const ball of balls) {
+                let rect = ball.el.getBoundingClientRect();
+                let x = rect.left + window.scrollX;
+                let y = rect.top + window.scrollY;
+
+                // Check boundaries
+                if (x <= 0 || x >= container.clientWidth - 10) {
+                    ball.x *= -1;
+                }
+                if (y <= 0 || y >= container.clientHeight - 10) {
+                    ball.y *= -1;
+                }
+
+                x += ball.x;
+                y += ball.y;
+
+                ball.el.style.left = x + 'px';
+                ball.el.style.top = y + 'px';
+            }
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

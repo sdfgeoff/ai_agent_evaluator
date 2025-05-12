@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunset Through the Mountains</title>
+  <style>
+    body { margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #222; }
+  </style>
+</head>
+<body>
+  <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Sky gradient -->
+    <defs>
+      <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff9a9e"/>
+        <stop offset="50%" stop-color="#fad0c4"/>
+        <stop offset="100%" stop-color="#fad0c4"/>
+      </linearGradient>
+      <!-- Sun gradient -->
+      <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#fff3b0"/>
+        <stop offset="100%" stop-color="#ffcd38"/>
+      </radialGradient>
+    </defs>
+    
+    <!-- Background sky -->
+    <rect width="800" height="600" fill="url(#skyGradient)" />
+
+    <!-- Sun -->
+    <circle cx="400" cy="450" r="50" fill="url(#sunGradient)" />
+    
+    <!-- Mountains -->
+    <!-- Far mountains -->
+    <polygon points="0,400 150,300 300,350 450,250 600,320 800,280 800,600 0,600" fill="#3b3b3b"/>
+
+    <!-- Near mountains -->
+    <polygon points="0,600 100,400 250,450 400,350 550,470 700,400 800,500 800,600" fill="#2a2a2a"/>
+
+    <!-- Foreground silhouette (optional) -->
+    <rect x="0" y="580" width="800" height="20" fill="#1a1a1a" />
+  </svg>
+</body>
+</html>

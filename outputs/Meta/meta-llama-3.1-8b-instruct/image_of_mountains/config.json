@@ -1,0 +1,7 @@
+{
+	"name": "Image of Mountains - svg",
+    "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
+    "blurb": "Create an image of some mountains as an svg",
+    "initial_prompt": "I would like you to create an svg image of a sunset through the mountains. Make sure the result is visible in index.html",
+    "thumbnail_command": ""
+}

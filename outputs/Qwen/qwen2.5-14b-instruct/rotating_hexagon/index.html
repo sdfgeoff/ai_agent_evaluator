@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rotating Hexagon with Bouncing Balls</title>
+<style>
+    body {
+        background-color: #0a192f;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .hexagon {
+        width: 48px; /* Adjust hexagon size */
+        background-color: #e3bf59; /* Hexagon color */
+        position: relative;
+        animation: rotateHexagon 12s linear infinite, bounceBall 12s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite alternate;
+    }
+    .hexagon::before,
+    .hexagon::after {
+        content: "";
+        position: absolute;
+        width: 48px; /* Adjust hexagon size */
+        height: 26px; /* Derived from the above width */
+        background-color: inherit;
+        bottom: -13px; /* Half of the height */
+    }
+    .hexagon::before {
+        left: 0;
+        transform-origin: right center;
+        transform: rotate(60deg) skewY(-30deg);
+    }
+    .hexagon::after {
+        left: 24px;
+        width: calc(2 * 26px - 13px); /* Adjusted for overlap */
+        height: 26px; /* Same as ::before but adjusted for overlap */
+        transform-origin: left center;
+        transform: rotate(-60deg) skewY(-30deg);
+    }
+    .ball {
+        position: absolute;
+        width: 15px; /* Ball size */
+        height: 15px; /* Ball size */
+        background-color: white;
+        border-radius: 7.5px; /* Half of the ball size for a circular appearance */
+    }
+</style>
+<script>
+function bounceBall() {
+    var ball = document.createElement('div');
+    ball.classList.add('ball');
+
+    // Random initial position
+    var x = Math.floor(Math.random() * window.innerWidth);
+    var y = Math.floor(Math.random() * window.innerHeight);
+
+    ball.style.left = `${x}px`;
+    ball.style.top = `${y}px`;
+
+    // Add the ball to the document body
+    document.body.appendChild(ball);
+
+    setTimeout(() => {
+        var distanceToEdgeX = Math.min(x, window.innerWidth - x);
+        var distanceToEdgeY = Math.min(y, window.innerHeight - y);
+         
+        // Calculate speed based on proximity to edges for a bounce effect
+        let speed;
+        if (distanceToEdgeX <= 10 && distanceToEdgeY <= 10) {
+            speed = 2 + Math.random() * 6; // Speed up when close to the edge
+        } else if (distanceToEdgeX < window.innerWidth / 4 || distanceToEdgeY < window.innerHeight / 4) {
+            speed = 1.5;
+        } else {
+            speed = 0.5 + Math.random();
+        }
+         
+        // Animation to bounce off edges
+        ball.style.animation = `
+          move ${speed}s linear infinite,
+          rotate ${2 * speed}s steps(32, end) infinite`;
+    }, 1);
+
+    setTimeout(() => document.body.removeChild(ball), 6000);
+}
+
+// Start creating balls periodically
+setInterval(bounceBall, 500);
+</script>
+</head>
+<body>
+
+<div class="hexagon"></div>
+
+</body>
+</html>

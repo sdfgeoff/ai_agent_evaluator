@@ -7,7 +7,6 @@ wheels/
 *.egg-info
 
 # Project files
-outputs
 credentials.sh
 
 # Virtual environments

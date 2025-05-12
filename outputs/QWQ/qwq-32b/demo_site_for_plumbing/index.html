@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Plumbing Services</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #f4f4f4;
+        }
+        header {
+            background: #003366;
+            color: white;
+            padding: 2rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('plumbing-hero.jpg') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            color: white;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+        }
+        .services {
+            max-width: 1200px;
+            margin: 4rem auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+        .service {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .service h2 {
+            border-bottom: 2px solid #003366;
+            padding-bottom: 0.5rem;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 4rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .contact-form label {
+            display: block;
+            margin-top: 1rem;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .contact-form button {
+            background: #003366;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Modern Plumbing</h1>
+        <nav>
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    <section class="hero">
+        <div>
+            <h1>24/7 Emergency Plumbing</h1>
+            <p>Professional services for all your plumbing needs</p>
+        </div>
+    </section>
+    <section id="services" class="services">
+        <div class="service">
+            <h2>Leak Detection</h2>
+            <p>Advanced technology to find hidden leaks quickly</p>
+        </div>
+        <div class="service">
+            <h2>Plumbing Repairs</h2>
+            <p>Fixes for all types of plumbing issues</p>
+        </div>
+        <div class="service">
+            <h2>Installation Services</h2>
+            <p>New fixtures and system installations</p>
+        </div>
+        <div class="service">
+            <h2>Drain Cleaning</h2>
+            <p>Professional drain clearing and maintenance</p>
+        </div>
+    </section>
+    <section class="contact-form" id="contact">
+        <h2>Contact Us</h2>
+        <form>
+            <label>
+                Name:<br>
+                <input type="text" name="name" required>
+            </label>
+            <label>
+                Email:<br>
+                <input type="email" name="email" required>
+            </label>
+            <label>
+                Message:<br>
+                <textarea name="message" rows="4" required></textarea>
+            </label>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+    <footer>
+        <p>&copy; 2023 Modern Plumbing Services. All rights reserved.</p>
+    </footer>
+</body>
+</html>

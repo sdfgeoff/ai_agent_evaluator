@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunset Through Mountains</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- SVG Illustration: Sunset Through Mountains -->
+  <svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Sky gradient -->
+      <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#FF5F6D" />
+        <stop offset="50%" stop-color="#FFC371" />
+        <stop offset="100%" stop-color="#2C3E50" />
+      </linearGradient>
+      <!-- Sun gradient -->
+      <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFD194" />
+        <stop offset="100%" stop-color="#FF7E5F" />
+      </radialGradient>
+    </defs>
+    <!-- Sky background -->
+    <rect width="800" height="600" fill="url(#skyGradient)" />
+
+    <!-- Sun -->
+    <circle cx="400" cy="380" r="80" fill="url(#sunGradient)" />
+
+    <!-- Distant mountains -->
+    <path d="M0,450 L150,350 L300,450 L450,330 L600,450 L800,300 L800,600 L0,600 Z" fill="#556270" />
+    <!-- Midground mountains -->
+    <path d="M0,550 L200,420 L350,550 L500,400 L650,550 L800,380 L800,600 L0,600 Z" fill="#34495E" />
+    <!-- Foreground mountains -->
+    <path d="M0,600 L250,480 L400,600 L550,460 L700,600 L800,520 L800,600 Z" fill="#2C3E50" />
+
+  </svg>
+</body>
+</html>
