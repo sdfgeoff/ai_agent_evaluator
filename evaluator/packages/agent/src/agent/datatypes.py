@@ -12,7 +12,7 @@ class ModelProvider(BaseModel):
 
 
 class ResultStats(BaseModel):
-    run_date: AwareDatetime
+    run_date: AwareDatetime | None = None
     time_seconds: float
     log: list[Message]
 

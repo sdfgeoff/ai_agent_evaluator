@@ -17,15 +17,21 @@ def run_card(source_page: str, run: TestToRun):
                 with Tag(
                     "iframe",
                     zoom_div,
-                    src=f"{run.output_folder}/index.html",
+                    src=f"{relpath}/index.html",
                     width="1920",
                     height="1080",
                 ):
                     pass
-        with Tag("a", run_div, href=f"{relpath}/index.html") as a:
-            a.add("View Full Size")
-        run_div.add(" ")
-        with Tag("a", run_div, href=f"{relpath}/log.html") as a:
-            a.add("View Message Log")
+        with Tag("div", run_div, class_="d-flex") as footer:
+            with Tag("div", footer) as fullscreen:
+                with Tag("a", fullscreen, href=f"{relpath}/index.html") as a:
+                    a.add("Fullscreen")
+            
+            with Tag("div", footer, class_="flex-grow-1") as gap:
+                pass
+            
+            with Tag("div", footer) as message_log:
+                with Tag("a", message_log, href=f"{relpath}/log.html") as a:
+                    a.add("Message Log")
 
     return str(run_div)

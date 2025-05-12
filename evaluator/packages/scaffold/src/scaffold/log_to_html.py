@@ -19,6 +19,15 @@ def generate_log_html(log: list[Message]) -> str:
                 """
                 body { font-family: Arial, sans-serif; background: grey; }
                 .block { margin: 5px; padding: 5px; white-space: pre-wrap; background: white; }
+
+                .prompt {
+                        white-space: pre-wrap;
+                        background-color: #000;
+                        color: #fff;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                    }
                 """
             )
 
@@ -31,11 +40,14 @@ def generate_log_html(log: list[Message]) -> str:
                         div.add(f" {escape(message.content)}")
                     elif isinstance(message, ToolRequestMessage):
                         for tool in message.tool_calls:
-                            with Tag("strong", div) as strong:
-                                strong.add(f"Tool Request:")
-                            div.add(
-                                f" {tool.id} - {tool.function.name} - {escape(tool.function.arguments)}"
-                            )
+                            with Tag("div", div) as tool_div:
+                                with Tag("strong", tool_div) as strong:
+                                    strong.add(f"Tool Request:")
+                                tool_div.add(
+                                    f" {tool.id} - {tool.function.name}"
+                                )
+                                with Tag("div", tool_div, class_="prompt") as args:
+                                    args.add(escape(tool.function.arguments))
                     else:
                         assert isinstance(message, ToolResponseMessage)
                         with Tag("strong", div) as strong:
@@ -44,12 +56,12 @@ def generate_log_html(log: list[Message]) -> str:
                         if isinstance(message.content, list):
                             for item in message.content:
                                 if isinstance(item, types.TextContent):
-                                    with Tag("p", div) as p:
+                                    with Tag("p", div, class_="prompt") as p:
                                         p.add(escape(item.text))
                                 elif isinstance(item, types.ImageContent):
                                     with Tag(
                                         "img", div, src=item.data, alt="Image"
-                                    ) as img:
+                                    ):
                                         pass
                                 else:
                                     assert isinstance(item, types.EmbeddedResource)

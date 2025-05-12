@@ -1,4 +1,13 @@
 <html ><style >
                 body { font-family: Arial, sans-serif; background: grey; }
                 .block { margin: 5px; padding: 5px; white-space: pre-wrap; background: white; }
-                </style><body ><div class="block"><strong >user:</strong> Read the file `/project/instructions.md`. There are more instructions for you there.</div><div class="block"><strong >Tool Request:</strong> 650922248 - bash - {"command":"cat /project/instructions.md"}</div><div class="block"><strong >Tool Response:</strong><p >{"output": "Find the current time and OS and save this data into index.html", "error": "", "status": 0}</p></div><div class="block"><strong >Tool Request:</strong> 188571301 - bash - {"command":"printf \"&lt;html&gt;&lt;body&gt;&lt;h1&gt;Current Time: %s&lt;/h1&gt;&lt;p&gt;Operating System: %s&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;\" \"$(date +'%F %T')\" \"$(uname -s)\" &gt; index.html"}</div><div class="block"><strong >Tool Response:</strong><p >{"output": "", "error": "", "status": 0}</p></div><div class="block"><strong >Tool Request:</strong> 147549988 - task_complete - {}</div></body></html>
+
+                .prompt {
+                        white-space: pre-wrap;
+                        background-color: #000;
+                        color: #fff;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                    }
+                </style><body ><div class="block"><strong >user:</strong> Read the file `/project/instructions.md`. There are more instructions for you there.</div><div class="block"><div ><strong >Tool Request:</strong> 650922248 - bash<div class="prompt">{"command":"cat /project/instructions.md"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">{"output": "Find the current time and OS and save this data into index.html", "error": "", "status": 0}</p></div><div class="block"><div ><strong >Tool Request:</strong> 188571301 - bash<div class="prompt">{"command":"printf \"&lt;html&gt;&lt;body&gt;&lt;h1&gt;Current Time: %s&lt;/h1&gt;&lt;p&gt;Operating System: %s&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;\" \"$(date +'%F %T')\" \"$(uname -s)\" &gt; index.html"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">{"output": "", "error": "", "status": 0}</p></div><div class="block"><div ><strong >Tool Request:</strong> 147549988 - task_complete<div class="prompt">{}</div></div></div></body></html>

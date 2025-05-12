@@ -87,6 +87,13 @@ def index_html(
                         background-color: #FFe0B2;
                     }
 
+                    .d-flex {
+                        display: flex;
+                    }
+                    .flex-grow-1 {
+                        flex-grow: 1;
+                    }
+
                     """
                 )
         with Tag("body", html) as body:

@@ -1,4 +1,13 @@
 <html ><style >
                 body { font-family: Arial, sans-serif; background: grey; }
                 .block { margin: 5px; padding: 5px; white-space: pre-wrap; background: white; }
-                </style><body ><div class="block"><strong >user:</strong> Read the file `/project/instructions.md`. There are more instructions for you there.</div><div class="block"><strong >Tool Request:</strong> 988358763 - bash - {"command":"cat /project/instructions.md"}</div><div class="block"><strong >Tool Response:</strong><p >{"output": "Find the current time and OS and save this data into index.html", "error": "", "status": 0}</p></div><div class="block"><strong >Tool Request:</strong> 529710146 - bash - {"command":"echo \"Current time: \\$(date)\\nOS:\\$(uname -a)\" &gt;&gt; index.html"}</div><div class="block"><strong >Tool Response:</strong><p >{"output": "", "error": "", "status": 0}</p></div><div class="block"><strong >assistant:</strong> The output of the bash command is not returned because it's a simple command that writes to a file and doesn't return any value.</div><div class="block"><strong >assistant:</strong> </div></body></html>
+
+                .prompt {
+                        white-space: pre-wrap;
+                        background-color: #000;
+                        color: #fff;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                    }
+                </style><body ><div class="block"><strong >user:</strong> Read the file `/project/instructions.md`. There are more instructions for you there.</div><div class="block"><div ><strong >Tool Request:</strong> 988358763 - bash<div class="prompt">{"command":"cat /project/instructions.md"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">{"output": "Find the current time and OS and save this data into index.html", "error": "", "status": 0}</p></div><div class="block"><div ><strong >Tool Request:</strong> 529710146 - bash<div class="prompt">{"command":"echo \"Current time: \\$(date)\\nOS:\\$(uname -a)\" &gt;&gt; index.html"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">{"output": "", "error": "", "status": 0}</p></div><div class="block"><strong >assistant:</strong> The output of the bash command is not returned because it's a simple command that writes to a file and doesn't return any value.</div><div class="block"><strong >assistant:</strong> </div></body></html>

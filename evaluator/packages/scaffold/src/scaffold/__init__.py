@@ -153,6 +153,8 @@ def main():
 
     for test in tests_to_run:
         existing_config_file = os.path.join(test.output_folder, "config.json")
+
+        skip = False
         if os.path.exists(existing_config_file):
             with open(existing_config_file, "r") as f:
                 existing_config = f.read()
@@ -160,24 +162,26 @@ def main():
                 new_config = f.read()
 
             if existing_config == new_config:
-                LOG.info(
-                    "skipping_test",
+                skip = True
+
+        if not skip:
+            try:
+                run_test(test)
+            except Exception as _e:
+                LOG.exception(
+                    "test_failed",
                     provider=test.provider.name,
                     model=test.model,
                     test_folder=test.input_folder,
-                    output_folder=test.output_folder,
                 )
-                continue
-        try:
-            run_test(test)
-        except Exception as _e:
-            LOG.exception(
-                "test_failed",
+        else:
+            LOG.info(
+                "skipping_test",
                 provider=test.provider.name,
                 model=test.model,
                 test_folder=test.input_folder,
-            )
-            continue
+                output_folder=test.output_folder,
+            )        
 
         generate_html_log_file(test)
 
