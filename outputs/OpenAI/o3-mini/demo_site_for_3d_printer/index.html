@@ -3,128 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Printers: Technical Insights and Best Practices</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header, footer {
-            background: #333;
-            color: #fff;
-            padding: 20px 10px;
-            text-align: center;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            overflow: hidden;
-            padding: 0 20px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        h1, h2, h3 {
-            margin-top: 0;
-        }
-        nav {
-            background: #444;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
-        .content-section {
-            padding: 20px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            padding: 5px 0;
-        }
-        pre {
-            background: #eee;
-            padding: 10px;
-            overflow-x: auto;
-        }
-    </style>
+    <title>3D Printer Hub - Home</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>3D Printers: Technical Insights and Best Practices</h1>
+        <h1>3D Printer Hub</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="calibration.html">Calibration</a></li>
+                <li><a href="filament.html">Changing Filament</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <a href="#introduction">Introduction</a>
-        <a href="#calibration">Calibration</a>
-        <a href="#filament">Changing Filament</a>
-        <a href="#advanced">Advanced Topics</a>
-    </nav>
-    <div class="container">
-        <section id="introduction" class="content-section">
-            <h2>Introduction</h2>
-            <p>Welcome to our in-depth technical overview of 3D printers. This website is dedicated to enthusiasts, engineers, and professionals who are eager to understand the intricacies of modern 3D printing technology.</p>
-            <p>The world of 3D printing is both innovative and complex. In this website, we'll explore the necessary steps to ensure optimal printing performance, including calibration routines, proper maintenance after changing filaments, and advanced troubleshooting techniques.</p>
+    <main>
+        <section>
+            <h2>Welcome to 3D Printer Hub</h2>
+            <p>Your technical resource for all things 3D printing. Dive in to discover detailed guides and technical insights on printer calibration, filament changes, and more.</p>
         </section>
-        <section id="calibration" class="content-section">
-            <h2>Calibration</h2>
-            <p>Proper calibration is critical for the accuracy and quality of 3D prints. Below are the key calibration steps recommended for most 3D printers:</p>
+        <section>
+            <h3>Featured Topics</h3>
             <ul>
-                <li><strong>Bed Leveling:</strong> Ensures that the printing bed is perfectly horizontal. Manufacturers often recommend manual or automatic bed leveling processes. Consistent leveling is crucial to avoid issues like poor adhesion and warping.</li>
-                <li><strong>Nozzle Calibration:</strong> Ensure that the nozzle height is correctly set relative to the bed. This might involve adjusting the Z-offset.</li>
-                <li><strong>Extruder Calibration:</strong> Verifying that the filament is being extruded consistently. Run tests to measure flow rates and adjust steps per millimeter as necessary.</li>
-                <li><strong>Temperature Calibration:</strong> Both the extruder and bed temperature affect print quality. Use calibration prints to determine the ideal temperature settings for specific filament types.</li>
-            </ul>
-            <h3>Example: Manual Bed Leveling Process</h3>
-            <pre>
-1. Home the printer and disable stepper motors.
-2. Place a sheet of paper on the bed.
-3. Move the nozzle to each corner manually.
-4. Adjust the bed screws until there is a slight resistance when moving the paper.
-5. Repeat for center and in-between points as needed.
-            </pre>
-        </section>
-        <section id="filament" class="content-section">
-            <h2>What to Do After Changing Filament</h2>
-            <p>Changing filament is a routine task, but it requires careful attention to ensure continued print quality. Follow these steps after changing the filament:</p>
-            <ul>
-                <li><strong>Prime the Extruder:</strong> Run a simple extrude command to ensure the new filament is flowing consistently. Remove any remnants of the old filament before starting a new print.
-                </li>
-                <li><strong>Check for Clogs:</strong> If the new filament is a different material, clear any blockages that might have formed in the nozzle by performing a cold pull or using a cleaning filament.
-                </li>
-                <li><strong>Temperature Adjustment:</strong> Adjust the extruder temperature based on the new filament's specifications. Some materials require pre-heating or a different temperature profile.
-                </li>
-                <li><strong>Calibration Check:</strong> Consider running a calibration print after a filament change to verify that the extrusion rate and heating are optimal.
-                </li>
-                <li><strong>Software Update:</strong> Update your slicing software settings if the new filament has different printing parameters.
-                </li>
+                <li><a href="calibration.html">Printer Calibration</a></li>
+                <li><a href="filament.html">Proper Process for Changing Filament</a></li>
             </ul>
         </section>
-        <section id="advanced" class="content-section">
-            <h2>Advanced Topics & Troubleshooting</h2>
-            <p>For experienced users, diving deeper into the technology can help troubleshoot common issues:</p>
-            <ul>
-                <li><strong>Firmware Tweaks:</strong> Updating firmware for improved performance or new calibration features.</li>
-                <li><strong>Remote Monitoring:</strong> Implementing systems to monitor print progress over a network.</li>
-                <li><strong>Material-Specific Adjustments:</strong> Calibrations and printing innovations tailored for advanced materials such as composites and flexible filaments.</li>
-                <li><strong>Maintenance Schedules:</strong> Regular cleaning and lubrication of mechanical components to extend the printer's life and ensure consistent operation.</li>
-            </ul>
-            <p>Each of these topics can have an entire article dedicated to them. This website aims to be a hub for continuous learning and sharing best practices in the world of 3D printing.</p>
-        </section>
-    </div>
+    </main>
     <footer>
-        <p>&copy; 2023 3D Printer Insights. All Rights Reserved.</p>
+        <p>© 2023 3D Printer Hub. All rights reserved.</p>
     </footer>
 </body>
 </html>

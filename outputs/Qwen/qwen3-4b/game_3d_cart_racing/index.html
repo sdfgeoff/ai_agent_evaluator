@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>3D Go-Kart Racing Game</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+
+<!-- Load Three.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+
+<script>
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Lighting
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 10, 5);
+    scene.add(light);
+
+    // Track (simple plane)
+    const trackGeometry = new THREE.PlaneGeometry(20, 10);
+    const trackMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22 });
+    const track = new THREE.Mesh(trackGeometry, trackMaterial);
+    track.rotation.x = -Math.PI / 2;
+    scene.add(track);
+
+    // Go-Kart (simple box)
+    const kartGeometry = new THREE.BoxGeometry(0.5, 1, 0.5);
+    const kartMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+    const kart = new THREE.Mesh(kartGeometry, kartMaterial);
+    kart.position.set(0, 0.5, 0);
+    scene.add(kart);
+
+    // Camera position
+    camera.position.set(0, 1.5, 5);
+    camera.lookAt(0, 0.5, 0);
+
+    // Keyboard controls
+    let moveForward = false;
+    let moveBackward = false;
+    document.addEventListener('keydown', (e) => {
+        if (e.code === 'ArrowUp') moveForward = true;
+        if (e.code === 'ArrowDown') moveBackward = true;
+    });
+    document.addEventListener('keyup', (e) => {
+        if (e.code === 'ArrowUp') moveForward = false;
+        if (e.code === 'ArrowDown') moveBackward = false;
+    });
+
+    // Animation loop
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Simple movement along the track
+        if (moveForward) kart.position.z -= 0.05;
+        if (moveBackward) kart.position.z += 0.05;
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+</script>
+
+</body>
+</html>

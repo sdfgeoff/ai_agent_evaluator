@@ -1,0 +1,7 @@
+{
+	"name": "Game 3d cart racing",
+    "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
+    "blurb": "Create a 3d cart racing game using some webgl based technology",
+    "initial_prompt": "Make a 3d web based game of racing gocarts. Pick a standard rendering technology (Eg balylonjs, playcanvas, three.js). Make sure the result is available in index.html",
+    "thumbnail_command": ""
+}

@@ -2,37 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>3D Printers: Technical Guide</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 40px; }
-        h1, h2 { color: #2c3e50; }
-        ul { padding-left: 20px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Printer Guide</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>3D Printers: Technical Guide</h1>
+    <header>
+        <h1>3D Printer Technical Documentation</h1>
+        <nav>
+            <ul>
+                <li><a href="#calibration">Calibration</a></li>
+                <li><a href="#filament">Filament Change Process</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <section>
-        <h2>Calibration Essentials</h2>
-        <p>Proper calibration ensures accurate prints. Key steps include:</p>
-        <ul>
-            <li><strong>Bed Leveling:</strong> Use a sheet of paper or digital leveling tool to ensure the build plate is parallel.</li>
-            <li><strong>Z-axis Calibration:</strong> Measure the distance between the nozzle and bed using a feeler gauge.</li>
-            <li><strong>Extruder Calibration:</strong> Adjust tension and check for under-extrusion/over-extrusion during test prints.</li>
-        </ul>
-    </section>
+    <main>
+        <section id="introduction">
+            <h2>Welcome to 3D Printer Documentation</h2>
+            <p>This resource provides comprehensive technical information for 3D printer maintenance, operation, and troubleshooting. The main color scheme is orange (#FFA500) with a modern design.</p>
+        </section>
 
-    <section>
-        <h2>Post-Filament Change Procedure</h2>
-        <p>After changing filament, follow these steps:</p>
-        <ol>
-            <li><strong>Clean the Nozzle:</strong> Use isopropyl alcohol to remove residual filament and debris.</li>
-            <li><strong>Check for Clogs:</strong> Run a short test print to identify any blockages.</li>
-            <li><strong>Re-Calibrate:</strong> Ensure bed and extruder settings match the new filament type.</li>
-            <li><strong>Test Print:</strong> Create a calibration cube to verify accuracy.</li>
-        </ol>
-    </section>
+        <section id="calibration">
+            <h2>Calibration Process</h2>
+            <ul>
+                <li><strong>Bed Leveling:</strong> Use the 'bed leveling' tool in Cura or Pronterface to adjust Z-axis height. Recommended method: 3-point leveling with a sheet of paper between the nozzle and bed.</li>
+                <li><strong>Extruder Calibration:</strong> Measure print accuracy by printing calibration cubes. Adjust X/Y travel limits in your printer's firmware if necessary.</li>
+                <li><strong>Temperature Settings:</strong> Calibrate hotend temperatures for PLA (200-240°C), ABS (230-250°C), and PETG (235-245°C) based on material specifications.</li>
+            </ul>
+        </section>
 
-    <footer style="margin-top: 60px; font-size: 0.9em;"><p>For advanced troubleshooting, consult your printer's manual and community forums.</p></footer>
+        <section id="filament">
+            <h2>Post-Filament Change Procedure</h2>
+            <ol>
+                <li><strong>Clean Nozzle:</strong> Use isopropyl alcohol to remove residual filament from the nozzle. Check for clogs in the extruder gear.</li>
+                <li><strong>Adjust Retraction:</strong> Increase retraction distance (12-20mm) and speed (40-60mm/s) to prevent oozing after filament change.</li>
+                <li><strong>Test Print:</strong> Perform a 3D printed calibration cube to verify print quality. Check for under-extrusion or over-extrusion issues.</li>
+                <li><strong>Update Firmware:</strong> Ensure printer firmware is up-to-date with the latest bug fixes and feature enhancements.</li>
+            </ol>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2023 3D Printer Documentation. All rights reserved.</p>
+    </footer>
 </body>
 </html>

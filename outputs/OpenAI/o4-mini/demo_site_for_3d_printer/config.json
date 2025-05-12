@@ -2,6 +2,6 @@
 	"name": "Demo site for 3d printer",
     "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
     "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
-    "initial_prompt": "I'd like to create a website about 3d printers. Make it technical and informative, including information such as calibration, what process should be followed after changing filament etc. You can use whatever tools you like, but make sure the output is available in index.html",
+    "initial_prompt": "Create me a website about 3d printers. Make it technical and informative, including information such as calibration, what process should be followed after changing filament etc. Add lots of detail and use a modern design language with the main color being orange. You should create multiple pages, but make sure the main page is available in index.html",
     "thumbnail_command": ""
 }

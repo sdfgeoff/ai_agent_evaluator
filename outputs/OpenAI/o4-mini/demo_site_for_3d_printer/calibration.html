@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calibration | 3D Printing Hub</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>3D Printing Hub</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="calibration.html" class="active">Calibration</a></li>
+          <li><a href="filament.html">Filament Change</a></li>
+          <li><a href="troubleshooting.html">Troubleshooting</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>Precise Calibration</h2>
+    <section>
+      <h3>1. Bed Leveling</h3>
+      <p>
+        Manual leveling or automatic bed leveling (ABL) ensures the first layer adheres properly.
+        For manual leveling, use a piece of paper to gauge the distance between nozzle and bed across multiple points.
+      </p>
+      <ul>
+        <li>Heat bed to printing temperature.</li>
+        <li>Disable steppers and move nozzle to each corner and center.</li>
+        <li>Adjust bed screws until paper slides with slight resistance.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>2. Extruder E-Step Calibration</h3>
+      <p>
+        Ensuring your extruder feeds the correct filament length is critical for accurate prints and preventing over/under extrusion.
+      </p>
+      <pre><code>
+M92 E100   ; Set current E-step to 100
+M82        ; Use absolute distances for extrusion
+G1 E100 F100 ; Extrude 100mm of filament at 100mm/min
+; Measure actual extruded length and calculate:
+; (Set E-steps * 100) / actual_extrusion_mm = new E-step value
+M92 E[new_value] ; Set new E-step
+M500     ; Save to EEPROM
+      </code></pre>
+    </section>
+
+    <section>
+      <h3>3. Flow Rate and Temperature Tuning</h3>
+      <p>
+        Print a single-wall calibration cube and measure wall thickness to adjust flow rate.
+        Fine-tune temperature by printing a temperature tower to find optimal settings for your filament.
+      </p>
+      <ol>
+        <li>Print a 20mm cube with one perimeter.</li>
+        <li>Measure wall thickness with calipers.</li>
+        <li>Adjust flow rate: new_flow = (desired_thickness / measured_thickness) * current_flow.</li>
+        <li>Print temperature tower with 5°C increments.</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2023 3D Printing Hub. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

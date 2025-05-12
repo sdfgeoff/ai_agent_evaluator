@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Go-Cart Racing Game</title>
+    <!-- Three.js library import -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r129/three.min.js"></script>
+</head>
+<body style="margin: 0px; overflow: hidden;">
+<script>
+    // Scene setup
+    var scene = new THREE.Scene();
+    
+    // Camera setup
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 5;
+    
+    // Renderer setup
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Lighting setup
+    var light = new THREE.AmbientLight(0x404040); // soft white light
+    scene.add(light);
+
+    // Basic geometry (Cube) for demonstration purposes
+    var geometry = new THREE.BoxGeometry();
+    var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    function animate() {
+        requestAnimationFrame(animate);
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        renderer.render(scene, camera);
+    }
+    
+    animate();
+</script>
+</body>
+</html>

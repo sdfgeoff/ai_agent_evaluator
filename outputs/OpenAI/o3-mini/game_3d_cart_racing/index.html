@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Go-Cart Racing Game</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    canvas { display: block; }
+    #hud {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-family: Arial, sans-serif;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+  <div id="hud">Use arrow keys to drive the go-cart</div>
+  <!-- Include Three.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x87ceeb);  // Sky blue sky
+
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 5, -10);
+    camera.lookAt(0, 0, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Resize handler
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+    
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    directionalLight.position.set(5, 10, 7.5);
+    scene.add(directionalLight);
+
+    // Ground (Track)
+    const groundGeometry = new THREE.PlaneGeometry(200, 200, 10, 10);
+    const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x228B22 });  // green grass
+    const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+    ground.rotation.x = -Math.PI / 2;
+    scene.add(ground);
+
+    // Simple track (darker patch) - just an example section of a track
+    const trackGeometry = new THREE.PlaneGeometry(50, 200);
+    const trackMaterial = new THREE.MeshLambertMaterial({ color: 0x555555 });
+    const track = new THREE.Mesh(trackGeometry, trackMaterial);
+    track.rotation.x = -Math.PI / 2;
+    track.position.y = 0.01;  // slightly above ground to avoid z-fighting
+    scene.add(track);
+
+    // Go-cart (represented by a box geometry)
+    const cartGeometry = new THREE.BoxGeometry(1, 0.5, 2);
+    const cartMaterial = new THREE.MeshLambertMaterial({ color: 0xff0000 });
+    const cart = new THREE.Mesh(cartGeometry, cartMaterial);
+    cart.position.y = 0.25; // Half of its height
+    scene.add(cart);
+
+    // Variables for controlling the go-cart movement
+    let speed = 0;
+    let maxSpeed = 0.5;
+    let acceleration = 0.01;
+    let deceleration = 0.02;
+    let rotationSpeed = 0.03;
+    let keysPressed = {};
+
+    // Event listeners for key press
+    document.addEventListener('keydown', (event) => {
+      keysPressed[event.code] = true;
+    });
+
+    document.addEventListener('keyup', (event) => {
+      keysPressed[event.code] = false;
+    });
+
+    // Game loop
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Simple controls: Up arrow to accelerate, Down arrow to decelerate, Left and Right to turn
+      if(keysPressed['ArrowUp']) {
+        speed = Math.min(speed + acceleration, maxSpeed);
+      } else if(keysPressed['ArrowDown']) {
+        speed = Math.max(speed - acceleration, -maxSpeed/2);  // allow reverse, but slower
+      } else {
+        // Natural deceleration when not pressing forward/backward
+        if(speed > 0) {
+          speed = Math.max(speed - deceleration, 0);
+        } else if(speed < 0) {
+          speed = Math.min(speed + deceleration, 0);
+        }
+      }
+
+      // Turning
+      if(keysPressed['ArrowLeft']) {
+        cart.rotation.y += rotationSpeed * (speed !== 0 ? Math.sign(speed) : 1);
+      }
+      if(keysPressed['ArrowRight']) {
+        cart.rotation.y -= rotationSpeed * (speed !== 0 ? Math.sign(speed) : 1);
+      }
+
+      // Update cart position based on speed and rotation
+      cart.position.x -= Math.sin(cart.rotation.y) * speed;
+      cart.position.z -= Math.cos(cart.rotation.y) * speed;
+
+      // Camera follows the cart
+      const cameraOffset = new THREE.Vector3(0, 5, -10);
+      const rotatedOffset = cameraOffset.clone().applyAxisAngle(new THREE.Vector3(0,1,0), cart.rotation.y);
+      camera.position.copy(cart.position).add(rotatedOffset);
+      camera.lookAt(cart.position);
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

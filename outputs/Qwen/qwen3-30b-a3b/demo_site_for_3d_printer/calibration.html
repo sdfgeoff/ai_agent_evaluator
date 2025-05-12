@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Calibration Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #fff8f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff6b35;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #e65c2a;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .content {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        h1, h2 {
+            color: #ff6b35;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>3D Printer Calibration</h1>
+        <p>Master the critical calibration process</p>
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="calibration.html">Calibration</a>
+        <a href="filament.html">Filament Management</a>
+    </nav>
+    <div class="content">
+        <h2>Printer Calibration Procedures</h2>
+        <h3>1. Bed Leveling</h3>
+        <p>Use the built-in auto-leveling system or manual adjustment:</p>
+        <ul>
+            <li>Ensure the print bed is clean and free of debris</li>
+            <li>Perform 5-point leveling for accuracy</li>
+            <li>Test with a piece of paper to check clearance</li>
+        </ul>
+        <h3>2. Extruder Calibration</h3>
+        <p>Calibrate the extruder steps/mm:</p>
+        <ol>
+            <li>Measure 100mm of filament</li>
+            <li>Run 100mm extrusion command</li>
+            <li>Calculate actual movement and adjust E-step value</li>
+        </ol>
+        <h3>3. Nozzle Height Adjustment</h3>
+        <p>Ensure proper first layer height:</p>
+        <ul>
+            <li>Set nozzle at 0.1mm above bed</li>
+            <li>Use a business card to check consistency</li>
+            <li>Verify with test prints</li>
+        </ul>
+    </div>
+</body>
+</html>

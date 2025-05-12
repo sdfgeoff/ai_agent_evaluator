@@ -1,0 +1,21 @@
+body {
+    margin: 0;
+}
+h1, p {
+    text-align: center;
+}
+a {
+    color: orange;
+}
+a:hover {
+    opacity: 0.8;
+}
+.container {
+    width: 96%;
+    max-width: 1250px;
+    margin-top: 3rem;
+}
+footer, header{
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

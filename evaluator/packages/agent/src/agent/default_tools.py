@@ -12,28 +12,29 @@ class BashToolArgs(BaseModel):
 
 
 async def bash_tool(args: dict[str, str]) -> types.CallToolResult:
-    args_parsed = BashToolArgs.model_validate(args)
+    async with asyncio.timeout(60):
+        args_parsed = BashToolArgs.model_validate(args)
 
-    process = await asyncio.create_subprocess_shell(
-        args_parsed.command,
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
-    stdout, stderr = await process.communicate()
-    status = process.returncode
-    content: list[types.TextContent | types.ImageContent | types.EmbeddedResource] = [
-        types.TextContent(
-            type="text",
-            text=json.dumps(
-                {
-                    "output": stdout.decode().strip(),
-                    "error": stderr.decode().strip(),
-                    "status": status,
-                }
-            ),
+        process = await asyncio.create_subprocess_shell(
+            args_parsed.command,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
         )
-    ]
-    return types.CallToolResult(content=content)
+        stdout, stderr = await process.communicate()
+        status = process.returncode
+        content: list[types.TextContent | types.ImageContent | types.EmbeddedResource] = [
+            types.TextContent(
+                type="text",
+                text=json.dumps(
+                    {
+                        "output": stdout.decode().strip(),
+                        "error": stderr.decode().strip(),
+                        "status": status,
+                    }
+                ),
+            )
+        ]
+        return types.CallToolResult(content=content)
 
 
 BASH_TOOL = Tool(

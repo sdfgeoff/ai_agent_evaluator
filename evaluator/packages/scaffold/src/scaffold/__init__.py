@@ -183,7 +183,8 @@ def main():
                 output_folder=test.output_folder,
             )        
 
-        generate_html_log_file(test)
+        if os.path.exists(os.path.join(test.output_folder, "stats.json")):
+            generate_html_log_file(test)
 
 
 def run():
