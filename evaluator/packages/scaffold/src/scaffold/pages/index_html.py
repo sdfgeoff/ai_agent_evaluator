@@ -6,6 +6,7 @@ from .test_container import test_container
 
 
 def index_html(
+    source_page: str,
     tests: list[TestToRun],
 ) -> str:
     by_test_name: dict[str, list[TestToRun]] = defaultdict(list)
@@ -119,6 +120,6 @@ def index_html(
 
                 for test in test_names:
                     tests = by_test_name[test]
-                    pagecontainer.add(test_container(test, tests))
+                    pagecontainer.add(test_container(source_page, test, tests))
 
     return str(html)

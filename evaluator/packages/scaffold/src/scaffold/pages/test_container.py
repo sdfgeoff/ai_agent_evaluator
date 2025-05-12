@@ -5,7 +5,7 @@ from .html import Tag
 from .run_card import run_card
 
 
-def test_container(test: str, tests: list[TestToRun]):
+def test_container(source_page: str, test: str, tests: list[TestToRun]):
     by_provider: dict[str, list[TestToRun]] = defaultdict(list)
     for run in tests:
         provider_name = run.provider.name
@@ -33,5 +33,5 @@ def test_container(test: str, tests: list[TestToRun]):
                 h2.add(provider)
             with Tag("div", test_div, class_="run_container") as run_container:
                 for run in tests:
-                    run_container.add(run_card(run))
+                    run_container.add(run_card(source_page, run))
     return str(test_div)

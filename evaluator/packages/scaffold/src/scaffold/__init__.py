@@ -16,7 +16,7 @@ LOG = structlog.get_logger(__name__)
 
 
 def create_site(output_file: str, tests: list[TestToRun]):
-    html = index_html(tests)
+    html = index_html(output_file, tests)
     with open(output_file, "w") as f:
         f.write(str(html))
 
