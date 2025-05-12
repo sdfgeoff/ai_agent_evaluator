@@ -10,9 +10,10 @@ from .tool_manager import Tool
 class BashToolArgs(BaseModel):
     command: str
 
+
 async def bash_tool(args: dict[str, str]) -> types.CallToolResult:
     args_parsed = BashToolArgs.model_validate(args)
-    
+
     process = await asyncio.create_subprocess_shell(
         args_parsed.command,
         stdout=asyncio.subprocess.PIPE,
@@ -20,9 +21,7 @@ async def bash_tool(args: dict[str, str]) -> types.CallToolResult:
     )
     stdout, stderr = await process.communicate()
     status = process.returncode
-    content: list[
-        types.TextContent | types.ImageContent | types.EmbeddedResource
-    ] = [
+    content: list[types.TextContent | types.ImageContent | types.EmbeddedResource] = [
         types.TextContent(
             type="text",
             text=json.dumps(
@@ -62,7 +61,6 @@ BASH_TOOL = Tool(
 class CreateFileToolArgs(BaseModel):
     filename: str
     content: str | None = None
-
 
 
 async def create_file_tool(args: dict[str, str]) -> types.CallToolResult:

@@ -17,7 +17,6 @@ def index_html(
     # sort test by test name
     test_names = sorted(by_test_name.keys())
 
-
     with Tag("html") as html:
         with Tag("head", html) as head:
             with Tag("title", head) as title:
@@ -103,7 +102,7 @@ def index_html(
                     )
                 with Tag("p", pagecontainer) as p:
                     p.add(
-                        "Technically, this project takes the form of a very very simple agent. The agent is just a loop that takes an initial prompt and an initial set of files, and then runs the AI on them, providing the agent with some simple tools and 100 iterations. " 
+                        "Technically, this project takes the form of a very very simple agent. The agent is just a loop that takes an initial prompt and an initial set of files, and then runs the AI on them, providing the agent with some simple tools and 100 iterations. "
                         "To judge the results, it is expectd that the test will output an index.html file, which will be embedded here. To aid in figuring out what is going on, the complete message log is also available, and can be viewed by clicking the 'View Message Log' link."
                     )
 

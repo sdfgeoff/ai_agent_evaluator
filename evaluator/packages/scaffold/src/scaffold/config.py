@@ -18,7 +18,7 @@ class Config(BaseModel):
                 "qwen3-30b-a3b",
                 "qwen-3-32b",
                 "qwen2.5-14b-instruct",
-                "qwen2.5-7b-instruct-1m"
+                "qwen2.5-7b-instruct-1m",
             ],
         ),
         # ModelProvider(

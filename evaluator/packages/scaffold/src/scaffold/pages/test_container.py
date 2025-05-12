@@ -15,7 +15,9 @@ def test_container(source_page: str, test: str, tests: list[TestToRun]):
 
     with Tag("div", None, id=f"test-{test}", class_="") as test_div:
         with Tag("div", test_div, class_="panel") as test_heading:
-            with Tag("a", test_heading, href=f"#{test}", class_="no-link-underline") as a:
+            with Tag(
+                "a", test_heading, href=f"#{test}", class_="no-link-underline"
+            ) as a:
                 with Tag("h2", a) as h1:
                     h1.add(test)
         with Tag("div", test_div, class_="panel-light") as test_header:

@@ -4,6 +4,7 @@ import time
 import traceback
 import httpx
 import structlog
+import datetime
 
 from .default_tools import BASH_TOOL, CREATE_FILE_TOOL
 
@@ -68,7 +69,6 @@ async def main(test: TestToRun):
     mcp_manager = MCPManager({})
     await mcp_manager.start()
 
-    
     extra_tools: list[Tool] = []
     if "bash" in test.test_parameters.allowed_tools:
         extra_tools.append(BASH_TOOL)
@@ -118,7 +118,11 @@ async def main(test: TestToRun):
     thumbnail_base64 = b""  # generate_thumbnail()
 
     results = Result(
-        stats=ResultStats(time_seconds=end_time - start_time, log=log),
+        stats=ResultStats(
+            time_seconds=end_time - start_time,
+            log=log,
+            run_date=datetime.datetime.now(datetime.timezone.utc),
+        ),
         thumbnail=thumbnail_base64,
     )
 

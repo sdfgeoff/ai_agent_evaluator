@@ -182,7 +182,6 @@ def main():
         generate_html_log_file(test)
 
 
-
 def run():
     structlog.configure(
         processors=[

@@ -1,5 +1,6 @@
+import datetime
 from typing import List, Literal
-from pydantic import BaseModel
+from pydantic import AwareDatetime, BaseModel
 from .provider.openai_types import Message
 
 
@@ -11,6 +12,7 @@ class ModelProvider(BaseModel):
 
 
 class ResultStats(BaseModel):
+    run_date: AwareDatetime
     time_seconds: float
     log: list[Message]
 
