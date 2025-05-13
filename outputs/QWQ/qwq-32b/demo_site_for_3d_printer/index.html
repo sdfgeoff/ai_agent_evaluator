@@ -1,41 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Printer Technical Guide</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; }
-        h1 { color: #2c3e50; }
-        h2 { color: #3498db; }
-        .navbar { background: #f8f9fa; padding: 15px; }
-        .content { margin-top: 30px; }
-        ul { line-height: 1.6; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="navbar">
+    <header>
         <h1>3D Printer Technical Guide</h1>
-        <a href="#calibration">Calibration Guide</a> | 
-        <a href="#filament">Filament Change Process</a>
-    </div>
-
-    <div class="content">
-        <h2 id="calibration">Calibration Guide</h2>
-        <ul>
-            <li><strong>Bed Leveling:</strong> Use a piece of paper to adjust Z-axis height until it drags slightly when moved between bed and nozzle.</li>
-            <li><strong>Extruder Steps:</strong> Adjust steps/mm in firmware to ensure precise filament extrusion (common issue with under/over-extrusion).</li>
-            <li><strong>Nozzle Height:</strong> Maintain 0.1-0.2mm gap between nozzle and bed at highest point after leveling.</li>
-            <li><strong>Material-Specific Settings:</strong> Calibrate temperature and print speed for different filaments (e.g., PLA: 190-220°C, PETG: 230-250°C).</li>
-        </ul>
-
-        <h2 id="filament">Filament Change Process</h2>
-        <ul>
-            <li><strong>Preheat:</strong> Heat extruder to new filament's melting temp +20°C.</li>
-            <li><strong>Load New Filament:</strong> Gently push filament into hot nozzle while rotating the extruder gear.</li>
-            <li><strong>Purge:</strong> Extrude 100-150mm of filament to clear residue from old material.</li>
-            <li><strong>Clean Residue:</strong> Wipe nozzle with brass brush if stringing occurs between materials.</li>
-            <li><strong>Save Settings:</strong> If switching between flexible and rigid filaments, reset retraction settings afterward.</li>
-            <li><strong>Final Check:</strong> Print a small test piece to verify flow rate and adhesion.</li>
-        </ul>
-    </div>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="calibration.html">Calibration</a>
+            <a href="filament_change.html">Filament Change Guide</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Welcome to the 3D Printing Technical Hub</h2>
+            <p>This site provides detailed technical guidance for 3D printer users, focusing on calibration, maintenance, and troubleshooting. Explore the navigation links above to access comprehensive guides.</p>
+            <p>Key topics include:</p>
+            <ul>
+                <li>Printer bed leveling and Z-axis calibration</li>
+                <li>Extruder temperature and filament flow optimization</li>
+                <li>Post-filament-change procedures to prevent nozzle clogs</li>
+                <li>Layer adhesion adjustments</li>
+            </ul>
+            <a href="calibration.html" class="button">Get Started with Calibration</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 3D Printer Technical Guide</p>
+    </footer>
 </body>
 </html>

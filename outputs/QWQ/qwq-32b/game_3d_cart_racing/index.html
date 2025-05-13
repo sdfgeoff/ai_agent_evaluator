@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Go-Kart Racing</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { width: 100vw; height: 100vh; display: block; }
+    </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+<script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Track
+    const trackGeometry = new THREE.PlaneGeometry(20, 20);
+    const trackMaterial = new THREE.MeshPhongMaterial({color: 0x777777});
+    const track = new THREE.Mesh(trackGeometry, trackMaterial);
+    track.rotation.x = -Math.PI/2;
+    scene.add(track);
+
+    // Kart
+    const kartGeometry = new THREE.BoxGeometry(1, 0.5, 2);
+    const kartMaterial = new THREE.MeshPhongMaterial({color: 0xff0000});
+    const kart = new THREE.Mesh(kartGeometry, kartMaterial);
+    kart.position.set(0, 0.25, 0);
+    scene.add(kart);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0x404040);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    directionalLight.position.set(1, 2, 3);
+    scene.add(directionalLight);
+
+    // Camera setup
+    camera.position.set(0, 3, 5);
+    camera.lookAt(kart.position);
+
+    // Movement controls
+    let velocity = new THREE.Vector3();
+    let rotationSpeed = 0.05;
+    let moveForward = false;
+    let moveBackward = false;
+    let turnLeft = false;
+    let turnRight = false;
+
+    document.addEventListener('keydown', function(event) {
+        switch (event.code) {
+            case 'KeyW': moveForward = true; break;
+            case 'KeyS': moveBackward = true; break;
+            case 'KeyA': turnLeft = true; break;
+            case 'KeyD': turnRight = true; break;
+        }
+    });
+
+    document.addEventListener('keyup', function(event) {
+        switch (event.code) {
+            case 'KeyW': moveForward = false; break;
+            case 'KeyS': moveBackward = false; break;
+            case 'KeyA': turnLeft = false; break;
+            case 'KeyD': turnRight = false; break;
+        }
+    });
+
+    function animate() {
+        requestAnimationFrame(animate);
+
+        // Movement logic
+        velocity.z = 0;
+        if (moveForward) velocity.z -= 0.1;
+        if (moveBackward) velocity.z += 0.1;
+        velocity.applyAxisAngle(new THREE.Vector3(0,1,0), kart.rotation.y);
+        kart.position.add(velocity);
+
+        // Rotation
+        if (turnLeft) kart.rotation.y += rotationSpeed;
+        if (turnRight) kart.rotation.y -= rotationSpeed;
+
+        // Camera follow
+        camera.position.copy(kart.position);
+        camera.position.z += 5;
+        camera.lookAt(kart.position);
+
+        renderer.render(scene, camera);
+    }
+
+    animate();
+</script>
+</body>
+</html>

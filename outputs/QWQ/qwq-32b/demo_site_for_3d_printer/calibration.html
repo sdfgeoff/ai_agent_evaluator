@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Printer Calibration Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>3D Printer Calibration Guide</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="calibration.html">Calibration</a>
+            <a href="filament_change.html">Filament Change Guide</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h2>Step-by-Step Calibration Procedures</h2>
+            <h3>Bed Leveling</h3>
+            <ol>
+                <li>Home the printer using G28</li>
+                <li>Use manual adjusters or BLTouch to level the bed</li>
+                <li>Verify with a piece of paper between nozzle and bed</li>
+            </ol>
+            <h3>Z-Offset Adjustment</h3>
+            <ol>
+                <li>Print a test cube at 0.3mm layer height</li>
+                <li>Measure cube height with calipers</li>
+                <li>Adjust Z-axis using M295 command if discrepancy exists</li>
+            </ol>
+            <h3>Extruder Calibration</h3>
+            <ol>
+                <li>Extrude 100mm filament using G1 E100 F50</li>
+                <li>Measure actual extruded length</li>
+                <li>Adjust steps/mm in firmware if discrepancy >2%</li>
+            </ol>
+            <a href="index.html" class="button">Back to Home</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 3D Printer Technical Guide</p>
+    </footer>
+</body>
+</html>
