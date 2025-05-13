@@ -12,7 +12,7 @@ pub enum Role {
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum ToolFunctionType {
-    Function
+    Function,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -57,8 +57,6 @@ pub struct ToolFunction {
     pub parameters: HashMap<String, serde_json::Value>,
 }
 
-
-
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct ToolDefinition {
     #[serde(rename = "type")]
@@ -94,11 +92,10 @@ pub struct ChatResponse {
     pub choices: Vec<MessageChoice>,
 }
 
-
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum FinishReasonType {
-    Stop
+    Stop,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
@@ -118,8 +115,6 @@ pub struct PartialChatCompletion {
     pub system_fingerprint: String,
     pub choices: Vec<MessageChoicePartial>,
 }
-
-
 
 #[cfg(test)]
 mod tests {
@@ -148,12 +143,14 @@ mod tests {
 
         let parsed: PartialChatCompletion = serde_json::from_str(json).unwrap();
         assert_eq!(parsed.id, "chatcmpl-160c39e6qb3fdo4yj0rm7");
-        assert_eq!(parsed.choices[0].delta, Message::TextMessage(TextMessage {
-            role: Role::Assistant,
-            content: "It".to_string(),
-            images: None,
-        }));
-
+        assert_eq!(
+            parsed.choices[0].delta,
+            Message::TextMessage(TextMessage {
+                role: Role::Assistant,
+                content: "It".to_string(),
+                images: None,
+            })
+        );
     }
 
     #[test]
@@ -213,26 +210,32 @@ mod tests {
             content: "Make a 3d web based game of racing gocarts. Pick a standard rendering technology (Eg balylonjs, playcanvas, three.js). Make sure the result is available in index.html".to_string(),
             images: None,
         }));
-        assert_eq!(parsed[2], Message::ToolResponseMessage(ToolResponseMessage {
-            tool_call_id: "call_nxMtpB2FMLYgeK40SficYHL8".to_string(),
-            role: Role::Tool,
-            name: "create_file".to_string(),
-            content: serde_json::json!([{
-                "type": "text",
-                "text": "{\"message\": \"File index.html created successfully\"}",
-                "annotations": null
-            }]),
-        }));
-        assert_eq!(parsed[3], Message::ToolRequestMessage(ToolRequestMessage {
-            role: Role::Assistant,
-            tool_calls: vec![ToolCall {
-                id: "call_wlI7QTehwxExN6C5MNxeci8u".to_string(),
-                type_: ToolFunctionType::Function,
-                function: ToolFunctionCall {
-                    name: "task_complete".to_string(),
-                    arguments: "{}".to_string(),
-                },
-            }],
-        }));
+        assert_eq!(
+            parsed[2],
+            Message::ToolResponseMessage(ToolResponseMessage {
+                tool_call_id: "call_nxMtpB2FMLYgeK40SficYHL8".to_string(),
+                role: Role::Tool,
+                name: "create_file".to_string(),
+                content: serde_json::json!([{
+                    "type": "text",
+                    "text": "{\"message\": \"File index.html created successfully\"}",
+                    "annotations": null
+                }]),
+            })
+        );
+        assert_eq!(
+            parsed[3],
+            Message::ToolRequestMessage(ToolRequestMessage {
+                role: Role::Assistant,
+                tool_calls: vec![ToolCall {
+                    id: "call_wlI7QTehwxExN6C5MNxeci8u".to_string(),
+                    type_: ToolFunctionType::Function,
+                    function: ToolFunctionCall {
+                        name: "task_complete".to_string(),
+                        arguments: "{}".to_string(),
+                    },
+                }],
+            })
+        );
     }
 }
