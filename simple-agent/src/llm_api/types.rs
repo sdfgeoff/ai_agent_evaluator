@@ -54,7 +54,7 @@ pub struct ToolResponseMessage {
 pub struct ToolFunction {
     pub name: String,
     pub description: Option<String>,
-    pub parameters: HashMap<String, serde_json::Value>,
+    pub parameters: serde_json::Map<String, serde_json::Value>,
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]

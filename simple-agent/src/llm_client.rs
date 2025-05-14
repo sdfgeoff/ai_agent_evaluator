@@ -1,5 +1,5 @@
 use super::llm_api::client::OpenAiClient;
-use super::llm_api::types::{ToolDefinition, Message, ChatResponse, ChatParameters};
+use super::llm_api::types::{ChatParameters, ChatResponse, Message, ToolDefinition};
 
 pub struct LLMClient {
     open_ai_client: OpenAiClient,
@@ -21,7 +21,7 @@ impl LLMClient {
     ) -> Result<ChatResponse, reqwest::Error> {
         let model = self.model.clone();
 
-        return self
+        let res = self
             .open_ai_client
             .v1_chat_completions(ChatParameters {
                 model,
@@ -30,5 +30,7 @@ impl LLMClient {
                 stream: Some(false),
             })
             .await;
+
+        return res;
     }
 }

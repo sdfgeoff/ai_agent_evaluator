@@ -1,16 +1,19 @@
-use std::{env};
+use std::env;
 
-use datatypes::{ResultStats, TestToRun};
+use datatypes::{ResultStats, TestToRun, Tools};
 use reqwest::header::AUTHORIZATION;
+mod agent;
 mod datatypes;
 mod llm_api;
 mod llm_client;
-mod agent;
 mod tool_manager;
+use llm_api::client::OpenAiClient;
 use llm_client::LLMClient;
-use llm_api::{client::OpenAiClient};
 
+mod default_tools;
 
+use structured_logger::{Builder, async_json::new_writer};
+use tool_manager::ToolAndCallable;
 
 fn make_provider(url: String, token: String, model: String) -> LLMClient {
     let mut headers = reqwest::header::HeaderMap::new();
@@ -31,7 +34,10 @@ async fn run_test(test: TestToRun) {
     // For now, we will just return a dummy ResultStats object.
 
     if let Err(e) = env::set_current_dir(&test.output_folder) {
-        eprintln!("Failed to change directory to {}: {:?}", test.output_folder, e);
+        eprintln!(
+            "Failed to change directory to {}: {:?}",
+            test.output_folder, e
+        );
         std::process::exit(1);
     }
 
@@ -41,22 +47,30 @@ async fn run_test(test: TestToRun) {
         "qwen3-0.6b".to_string(),
     );
 
-    let tool_manager = tool_manager::ToolManager::new(
-        vec![]
-    );
+    let mut extra_tools: Vec<Box<(dyn ToolAndCallable)>> = vec![];
+    if test.test_parameters.allowed_tools.contains(&Tools::Bash) {
+        extra_tools.push(Box::new(default_tools::BashTool {}));
+    }
+
+    let tool_manager = tool_manager::ToolManager::new(extra_tools);
 
     let mut agent = agent::Agent::new(provider, tool_manager);
 
     let start_time = chrono::Utc::now();
-    let _result = agent.run(test.test_parameters.initial_prompt, 100).await;
+    let result = agent.run(test.test_parameters.initial_prompt, 100).await;
     let end_time = chrono::Utc::now();
+
+    if result.is_err() {
+        eprintln!("Error running test: {:?}", result);
+        std::process::exit(1);
+    }
 
     let result_stats = ResultStats {
         run_date: Some(start_time),
         time_seconds: (end_time - start_time).num_seconds() as f64,
         log: agent.messages.clone(),
+        finish_reason: result.ok(),
     };
-
 
     // let messages = vec![llm_api::types::Message::TextMessage(
     //     llm_api::types::TextMessage {
@@ -106,24 +120,25 @@ async fn run_test(test: TestToRun) {
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     // This is where we will setup our HTTP client requests.
+    Builder::with_level("info")
+        .with_target_writer("*", new_writer(tokio::io::stdout()))
+        .init();
 
     let test_config_env = env::var("TEST_CONFIG");
     let test_config: Result<TestToRun, serde_json::Error> = match test_config_env {
-        Ok(config) => {
-            serde_json::from_str(&config)
-        }
+        Ok(config) => serde_json::from_str(&config),
         Err(_) => {
             let default_config = r#"
             {
                 "name": "Test1",
                 "test_parameters": {
-                    "name": "Test1",
+                    "name": "Hello World",
                     "docker_image": "test_image",
                     "blurb": "This is a test",
                     "initial_prompt": [
                         {
                             "role": "user",
-                            "content": "Hello, how are you?"
+                            "content": "Creae a hello world HTML file using the bash tool"
                         }
                     ],
                     "allowed_tools": ["bash", "create_file"]
