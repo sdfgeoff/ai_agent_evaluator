@@ -1,5 +1,3 @@
-use std::result;
-
 use crate::{
     llm_api::types::{ToolDefinition, ToolFunction, ToolFunctionType},
     tool_manager::ToolAndCallable,
@@ -78,7 +76,6 @@ impl ToolAndCallable for BashTool {
             },
             exit_code: Some(output.status.code().unwrap_or(-1)),
         };
-
 
         Ok(serde_json::to_value(vec![TextContent {
             type_: TextContentType::Text,

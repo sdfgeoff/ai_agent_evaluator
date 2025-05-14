@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all = "lowercase")]
@@ -67,9 +66,9 @@ pub struct ToolDefinition {
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(untagged)]
 pub enum Message {
-    TextMessage(TextMessage),
-    ToolRequestMessage(ToolRequestMessage),
-    ToolResponseMessage(ToolResponseMessage),
+    Text(TextMessage),
+    ToolRequest(ToolRequestMessage),
+    ToolResponse(ToolResponseMessage),
 }
 
 #[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
@@ -145,7 +144,7 @@ mod tests {
         assert_eq!(parsed.id, "chatcmpl-160c39e6qb3fdo4yj0rm7");
         assert_eq!(
             parsed.choices[0].delta,
-            Message::TextMessage(TextMessage {
+            Message::Text(TextMessage {
                 role: Role::Assistant,
                 content: "It".to_string(),
                 images: None,
@@ -205,14 +204,14 @@ mod tests {
 
         let parsed: Vec<Message> = serde_json::from_str(json).unwrap();
         assert_eq!(parsed.len(), 4);
-        assert_eq!(parsed[0], Message::TextMessage(TextMessage {
+        assert_eq!(parsed[0], Message::Text(TextMessage {
             role: Role::User,
             content: "Make a 3d web based game of racing gocarts. Pick a standard rendering technology (Eg balylonjs, playcanvas, three.js). Make sure the result is available in index.html".to_string(),
             images: None,
         }));
         assert_eq!(
             parsed[2],
-            Message::ToolResponseMessage(ToolResponseMessage {
+            Message::ToolResponse(ToolResponseMessage {
                 tool_call_id: "call_nxMtpB2FMLYgeK40SficYHL8".to_string(),
                 role: Role::Tool,
                 name: "create_file".to_string(),
@@ -225,7 +224,7 @@ mod tests {
         );
         assert_eq!(
             parsed[3],
-            Message::ToolRequestMessage(ToolRequestMessage {
+            Message::ToolRequest(ToolRequestMessage {
                 role: Role::Assistant,
                 tool_calls: vec![ToolCall {
                     id: "call_wlI7QTehwxExN6C5MNxeci8u".to_string(),

@@ -34,7 +34,7 @@ impl ToolManager {
     }
 
     pub async fn get_tools(&self) -> Vec<ToolDefinition> {
-        return self.tool_definitions.clone();
+        self.tool_definitions.clone()
     }
 
     pub async fn call_tool(&self, call: ToolCall) -> Message {
@@ -47,25 +47,25 @@ impl ToolManager {
 
                 match res {
                     Ok(res) => {
-                        return Message::ToolResponseMessage(ToolResponseMessage {
+                        Message::ToolResponse(ToolResponseMessage {
                             tool_call_id: call.id,
                             role: Role::Tool,
                             name: call.function.name.clone(),
                             content: res,
-                        });
+                        })
                     }
                     Err(err) => {
-                        return Message::ToolResponseMessage(ToolResponseMessage {
+                        Message::ToolResponse(ToolResponseMessage {
                             tool_call_id: call.id,
                             role: Role::Tool,
                             name: call.function.name.clone(),
                             content: Value::String(format!("ERROR: {}", err)),
-                        });
+                        })
                     }
                 }
             }
             None => {
-                return Message::ToolResponseMessage(ToolResponseMessage {
+                Message::ToolResponse(ToolResponseMessage {
                     tool_call_id: call.id,
                     role: Role::Tool,
                     name: call.function.name.clone(),
@@ -73,7 +73,7 @@ impl ToolManager {
                         "ERROR: Tool `{}` not found",
                         call.function.name
                     )),
-                });
+                })
             }
         }
     }

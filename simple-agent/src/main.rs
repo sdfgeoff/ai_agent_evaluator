@@ -25,8 +25,7 @@ fn make_provider(url: String, token: String, model: String) -> LLMClient {
         .unwrap();
 
     let api_client = OpenAiClient::new(url, http_client);
-    let llm_client = LLMClient::new(api_client, model);
-    return llm_client;
+    LLMClient::new(api_client, model)
 }
 
 async fn run_test(test: TestToRun) {

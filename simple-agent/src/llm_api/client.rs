@@ -28,6 +28,6 @@ impl OpenAiClient {
             println!("STATUS CODE NOT OK: {:?}", raw.text().await?);
             return Err(err);
         }
-        return Ok(raw.json::<ChatResponse>().await?);
+        raw.json::<ChatResponse>().await
     }
 }

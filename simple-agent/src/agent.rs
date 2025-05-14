@@ -3,7 +3,6 @@ use super::tool_manager::ToolManager;
 use crate::datatypes::FinishReason;
 use crate::llm_api::types::{Message, ToolDefinition, ToolFunction, ToolFunctionType};
 use log::{info, warn};
-use std::collections::HashMap;
 
 pub struct Agent {
     llm_client: LLMClient,
@@ -64,12 +63,12 @@ impl Agent {
             let mut stop = None;
 
             match message {
-                Message::TextMessage(text_message) => {
+                Message::Text(text_message) => {
                     if text_message.content.is_empty() {
                         stop = Some(FinishReason::EmptyContent);
                     }
                 }
-                Message::ToolRequestMessage(tool_request_message) => {
+                Message::ToolRequest(tool_request_message) => {
                     let mut results = Vec::new();
                     for call in &tool_request_message.tool_calls {
                         if call.function.name == self.task_complete_tool.function.name {
@@ -82,7 +81,7 @@ impl Agent {
                     }
                     self.messages.extend(results);
                 }
-                Message::ToolResponseMessage(_tool_response_message) => {
+                Message::ToolResponse(_tool_response_message) => {
                     warn!("surprising_tool_response_from_llm")
                 }
             }
@@ -93,6 +92,6 @@ impl Agent {
             }
         }
 
-        return Ok(FinishReason::IterationLimit(max_iter));
+        Ok(FinishReason::IterationLimit(max_iter))
     }
 }
