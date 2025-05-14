@@ -21,8 +21,7 @@ impl LLMClient {
     ) -> Result<ChatResponse, reqwest::Error> {
         let model = self.model.clone();
 
-        self
-            .open_ai_client
+        self.open_ai_client
             .v1_chat_completions(ChatParameters {
                 model,
                 messages,
@@ -30,6 +29,5 @@ impl LLMClient {
                 stream: Some(false),
             })
             .await
-
     }
 }

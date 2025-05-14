@@ -46,35 +46,26 @@ impl ToolManager {
                 let res = tool.call(arguments);
 
                 match res {
-                    Ok(res) => {
-                        Message::ToolResponse(ToolResponseMessage {
-                            tool_call_id: call.id,
-                            role: Role::Tool,
-                            name: call.function.name.clone(),
-                            content: res,
-                        })
-                    }
-                    Err(err) => {
-                        Message::ToolResponse(ToolResponseMessage {
-                            tool_call_id: call.id,
-                            role: Role::Tool,
-                            name: call.function.name.clone(),
-                            content: Value::String(format!("ERROR: {}", err)),
-                        })
-                    }
+                    Ok(res) => Message::ToolResponse(ToolResponseMessage {
+                        tool_call_id: call.id,
+                        role: Role::Tool,
+                        name: call.function.name.clone(),
+                        content: res,
+                    }),
+                    Err(err) => Message::ToolResponse(ToolResponseMessage {
+                        tool_call_id: call.id,
+                        role: Role::Tool,
+                        name: call.function.name.clone(),
+                        content: Value::String(format!("ERROR: {}", err)),
+                    }),
                 }
             }
-            None => {
-                Message::ToolResponse(ToolResponseMessage {
-                    tool_call_id: call.id,
-                    role: Role::Tool,
-                    name: call.function.name.clone(),
-                    content: Value::String(format!(
-                        "ERROR: Tool `{}` not found",
-                        call.function.name
-                    )),
-                })
-            }
+            None => Message::ToolResponse(ToolResponseMessage {
+                tool_call_id: call.id,
+                role: Role::Tool,
+                name: call.function.name.clone(),
+                content: Value::String(format!("ERROR: Tool `{}` not found", call.function.name)),
+            }),
         }
     }
 }
