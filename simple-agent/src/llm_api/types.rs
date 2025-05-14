@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum Role {
     User,
@@ -9,19 +9,19 @@ pub enum Role {
     Tool,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum ToolFunctionType {
     Function,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ToolFunctionCall {
     pub name: String,
     pub arguments: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ToolCall {
     pub id: String,
     #[serde(rename = "type")]
@@ -29,20 +29,20 @@ pub struct ToolCall {
     pub function: ToolFunctionCall,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct TextMessage {
     pub role: Role,
     pub content: String,
     pub images: Option<Vec<String>>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ToolRequestMessage {
     pub role: Role,
     pub tool_calls: Vec<ToolCall>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ToolResponseMessage {
     pub tool_call_id: String,
     pub role: Role,
@@ -50,21 +50,21 @@ pub struct ToolResponseMessage {
     pub content: serde_json::Value, // Use serde_json::Value for dynamic content types
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ToolFunction {
     pub name: String,
     pub description: Option<String>,
     pub parameters: HashMap<String, serde_json::Value>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ToolDefinition {
     #[serde(rename = "type")]
     pub type_: ToolFunctionType,
     pub function: ToolFunction,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(untagged)]
 pub enum Message {
     TextMessage(TextMessage),
@@ -72,7 +72,7 @@ pub enum Message {
     ToolResponseMessage(ToolResponseMessage),
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ChatParameters {
     pub model: String,
     pub messages: Vec<Message>,
@@ -80,25 +80,25 @@ pub struct ChatParameters {
     pub stream: Option<bool>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct MessageChoice {
     pub index: usize,
     pub message: Message,
     pub finish_reason: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct ChatResponse {
     pub choices: Vec<MessageChoice>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 #[serde(rename_all = "lowercase")]
 pub enum FinishReasonType {
     Stop,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct MessageChoicePartial {
     pub index: usize,
     pub delta: Message,
@@ -106,7 +106,7 @@ pub struct MessageChoicePartial {
     pub finish_reason: Option<FinishReasonType>,
 }
 
-#[derive(Debug, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone)]
 pub struct PartialChatCompletion {
     pub id: String,
     pub object: String,

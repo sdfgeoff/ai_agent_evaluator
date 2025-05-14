@@ -1,0 +1,44 @@
+use chrono::{DateTime, Utc};
+use serde::{Deserialize, Serialize};
+use super::llm_api::types::Message;
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ModelProvider {
+    pub name: String,
+    pub base_url: String,
+    pub token: String,
+    pub models: Vec<String>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct ResultStats {
+    pub run_date: Option<DateTime<Utc>>,
+    pub time_seconds: f64,
+    pub log: Vec<Message>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum Tools {
+    Bash,
+    CreateFile,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct TestParameters {
+    pub name: String,
+    pub docker_image: String,
+    pub blurb: String,
+    pub initial_prompt: Vec<Message>,
+    pub allowed_tools: Vec<Tools>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct TestToRun {
+    pub name: String,
+    pub test_parameters: TestParameters,
+    pub provider: ModelProvider,
+    pub model: String,
+    pub input_folder: String,
+    pub output_folder: String,
+}
