@@ -13,7 +13,6 @@ use llm_client::LLMClient;
 mod default_tools;
 
 use structured_logger::{Builder, async_json::new_writer};
-use tool_manager::ToolAndCallable;
 
 fn make_provider(url: String, token: String, model: String) -> LLMClient {
     let mut headers = reqwest::header::HeaderMap::new();
@@ -40,21 +39,21 @@ async fn run_test(test: TestToRun) {
         std::process::exit(1);
     }
 
-    let provider = make_provider(
-        test.provider.base_url,
-        test.provider.token,
-        test.model
-    );
+    let provider = make_provider(test.provider.base_url, test.provider.token, test.model);
 
-    let mut extra_tools: Vec<Box<(dyn ToolAndCallable)>> = vec![];
+    let mut tool_manager = tool_manager::ToolManager::new();
     if test.test_parameters.allowed_tools.contains(&Tools::Bash) {
-        extra_tools.push(Box::new(default_tools::BashTool {}));
+        let bash_tool = default_tools::BashTool {};
+        tool_manager.add_tool(Box::pin(bash_tool));
     }
-    if test.test_parameters.allowed_tools.contains(&Tools::CreateFile) {
-        extra_tools.push(Box::new(default_tools::CreateFileTool {}));
+    if test
+        .test_parameters
+        .allowed_tools
+        .contains(&Tools::CreateFile)
+    {
+        let create_file_tool = default_tools::CreateFileTool {};
+        tool_manager.add_tool(Box::pin(create_file_tool));
     }
-
-    let tool_manager = tool_manager::ToolManager::new(extra_tools);
 
     let mut agent = agent::Agent::new(provider, tool_manager);
 
@@ -75,9 +74,7 @@ async fn run_test(test: TestToRun) {
     };
 
     // Write stats to stats.json in the output folder
-    let stats_file = std::fs::File::create(
-        format!("{}/stats.json", test.output_folder),
-    ).unwrap();
+    let stats_file = std::fs::File::create(format!("{}/stats.json", test.output_folder)).unwrap();
     let stats_writer = std::io::BufWriter::new(stats_file);
     serde_json::to_writer(stats_writer, &result_stats).unwrap();
 }

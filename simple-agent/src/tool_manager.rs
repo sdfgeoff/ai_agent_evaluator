@@ -1,38 +1,38 @@
-use std::collections::HashMap;
 use crate::llm_api::types::{Message, Role, ToolCall, ToolDefinition, ToolResponseMessage};
 use serde_json::Value;
+use std::{collections::HashMap, pin::Pin};
 
-use log::{info};
+use log::info;
 
 pub trait ToolAndCallable {
     fn definition(&self) -> ToolDefinition;
-    fn call(&self, arguments: String) -> Result<Value, String>;
+    fn call(
+        &self,
+        arguments: String,
+    ) -> Pin<Box<dyn Future<Output = Result<Value, String>> + Send>>;
 }
 
 pub struct ToolManager {
-    tools_by_name: HashMap<String, Box<dyn ToolAndCallable>>,
+    tools_by_name: HashMap<String, Pin<Box<dyn ToolAndCallable>>>,
     tool_definitions: Vec<ToolDefinition>,
 }
 
 impl ToolManager {
-    pub fn new(extra_tools: Vec<Box<dyn ToolAndCallable>>) -> Self {
-        let mut tools_by_name = HashMap::new();
-        let mut tool_definitions = Vec::new();
-        for tool in extra_tools {
-            let def = tool.definition();
-            let name = def.function.name.clone();
-            let already_exists = tools_by_name.insert(name, tool);
-            if already_exists.is_some() {
-                panic!("Tool with the same name already exists");
-            }
-            tool_definitions.push(def);
-        }
-        info!("Loaded {} tools", tool_definitions.len());
-
+    pub fn new() -> Self {
         Self {
-            tools_by_name,
-            tool_definitions,
+            tools_by_name: HashMap::new(),
+            tool_definitions: Vec::new(),
         }
+    }
+
+    pub fn add_tool(&mut self, tool: Pin<Box<dyn ToolAndCallable>>) {
+        let def = tool.definition();
+        let name = def.function.name.clone();
+        let already_exists = self.tools_by_name.insert(name, tool);
+        if already_exists.is_some() {
+            panic!("Tool with the same name already exists");
+        }
+        self.tool_definitions.push(def);
     }
 
     pub async fn get_tools(&self) -> Vec<ToolDefinition> {
@@ -45,7 +45,7 @@ impl ToolManager {
 
         match tool {
             Some(tool) => {
-                let res = tool.call(arguments);
+                let res = tool.call(arguments).await;
 
                 match res {
                     Ok(res) => Message::ToolResponse(ToolResponseMessage {

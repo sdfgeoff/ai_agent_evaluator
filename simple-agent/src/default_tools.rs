@@ -1,8 +1,11 @@
+use std::pin::Pin;
+
 use crate::{
     llm_api::types::{ToolDefinition, ToolFunction, ToolFunctionType},
     tool_manager::ToolAndCallable,
 };
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
@@ -55,37 +58,41 @@ impl ToolAndCallable for BashTool {
         }
     }
 
-    fn call(&self, arguments: String) -> Result<serde_json::Value, String> {
-        let args: BashArguments = serde_json::from_str(&arguments).map_err(|e| e.to_string())?;
-        let output = std::process::Command::new("bash")
-            .arg("-c")
-            .arg(&args.command)
-            .output()
-            .map_err(|e| e.to_string())?;
+    fn call(
+        &self,
+        arguments: String,
+    ) -> Pin<Box<dyn Future<Output = Result<Value, String>> + Send>> {
+        Box::pin(async move {
+            let args: BashArguments =
+                serde_json::from_str(&arguments).map_err(|e| e.to_string())?;
+            let output = std::process::Command::new("bash")
+                .arg("-c")
+                .arg(&args.command)
+                .output()
+                .map_err(|e| e.to_string())?;
 
-        let result = BashResult {
-            output: if output.stdout.is_empty() {
-                None
-            } else {
-                Some(String::from_utf8_lossy(&output.stdout).to_string())
-            },
-            error: if output.stderr.is_empty() {
-                None
-            } else {
-                Some(String::from_utf8_lossy(&output.stderr).to_string())
-            },
-            exit_code: Some(output.status.code().unwrap_or(-1)),
-        };
+            let result = BashResult {
+                output: if output.stdout.is_empty() {
+                    None
+                } else {
+                    Some(String::from_utf8_lossy(&output.stdout).to_string())
+                },
+                error: if output.stderr.is_empty() {
+                    None
+                } else {
+                    Some(String::from_utf8_lossy(&output.stderr).to_string())
+                },
+                exit_code: Some(output.status.code().unwrap_or(-1)),
+            };
 
-        Ok(serde_json::to_value(vec![TextContent {
-            type_: TextContentType::Text,
-            text: serde_json::to_string(&result).unwrap(),
-        }])
-        .unwrap())
+            Ok(serde_json::to_value(vec![TextContent {
+                type_: TextContentType::Text,
+                text: serde_json::to_string(&result).unwrap(),
+            }])
+            .unwrap())
+        })
     }
 }
-
-
 
 pub struct CreateFileTool {}
 #[derive(Serialize, Deserialize, Debug)]
@@ -121,14 +128,20 @@ impl ToolAndCallable for CreateFileTool {
             },
         }
     }
-    fn call(&self, arguments: String) -> Result<serde_json::Value, String> {
-        let args: CreateFileArguments = serde_json::from_str(&arguments).map_err(|e| e.to_string())?;
-        let file_path = format!("./{}", args.file_name);
-        std::fs::write(&file_path, args.content).map_err(|e| e.to_string())?;
-        Ok(serde_json::to_value(vec![TextContent {
-            type_: TextContentType::Text,
-            text: format!("File created at {}", file_path),
-        }])
-        .unwrap())
+    fn call(
+        &self,
+        arguments: String,
+    ) -> Pin<Box<dyn Future<Output = Result<Value, String>> + Send>> {
+        Box::pin(async move {
+            let args: CreateFileArguments =
+                serde_json::from_str(&arguments).map_err(|e| e.to_string())?;
+            let file_path = format!("./{}", args.file_name);
+            std::fs::write(&file_path, args.content).map_err(|e| e.to_string())?;
+            Ok(serde_json::to_value(vec![TextContent {
+                type_: TextContentType::Text,
+                text: format!("File created at {}", file_path),
+            }])
+            .unwrap())
+        })
     }
 }
