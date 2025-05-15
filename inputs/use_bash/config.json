@@ -5,7 +5,7 @@
     "initial_prompt":  [
 		{
 			"content": "Read the file `/project/instructions.md`. There are more instructions for you there.",
-			"role": "user",
+			"role": "user"
 		}
 	],
 	"allowed_tools": [

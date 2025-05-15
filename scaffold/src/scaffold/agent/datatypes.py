@@ -30,7 +30,6 @@ class TestParameters(BaseModel):
     docker_image: str
     blurb: str
     initial_prompt: list[Message]
-    thumbnail_command: str
 
     allowed_tools: list[Tools] = ["bash", "create_file"]
 

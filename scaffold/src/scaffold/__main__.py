@@ -39,6 +39,11 @@ def main(args: Args):
                 test_settings_file=test_settings_file,
             )
             continue
+        else:
+            LOG.info(
+                "loading_test",
+                test_settings_file=test_settings_file,
+            )
         test_parameters = TestParameters.model_validate(
             json.load(open(test_settings_file, "r"))
         )
@@ -84,8 +89,8 @@ def main(args: Args):
             with open(os.path.join(test.input_folder, "config.json"), "r") as f:
                 new_config = f.read()
 
-            #if existing_config == new_config:
-            #    skip = True
+            if existing_config == new_config:
+                skip = True
 
         if not skip:
             try:

@@ -5,7 +5,7 @@
     "initial_prompt": [
 		{
 			"content": "I'd like to create a plain HTML site for a plumbing business. Make it look modern. Output it into index.html",
-			"role": "user",
+			"role": "user"
 		}
 	],
 	"allowed_tools": [

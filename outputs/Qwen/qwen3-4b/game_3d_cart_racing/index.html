@@ -1,74 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>3D Go-Kart Racing Game</title>
+    <meta charset="utf-8" />
+    <title>Go-Kart Racing Game</title>
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
     </style>
 </head>
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-<!-- Load Three.js from CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(5, 10, 5);
+        scene.add(directionalLight);
 
-<script>
-    // Scene setup
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+        // Track (simple plane)
+        const trackGeometry = new THREE.PlaneGeometry(20, 10);
+        const trackMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22 });
+        const track = new THREE.Mesh(trackGeometry, trackMaterial);
+        track.rotation.x = -Math.PI / 2;
+        scene.add(track);
 
-    // Lighting
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 10, 5);
-    scene.add(light);
+        // Go-Kart (simple cylinder)
+        const kartGeometry = new THREE.CylinderGeometry(0.3, 0.3, 1, 8);
+        const kartMaterial = new THREE.MeshStandardMaterial({ color: 0xFF4500 });
+        const kart = new THREE.Mesh(kartGeometry, kartMaterial);
+        kart.position.set(0, 0.5, 0);
+        scene.add(kart);
 
-    // Track (simple plane)
-    const trackGeometry = new THREE.PlaneGeometry(20, 10);
-    const trackMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22 });
-    const track = new THREE.Mesh(trackGeometry, trackMaterial);
-    track.rotation.x = -Math.PI / 2;
-    scene.add(track);
+        // Camera position
+        camera.position.set(0, 1.5, 5);
+        camera.lookAt(0, 0.5, 0);
 
-    // Go-Kart (simple box)
-    const kartGeometry = new THREE.BoxGeometry(0.5, 1, 0.5);
-    const kartMaterial = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
-    const kart = new THREE.Mesh(kartGeometry, kartMaterial);
-    kart.position.set(0, 0.5, 0);
-    scene.add(kart);
+        // Controls
+        let kartSpeed = 0.05;
+        let kartDirection = new THREE.Vector3();
+        let isMoving = false;
 
-    // Camera position
-    camera.position.set(0, 1.5, 5);
-    camera.lookAt(0, 0.5, 0);
+        document.addEventListener('keydown', (event) => {
+            if (event.code === 'ArrowUp') isMoving = true;
+            if (event.code === 'ArrowDown') isMoving = false;
+            if (event.code === 'ArrowLeft') kartDirection.x = -1;
+            if (event.code === 'ArrowRight') kartDirection.x = 1;
+        });
 
-    // Keyboard controls
-    let moveForward = false;
-    let moveBackward = false;
-    document.addEventListener('keydown', (e) => {
-        if (e.code === 'ArrowUp') moveForward = true;
-        if (e.code === 'ArrowDown') moveBackward = true;
-    });
-    document.addEventListener('keyup', (e) => {
-        if (e.code === 'ArrowUp') moveForward = false;
-        if (e.code === 'ArrowDown') moveBackward = false;
-    });
+        document.addEventListener('keyup', (event) => {
+            if (event.code === 'ArrowLeft') kartDirection.x = 0;
+            if (event.code === 'ArrowRight') kartDirection.x = 0;
+            if (event.code === 'ArrowUp') isMoving = false;
+        });
 
-    // Animation loop
-    function animate() {
-        requestAnimationFrame(animate);
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
 
-        // Simple movement along the track
-        if (moveForward) kart.position.z -= 0.05;
-        if (moveBackward) kart.position.z += 0.05;
+            // Move kart
+            if (isMoving) {
+                kart.position.z -= kartSpeed * kartDirection.x;
+            }
 
-        renderer.render(scene, camera);
-    }
+            renderer.render(scene, camera);
+        }
 
-    animate();
-</script>
+        animate();
 
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
 </body>
 </html>

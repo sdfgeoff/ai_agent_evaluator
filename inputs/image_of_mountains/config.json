@@ -5,7 +5,7 @@
     "initial_prompt": [
 		{
 			"content": "I would like you to create an svg image of a sunset through the mountains. Make sure the result is visible in index.html",
-			"role": "user",
+			"role": "user"
 		}
 	],
 	"allowed_tools": [

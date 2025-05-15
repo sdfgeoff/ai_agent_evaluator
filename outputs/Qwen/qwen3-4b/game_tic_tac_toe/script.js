@@ -1,51 +1,64 @@
 let currentPlayer = 'X';
-const cells = document.querySelectorAll('#board .cell');
-const message = document.getElementById('message');
-const board = Array.from(cells);
-let gameActive = true;
+const board = document.getElementById('board');
+const status = document.getElementById('status');
 
-function resetGame() {
-    currentPlayer = 'X';
-    gameActive = true;
-    message.textContent = `Player ${currentPlayer}'s turn`;
-    board.forEach(cell => cell.textContent = '');
+// Create the board
+for (let i = 0; i < 9; i++) {
+    const cell = document.createElement('div');
+    cell.classList.add('cell');
+    cell.addEventListener('click', () => handleCellClick(i));
+    board.appendChild(cell);
 }
 
-function checkWin(player) {
-    const lines = [
-        [0, 1, 2], [3, 4, 5], [6, 7, 8],
-        [0, 3, 6], [1, 4, 7], [2, 5, 8],
-        [0, 4, 8], [2, 4, 6]
+function handleCellClick(index) {
+    // Check if the cell is already filled
+    if (board.children[index].textContent !== '') return;
+
+    board.children[index].textContent = currentPlayer;
+    checkWin();
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    updateStatus();
+}
+
+function checkWin() {
+    const winConditions = [
+        [0,1,2], [3,4,5], [6,7,8], // rows
+        [0,3,6], [1,4,7], [2,5,8], // columns
+        [0,4,8], [2,4,6]          // diagonals
     ];
-    return lines.some(line => {
-        return line.every(index => board[index].textContent === player);
-    });
-}
 
-function checkTie() {
-    return !board.includes(null) && !checkWin('X') && !checkWin('O');
-}
-
-cells.forEach(cell => {
-    cell.addEventListener('click', () => {
-        if (!gameActive) return;
-        if (cell.textContent !== '') return;
-
-        cell.textContent = currentPlayer;
-        if (checkWin(currentPlayer)) {
-            message.textContent = `Player ${currentPlayer} wins!`;
-            gameActive = false;
+    for (let condition of winConditions) {
+        const [a, b, c] = condition;
+        if (board.children[a].textContent === board.children[b].textContent && 
+            board.children[b].textContent === board.children[c].textContent && 
+            board.children[a].textContent !== '') {
+            status.textContent = `Player ${board.children[a].textContent} wins!`;
             return;
         }
-        if (checkTie()) {
-            message.textContent = 'It`s a tie!';
-            gameActive = false;
-            return;
-        }
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        message.textContent = `Player ${currentPlayer}'s turn`;
-    });
+    }
+
+    // Check for draw
+    if (['X', 'O'].every(player => [...board.children].some(cell => cell.textContent === player))) {
+        status.textContent = "It's a draw!";
+    }
+}
+
+function updateStatus() {
+    status.textContent = `Player ${currentPlayer}'s turn`;
+}
+
+// Reset button
+const resetButton = document.createElement('button');
+resetButton.textContent = 'Reset';
+resetButton.style.display = 'block';
+resetButton.style.marginLeft = 'auto';
+resetButton.style.marginRight = 'auto';
+resetButton.style.marginTop = '10px';
+resetButton.addEventListener('click', () => {
+    for (let i = 0; i < 9; i++) {
+        board.children[i].textContent = '';
+    }
+    currentPlayer = 'X';
+    status.textContent = `Player ${currentPlayer}'s turn`;
 });
-
-// Initialize game
-resetGame();
+document.body.appendChild(resetButton);

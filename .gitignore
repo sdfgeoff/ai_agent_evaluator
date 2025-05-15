@@ -11,3 +11,5 @@ credentials.sh
 
 # Virtual environments
 .venv
+
+bin

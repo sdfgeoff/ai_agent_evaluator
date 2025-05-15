@@ -5,7 +5,7 @@
     "initial_prompt": [
 		{
 			"content": "Create a HTML page containing a rotating hexagon with bouncing balls inside it. Save it to `index.html`",
-			"role": "user",
+			"role": "user"
 		}
 	],
 	"allowed_tools": [

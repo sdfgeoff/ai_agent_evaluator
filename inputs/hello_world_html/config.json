@@ -5,7 +5,7 @@
     "initial_prompt": [
 		{
 			"content":"Create a single index.html file containing a hello world. Include styling in a dark theme with bold and striking color choice.",
-			"role": "user",
+			"role": "user"
 		}
 	],
 	"allowed_tools": [

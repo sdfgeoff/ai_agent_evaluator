@@ -5,7 +5,7 @@
     "initial_prompt": [
 		{
 			"content": "Make a game of tic-tac-toe. The game should be playable from index.html, but you can create supporting css/js files.",
-			"role": "user",
+			"role": "user"
 		}
 	],
 	"allowed_tools": [
