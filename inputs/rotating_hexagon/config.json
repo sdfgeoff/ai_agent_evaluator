@@ -2,6 +2,14 @@
 	"name": "Rotating Hexagon",
     "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
     "blurb": "Rotating hexagon in plain HTML",
-    "initial_prompt": "Create a HTML page containing a rotating hexagon with bouncing balls inside it. Save it to `index.html`",
-    "thumbnail_command": ""
+    "initial_prompt": [
+		{
+			"content": "Create a HTML page containing a rotating hexagon with bouncing balls inside it. Save it to `index.html`",
+			"role": "user",
+		}
+	],
+	"allowed_tools": [
+		"bash",
+		"create_file"
+	]
 }

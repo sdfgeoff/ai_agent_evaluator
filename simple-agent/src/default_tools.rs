@@ -84,3 +84,51 @@ impl ToolAndCallable for BashTool {
         .unwrap())
     }
 }
+
+
+
+pub struct CreateFileTool {}
+#[derive(Serialize, Deserialize, Debug)]
+struct CreateFileArguments {
+    file_name: String,
+    content: String,
+}
+
+impl ToolAndCallable for CreateFileTool {
+    fn definition(&self) -> ToolDefinition {
+        ToolDefinition {
+            type_: ToolFunctionType::Function,
+            function: ToolFunction {
+                name: "create_file".to_string(),
+                description: Some("Create a file.".to_string()),
+                parameters: serde_json::from_str(
+                    r#"{
+                    "type": "object",
+                    "properties": {
+                        "file_name": {
+                            "type": "string",
+                            "description": "The name of the file to create."
+                        },
+                        "content": {
+                            "type": "string",
+                            "description": "The content of the file."
+                        }
+                    },
+                    "required": ["file_name", "content"]
+                }"#,
+                )
+                .unwrap(),
+            },
+        }
+    }
+    fn call(&self, arguments: String) -> Result<serde_json::Value, String> {
+        let args: CreateFileArguments = serde_json::from_str(&arguments).map_err(|e| e.to_string())?;
+        let file_path = format!("./{}", args.file_name);
+        std::fs::write(&file_path, args.content).map_err(|e| e.to_string())?;
+        Ok(serde_json::to_value(vec![TextContent {
+            type_: TextContentType::Text,
+            text: format!("File created at {}", file_path),
+        }])
+        .unwrap())
+    }
+}

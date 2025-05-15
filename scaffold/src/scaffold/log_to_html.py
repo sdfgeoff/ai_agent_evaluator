@@ -1,5 +1,5 @@
-from agent.provider.openai_types import Message
-from agent.provider.openai_types import (
+from .agent.provider.openai_types import Message
+from .agent.provider.openai_types import (
     TextMessage,
     ToolRequestMessage,
     ToolResponseMessage,

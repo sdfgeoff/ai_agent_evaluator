@@ -1,7 +1,8 @@
 use std::collections::HashMap;
-
 use crate::llm_api::types::{Message, Role, ToolCall, ToolDefinition, ToolResponseMessage};
 use serde_json::Value;
+
+use log::{info};
 
 pub trait ToolAndCallable {
     fn definition(&self) -> ToolDefinition;
@@ -26,6 +27,7 @@ impl ToolManager {
             }
             tool_definitions.push(def);
         }
+        info!("Loaded {} tools", tool_definitions.len());
 
         Self {
             tools_by_name,

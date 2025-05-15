@@ -41,14 +41,17 @@ async fn run_test(test: TestToRun) {
     }
 
     let provider = make_provider(
-        "http://192.168.18.10:1234".to_string(),
-        "asdfasdfasdf".to_string(),
-        "qwen3-0.6b".to_string(),
+        test.provider.base_url,
+        test.provider.token,
+        test.model
     );
 
     let mut extra_tools: Vec<Box<(dyn ToolAndCallable)>> = vec![];
     if test.test_parameters.allowed_tools.contains(&Tools::Bash) {
         extra_tools.push(Box::new(default_tools::BashTool {}));
+    }
+    if test.test_parameters.allowed_tools.contains(&Tools::CreateFile) {
+        extra_tools.push(Box::new(default_tools::CreateFileTool {}));
     }
 
     let tool_manager = tool_manager::ToolManager::new(extra_tools);
@@ -71,49 +74,12 @@ async fn run_test(test: TestToRun) {
         finish_reason: result.ok(),
     };
 
-    // let messages = vec![llm_api::types::Message::TextMessage(
-    //     llm_api::types::TextMessage {
-    //         role: llm_api::types::Role::User,
-    //         content: "Hello, how are you?".to_string(),
-    //         images: None,
-    //     },
-    // )];
-
-    // let parameters: HashMap<String, serde_json::Value> = HashMap::from([
-    //     (
-    //         "type".to_string(),
-    //         serde_json::Value::String("object".to_string()),
-    //     ),
-    //     (
-    //         "properties".to_string(),
-    //         serde_json::Value::Object(serde_json::map::Map::new()),
-    //     ),
-    // ]);
-    // let tools = Some(vec![llm_api::types::ToolDefinition {
-    //     type_: ToolFunctionType::Function,
-    //     function: llm_api::types::ToolFunction {
-    //         name: "Tool1".to_string(),
-    //         description: Some("This is a test tool".to_string()),
-    //         parameters,
-    //     },
-    // }]);
-    // let response = provider.make_request(messages, tools).await;
-    // match response {
-    //     Ok(res) => {
-    //         println!("Response: {:?}", res);
-    //     }
-    //     Err(e) => {
-    //         eprintln!("Error: {:?}", e);
-    //     }
-    // }
-
-    // let result_stats = ResultStats {
-    //     run_date: None,
-    //     time_seconds: 0.0,
-    //     log: vec![],
-    // };
-
-    println!("Test result: {:?}", result_stats);
+    // Write stats to stats.json in the output folder
+    let stats_file = std::fs::File::create(
+        format!("{}/stats.json", test.output_folder),
+    ).unwrap();
+    let stats_writer = std::io::BufWriter::new(stats_file);
+    serde_json::to_writer(stats_writer, &result_stats).unwrap();
 }
 
 #[tokio::main]

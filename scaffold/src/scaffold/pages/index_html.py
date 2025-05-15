@@ -1,5 +1,5 @@
 from collections import defaultdict
-from agent.datatypes import TestToRun
+from ..agent.datatypes import TestToRun
 
 from .html import Tag
 from .test_container import test_container

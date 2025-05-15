@@ -43,20 +43,12 @@ impl Agent {
         for _ in 0..max_iter {
             let mut tools = self.tool_manager.get_tools().await;
             tools.push(self.task_complete_tool.clone());
-
             info!("querying_llm");
-
-            println!(
-                "Messages: {}",
-                serde_json::to_string(&self.messages).unwrap()
-            );
-
             let chat_response = self
                 .llm_client
                 .make_request(self.messages.clone(), Some(tools))
                 .await?;
             let message = &chat_response.choices[0].message;
-
             info!("llm_response_received");
             self.messages.push(message.clone());
 
