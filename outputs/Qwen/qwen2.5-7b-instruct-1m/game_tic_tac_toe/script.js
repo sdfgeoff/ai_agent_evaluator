@@ -1,37 +1,62 @@
+const cells = document.querySelectorAll('.cell');
+
+let board = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null]
+];
+
 let currentPlayer = 'X';
-const boardElements = document.querySelectorAll('.cell');
-const gameBoard = document.getElementById('game-board');
 
-function createBoard() {
-    let boardArray = [];
-    for (let row = 0; row < 3; row++) {
-        const rowArray = [];
-        for (let col = 0; col < 3; col++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.addEventListener('click', handleCellClick);
-            rowArray.push(cell);
-        }
-        boardArray.push(rowArray);
-    }
-    gameBoard.innerHTML = '';
-    gameBoard.appendChild(document.createElement('table'));
-    const table = document.querySelector('#game-board table');
-
-    for (let i = 0; i < 3; i++) {
-        for (let j = 0; j < 3; j++) {
-            table.rows[i].cells[j].appendChild(boardArray[i][j]);
-        }
-    }
+function updateBoard(selectedCell) {
+    let cellIndex = parseInt(selectedCell.getAttribute('data-index')) - 1;
+    board[cellIndex[0]][cellIndex[1]] = currentPlayer;
 }
 
-function handleCellClick(event) {
-    const clickedCell = event.target;
-    if (!clickedCell.innerText && currentPlayer === 'X') {
-        clickedCell.innerText = currentPlayer;
-        currentPlayer = 'O';
-    } else if (!clickedCell.innerText && currentPlayer === 'O') {
-        clickedCell.innerText = currentPlayer;
-        currentPlayer = 'X';
+function checkWin() {
+    const lines = [
+        [[0, 0], [0, 1], [0, 2]],
+        [[1, 0], [1, 1], [1, 2]],
+        [[2, 0], [2, 1], [2, 2]],
+
+        [[0, 0], [1, 0], [2, 0]],
+        [[0, 1], [1, 1], [2, 1]],
+        [[0, 2], [1, 2], [2, 2]],
+
+        [[0, 0], [1, 1], [2, 2]],
+        [[0, 2], [1, 1], [2, 0]]
+    ];
+
+    for (let line of lines) {
+        const [a, b, c] = line;
+        if (board[a[0]][a[1]] && board[a[0]][a[1]] === board[b[0]][b[1]] && board[a[0]][a[1]] === board[c[0]][c[1]]) {
+            alert(currentPlayer + ' wins!');
+            return true;
+        }
     }
+
+    return false;
 }
+
+function switchPlayer() {
+    currentPlayer = (currentPlayer === 'X') ? 'O' : 'X';
+}
+
+function handleButtonClick(event) {
+    let targetCell = event.target;
+    if (!targetCell.classList.contains('button')) {
+        return;
+    }
+    updateBoard(targetCell);
+    checkWin();
+    targetCell.disabled = true;
+    switchPlayer();
+}
+
+function init() {
+    cells.forEach((cell, index) => {
+        cell.setAttribute('data-index', (index + 1));
+        cell.addEventListener('click', handleButtonClick);
+    });
+}
+init();

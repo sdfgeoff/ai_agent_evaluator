@@ -1,64 +1,56 @@
-let currentPlayer = 'X';
 const board = document.getElementById('board');
-const status = document.getElementById('status');
+const resetButton = document.getElementById('reset');
+let currentPlayer = 'X';
+let cells = [];
+let gameActive = true;
 
-// Create the board
+// Create board cells
 for (let i = 0; i < 9; i++) {
     const cell = document.createElement('div');
     cell.classList.add('cell');
-    cell.addEventListener('click', () => handleCellClick(i));
+    cell.dataset.index = i;
+    cell.addEventListener('click', handleCellClick);
     board.appendChild(cell);
+    cells.push(cell);
 }
 
-function handleCellClick(index) {
-    // Check if the cell is already filled
-    if (board.children[index].textContent !== '') return;
-
-    board.children[index].textContent = currentPlayer;
-    checkWin();
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-    updateStatus();
+// Handle cell click
+function handleCellClick(e) {
+    const index = e.target.dataset.index;
+    if (gameActive && !e.target.textContent) {
+        e.target.textContent = currentPlayer;
+        checkWin();
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    }
 }
 
+// Check for win
 function checkWin() {
     const winConditions = [
         [0,1,2], [3,4,5], [6,7,8], // rows
         [0,3,6], [1,4,7], [2,5,8], // columns
-        [0,4,8], [2,4,6]          // diagonals
+        [0,4,8], [2,4,6] // diagonals
     ];
 
-    for (let condition of winConditions) {
+    for (const condition of winConditions) {
         const [a, b, c] = condition;
-        if (board.children[a].textContent === board.children[b].textContent && 
-            board.children[b].textContent === board.children[c].textContent && 
-            board.children[a].textContent !== '') {
-            status.textContent = `Player ${board.children[a].textContent} wins!`;
+        if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent) {
+            gameActive = false;
+            alert(`Player ${cells[a].textContent} wins!`);
             return;
         }
     }
 
     // Check for draw
-    if (['X', 'O'].every(player => [...board.children].some(cell => cell.textContent === player))) {
-        status.textContent = "It's a draw!";
+    if (cells.every(cell => cell.textContent)) {
+        alert('Draw!');
+        gameActive = false;
     }
 }
 
-function updateStatus() {
-    status.textContent = `Player ${currentPlayer}'s turn`;
-}
-
-// Reset button
-const resetButton = document.createElement('button');
-resetButton.textContent = 'Reset';
-resetButton.style.display = 'block';
-resetButton.style.marginLeft = 'auto';
-resetButton.style.marginRight = 'auto';
-resetButton.style.marginTop = '10px';
+// Reset game
 resetButton.addEventListener('click', () => {
-    for (let i = 0; i < 9; i++) {
-        board.children[i].textContent = '';
-    }
+    cells.forEach(cell => cell.textContent = '');
     currentPlayer = 'X';
-    status.textContent = `Player ${currentPlayer}'s turn`;
+    gameActive = true;
 });
-document.body.appendChild(resetButton);

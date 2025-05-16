@@ -43,31 +43,24 @@ impl ToolManager {
         let arguments = call.function.arguments;
         let tool = self.tools_by_name.get(&call.function.name);
 
-        match tool {
+        let content = match tool {
             Some(tool) => {
-                let res = tool.call(arguments).await;
-
+                info!("Calling tool: {}", call.function.name);
+                let res = tokio::time::timeout(std::time::Duration::from_secs(60), tool.call(arguments)).await;
                 match res {
-                    Ok(res) => Message::ToolResponse(ToolResponseMessage {
-                        tool_call_id: call.id,
-                        role: Role::Tool,
-                        name: call.function.name.clone(),
-                        content: res,
-                    }),
-                    Err(err) => Message::ToolResponse(ToolResponseMessage {
-                        tool_call_id: call.id,
-                        role: Role::Tool,
-                        name: call.function.name.clone(),
-                        content: Value::String(format!("ERROR: {}", err)),
-                    }),
+                    Ok(Ok(result)) => result,
+                    Ok(Err(err)) => Value::String(format!("ERROR: {}", err)),
+                    Err(elapsed) => Value::String(format!("ERROR: Timeout after {:?}", elapsed))
                 }
             }
-            None => Message::ToolResponse(ToolResponseMessage {
-                tool_call_id: call.id,
-                role: Role::Tool,
-                name: call.function.name.clone(),
-                content: Value::String(format!("ERROR: Tool `{}` not found", call.function.name)),
-            }),
-        }
+            None => Value::String(format!("ERROR: Tool `{}` not found", call.function.name)),
+        };
+
+        Message::ToolResponse(ToolResponseMessage {
+            tool_call_id: call.id,
+            role: Role::Tool,
+            name: call.function.name.clone(),
+            content: content,
+        })
     }
 }

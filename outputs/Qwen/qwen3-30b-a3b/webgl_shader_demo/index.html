@@ -2,33 +2,32 @@
 <html>
 <head>
     <title>WebGL Demo</title>
-    <style>body { margin: 0; } canvas { display: block; }</style>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
 </head>
 <body>
 <canvas id="glCanvas"></canvas>
 <script>
 const canvas = document.getElementById('glCanvas');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-if (!gl) {
-    alert("WebGL not supported, try another browser.");
-}
+const gl = canvas.getContext('webgl');
 
 // Vertex shader source code
-const vsSource = 
-`attribute vec2 aVertexPosition;
+const vsSource = `
+attribute vec4 aVertexPosition;
 void main() {
-    gl_Position = vec4(aVertexPosition, 0.0, 1.0);
-}`;
+    gl_Position = aVertexPosition;
+}
+`;
 
 // Fragment shader source code
-const fsSource = 
-`precision mediump float;
+const fsSource = `
+precision mediump float;
 void main() {
     gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-}`;
+}
+`;
 
 // Compile shader
 function compileShader(source, type) {
@@ -42,7 +41,7 @@ function compileShader(source, type) {
     return shader;
 }
 
-// Create program
+// Link program
 const vertexShader = compileShader(vsSource, gl.VERTEX_SHADER);
 const fragmentShader = compileShader(fsSource, gl.FRAGMENT_SHADER);
 
@@ -55,27 +54,23 @@ if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
     console.error('Unable to initialize the shader program: ', gl.getProgramInfoLog(program));
 }
 
-gl.useProgram(program);
-
-// Set up vertex data (a triangle)
-const positionBuffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-const positions = [
+// Set up triangle data
+const vertices = new Float32Array([
     0.0, 0.5,
     -0.5, -0.5,
     0.5, -0.5
-];
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+]);
 
-// Set attribute location and enable
-const aVertexPosition = gl.getAttribLocation(program, 'aVertexPosition');
-gl.enableVertexAttribArray(aVertexPosition);
-gl.vertexAttribPointer(aVertexPosition, 2, gl.FLOAT, false, 0, 0);
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-// Clear canvas and draw
-gl.clearColor(0.0, 0.0, 0.0, 1.0);
-gl.clear(gl.COLOR_BUFFER_BIT);
-gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
+// Draw the triangle
+gl.useProgram(program);
+const positionAttributeLocation = gl.getAttribLocation(program, 'aVertexPosition');
+gl.enableVertexAttribArray(positionAttributeLocation);
+gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
+gl.drawArrays(gl.TRIANGLES, 0, 3);
 </script>
 </body>
 </html>

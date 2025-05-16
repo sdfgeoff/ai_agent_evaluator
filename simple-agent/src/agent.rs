@@ -49,6 +49,7 @@ impl Agent {
                 .make_request(self.messages.clone(), Some(tools))
                 .await?;
             let message = &chat_response.choices[0].message;
+
             info!("llm_response_received");
             self.messages.push(message.clone());
 

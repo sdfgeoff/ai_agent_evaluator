@@ -2,74 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Printer Guide</title>
     <style>
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ff9966; /* Orange base */
-            color: #333;
+            background-color: #121212;
+            color: #FFA500;
             line-height: 1.6;
         }
         header {
-            background: #e67e22; /* Darker orange */
             padding: 20px;
             text-align: center;
+            background-color: #333;
         }
         nav {
-            background: #ffcc99;
-            padding: 10px;
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: #FFA500;
+            text-decoration: none;
+            margin: 0 15px;
         }
         section {
             padding: 40px;
-            max-width: 1000px;
-            margin: auto;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
         h1, h2 {
-            color: #2c3e50;
-        }
-        a {
-            color: #e67e22;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+            color: #FFA500;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>3D Printer Technical Guide</h1>
-        <p>Your Ultimate Resource for 3D Printing Technology</p>
+        <h1>3D Printer Guide</h1>
     </header>
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="calibration-guide.html">Calibration Guide</a></li>
-            <li><a href="filament-change-procedure.html">Filament Change Procedure</a></li>
-        </ul>
+        <a href="index.html">Home</a>
+        <a href="calibration.html">Calibration</a>
+        <a href="filament-change.html">Filament Change</a>
+        <a href="maintenance.html">Maintenance</a>
+        <a href="3d-printing-fundamentals.html">Fundamentals</a>
+        <a href="faqs.html">FAQs</a>
     </nav>
     <section>
-        <h2>Introduction to 3D Printers</h2>
-        <p>3D printers, or additive manufacturing devices, create three-dimensional objects by depositing material layer by layer. Common types include FDM (Fused Deposition Modeling), SLA (Stereolithography), and DMLS (Direct Metal Laser Sintering). This guide covers critical technical aspects of 3D printing operations.</p>
-
-        <h2>Calibration Process</h2>
-        <p>Proper calibration ensures accurate prints. Key steps include:</p>
-        <ul>
-            <li><strong>Bed Leveling:</strong> Use a piece of paper or probe to adjust the Z-axis height.</li>
-            <li><strong>Nozzle Offset Calibration:</strong> Measure and adjust the nozzle position relative to the bed.</li>
-            <li><strong>Printer Settings:</strong> Optimize layer height, infill density, and print speed in your slicer software.</li>
-        </ul>
-
-        <h2>Post-Filament Change Procedures</h2>
-        <p>After changing filament, follow these steps to avoid under-extrusion or clogging:</p>
-        <ol>
-            <li>Heat the extruder to 190°C–230°C (depending on material).</li>
-            <li>Move the nozzle slowly over the previous filament to clear residue.</li>
-            <li>Calibrate the printer for the new filament type.</li>
-            <li>Perform a test print to ensure consistent flow and adhesion.</li>
-        </ol>
+        <h2>Welcome to the 3D Printer Guide</h2>
+        <p>This website provides technical information about 3D printing, including calibration processes, post-filament-change procedures, and maintenance tips. Explore our pages to deepen your understanding of 3D printer technology.</p>
     </section>
 </body>
 </html>

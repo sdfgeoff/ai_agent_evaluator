@@ -3,43 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Post-Filament Change Procedure</title>
-    <link rel="stylesheet" href="style.css">
+    <title>3D Printer Filament Change Process</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #FFA500;
+            line-height: 1.6;
+        }
+        header {
+            padding: 20px;
+            text-align: center;
+            background-color: #333;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+        nav a {
+            color: #FFA500;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        section {
+            padding: 40px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        h1, h2 {
+            color: #FFA500;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>3D Printer Filament Change Guide</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#calibration">Calibration</a></li>
-            </ul>
-        </nav>
+        <h1>Post-Filament Change Procedures</h1>
     </header>
-
-    <main>
-        <section id="change-process">
-            <h2>Step-by-Step Filament Change Procedure</h2>
-            <ol>
-                <li><strong>Prepare the Printer:</strong> Ensure the printer is powered off and the bed is level.</li>
-                <li><strong>Load New Filament:</strong> Insert the new filament into the extruder and set the correct temperature in your slicing software.</li>
-                <li><strong>Clean Nozzle:</strong> Use a nozzle cleaning tool to remove residual material from the extruder.</li>
-                <li><strong>Test Print:</strong> Perform a 3D printed calibration cube to verify print quality after filament change.</li>
-            </ol>
-        </section>
-
-        <section id="post-change">
-            <h2>Post-Filament Change Checks</h2>
-            <ul>
-                <li>Check for under-extrusion or over-extrusion during print test.</li>
-                <li>Verify that the printer's firmware is updated with latest filament change fixes.</li>
-                <li>Ensure all mechanical components are properly aligned after changing filament.</li>
-            </ul>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2023 3D Printer Documentation. All rights reserved.</p>
-    </footer>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="calibration.html">Calibration</a>
+        <a href="filament-change.html">Filament Change</a>
+        <a href="maintenance.html">Maintenance</a>
+        <a href="3d-printing-fundamentals.html">Fundamentals</a>
+        <a href="faqs.html">FAQs</a>
+    </nav>
+    <section>
+        <h2>Steps to Change Filament on a 3D Printer</h2>
+        <ol>
+            <li><strong>Clean the Printer:</strong> Remove any residual filament from the nozzle and clean the extruder.</li>
+            <li><strong>Load New Filament:</strong> Insert the new filament into the extruder and secure it properly.</li>
+            <li><strong>Homing:</strong> Run the homing routine to reset the printer's coordinate system.</li>
+            <li><strong>Test Print:</strong> Perform a test print of a small object to ensure the new filament is working correctly.</li>
+            <li><strong>Adjust Settings:</strong> Fine-tune extrusion settings and temperature for optimal results.</li>
+        </ol>
+    </section>
 </body>
 </html>

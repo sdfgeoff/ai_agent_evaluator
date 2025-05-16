@@ -1,77 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bouncing Balls and Rotating Hexagon</title>
+    <meta charset="UTF-8">
+    <title>Rotating Hexagon with Bouncing Balls</title>
+    <style>
+        .hexagon {
+            width: 200px;
+            height: 200px;
+            background-color: #444;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: rotate 5s linear infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .ball {
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+            animation: bounce 1s infinite ease-in-out;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 </head>
 <body>
-<canvas id="myCanvas" width="800" height="600"></canvas>
-<script>
-const canvas = document.getElementById('myCanvas');
-const ctx = canvas.getContext('2d');
-
-let rotation = 0;
-
-// Initialize balls
-const balls = [];
-for (let i = 0; i < 10; i++) {
-    balls.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: 10 + Math.random() * 10,
-        vx: (Math.random() - 0.5) * 4,
-        vy: (Math.random() - 0.5) * 4
-    });
-}
-
-function drawHexagon() {
-    const radius = 100;
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const points = [];
-    for (let i = 0; i < 6; i++) {
-        const angle = (i * 60 - rotation) * Math.PI / 180;
-        const x = centerX + radius * Math.cos(angle);
-        const y = centerY + radius * Math.sin(angle);
-        points.push(x, y);
-    }
-    ctx.beginPath();
-    ctx.moveTo(points[0], points[1]);
-    for (let i = 1; i < points.length; i += 2) {
-        ctx.lineTo(points[i], points[i+1]);
-    }
-    ctx.closePath();
-    ctx.fillStyle = 'lightblue';
-    ctx.fill();
-}
-
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawHexagon();
-
-    // Update and draw balls
-    for (let ball of balls) {
-        ball.x += ball.vx;
-        ball.y += ball.vy;
-
-        // Bounce off walls
-        if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
-            ball.vx *= -1;
-        }
-        if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
-            ball.vy *= -1;
-        }
-
-        ctx.beginPath();
-        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'blue';
-        ctx.fill();
-    }
-
-    rotation += 0.01;
-    requestAnimationFrame(animate);
-}
-
-animate();
-</script>
+    <div class="hexagon">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+    </div>
 </body>
 </html>

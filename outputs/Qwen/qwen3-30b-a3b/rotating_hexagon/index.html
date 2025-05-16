@@ -6,73 +6,76 @@
     <style>
         body {
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: #222;
+            overflow: hidden;
+            background: #000;
         }
-        #hexagon-container {
-            width: 300px;
-            height: 300px;
-            position: relative;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            background: #444;
+        .hexagon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            transform: translate(-50%, -50%) rotate(0deg);
             animation: rotate 10s linear infinite;
-        }
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
         }
         .ball {
             position: absolute;
+            border-radius: 50%;
+            background: #fff;
             width: 10px;
             height: 10px;
-            background: red;
-            border-radius: 50%;
-            animation-timing-function: linear;
+        }
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div id="hexagon-container"></div>
+    <div class="hexagon" id="hexContainer"></div>
     <script>
-        const container = document.getElementById('hexagon-container');
         const balls = [];
         const numBalls = 10;
+        const radius = 100;
 
         for (let i = 0; i < numBalls; i++) {
             const ball = document.createElement('div');
-            ball.className = 'ball';
-            ball.style.left = Math.random() * (container.clientWidth - 10) + 'px';
-            ball.style.top = Math.random() * (container.clientHeight - 10) + 'px';
-            container.appendChild(ball);
+            ball.classList.add('ball');
+            document.getElementById('hexContainer').appendChild(ball);
+            let angle = Math.random() * 2 * Math.PI;
+            let dist = Math.random() * radius;
+            const cx = 100;
+            const cy = 100;
+            ball.style.left = (cx + Math.cos(angle) * dist - 5) + 'px';
+            ball.style.top = (cy + Math.sin(angle) * dist - 5) + 'px';
             balls.push({
                 el: ball,
-                x: (Math.random() - 0.5) * 2,
-                y: (Math.random() - 0.5) * 2
+                x: cx + Math.cos(angle) * dist,
+                y: cy + Math.sin(angle) * dist,
+                dx: (Math.random() - 0.5) * 2,
+                dy: (Math.random() - 0.5) * 2
             });
         }
 
         function animate() {
-            for (const ball of balls) {
-                let rect = ball.el.getBoundingClientRect();
-                let x = rect.left + window.scrollX;
-                let y = rect.top + window.scrollY;
-
-                // Check boundaries
-                if (x <= 0 || x >= container.clientWidth - 10) {
-                    ball.x *= -1;
+            const cx = 100;
+            const cy = 100;
+            for (let ball of balls) {
+                ball.x += ball.dx;
+                ball.y += ball.dy;
+                
+                // Check if outside the circle
+                const dx = ball.x - cx;
+                const dy = ball.y - cy;
+                const distSq = dx*dx + dy*dy;
+                if (distSq > radius*radius) {
+                    ball.dx *= -1;
+                    ball.dy *= -1;
                 }
-                if (y <= 0 || y >= container.clientHeight - 10) {
-                    ball.y *= -1;
-                }
-
-                x += ball.x;
-                y += ball.y;
-
-                ball.el.style.left = x + 'px';
-                ball.el.style.top = y + 'px';
+                
+                ball.el.style.left = (ball.x - 5) + 'px';
+                ball.el.style.top = (ball.y - 5) + 'px';
             }
             requestAnimationFrame(animate);
         }

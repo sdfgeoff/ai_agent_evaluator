@@ -6,7 +6,7 @@ from .test import create_site, generate_html_log_file, run_test
 
 
 from .config import get_config
-from .agent.datatypes import TestParameters, TestToRun
+from .agent.datatypes import TestConfig, TestToRun
 import structlog
 import argparse
 
@@ -44,7 +44,7 @@ def main(args: Args):
                 "loading_test",
                 test_settings_file=test_settings_file,
             )
-        test_parameters = TestParameters.model_validate(
+        test_parameters = TestConfig.model_validate(
             json.load(open(test_settings_file, "r"))
         )
         assert test_parameters.name not in test_names, (

@@ -25,13 +25,19 @@ class Result(BaseModel):
 Tools = Literal["bash", "create_file"]
 
 
-class TestParameters(BaseModel):
-    name: str
-    docker_image: str
-    blurb: str
-    initial_prompt: list[Message]
 
+
+class TestParameters(BaseModel):
+    docker_image: str
+    initial_prompt: list[Message]
     allowed_tools: list[Tools] = ["bash", "create_file"]
+
+
+class TestConfig(TestParameters):
+    name: str
+    blurb: str
+    tags: list[str] = []
+
 
 
 class TestToRun(BaseModel):

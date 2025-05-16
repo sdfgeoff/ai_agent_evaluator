@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Hello World</title>
     <style>
         body {
-            background-color: #000000;
-            color: #FF0000;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 20%;
-            font-weight: bold;
-            font-size: 3em;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
         h1 {
+            font-size: 3em;
+            color: #ff4757;
             text-shadow: 2px 2px 4px #000000;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>

@@ -1,4 +1,5 @@
 use super::types::{ChatParameters, ChatResponse};
+use log::{warn};
 
 pub struct OpenAiClient {
     client: reqwest::Client,
@@ -25,7 +26,7 @@ impl OpenAiClient {
 
         let result = raw.error_for_status_ref().err();
         if let Some(err) = result {
-            println!("STATUS CODE NOT OK: {:?}", raw.text().await?);
+            warn!("STATUS CODE NOT OK: {:?}", raw.text().await?);
             return Err(err);
         }
         raw.json::<ChatResponse>().await

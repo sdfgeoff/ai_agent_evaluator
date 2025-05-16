@@ -65,10 +65,11 @@ impl ToolAndCallable for BashTool {
         Box::pin(async move {
             let args: BashArguments =
                 serde_json::from_str(&arguments).map_err(|e| e.to_string())?;
-            let output = std::process::Command::new("bash")
+            let output = tokio::process::Command::new("bash")
                 .arg("-c")
                 .arg(&args.command)
                 .output()
+                .await
                 .map_err(|e| e.to_string())?;
 
             let result = BashResult {

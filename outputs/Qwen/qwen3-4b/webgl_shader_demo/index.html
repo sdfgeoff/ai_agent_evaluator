@@ -1,101 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebGL Demo</title>
-    <style>
-        body { margin: 0; overflow: hidden; }
-        canvas { display: block; }
-    </style>
+    <meta charset="UTF-8">
+    <title>Basic WebGL Shader Demo</title>
 </head>
 <body>
-<canvas id="webglcanvas"></canvas>
+<canvas id="webgl" width="800" height="600"></canvas>
 <script>
-const canvas = document.getElementById('webglcanvas');
-const gl = canvas.getContext('webgl');
-if (!gl) {
-    alert('WebGL not supported');
-}
-
-// Vertex shader
-const vertexSource = `#version 300 es
-attribute vec2 a_position;
-void main() {
-    gl_Position = vec4(a_position, 0.0, 1.0);
-}
-`;
-
-// Fragment shader
-const fragmentSource = `#version 300 es
-precision mediump float;
-uniform vec4 u_color;
-void main() {
-    gl_FragColor = u_color;
-}
-`;
-
-// Create shaders
-function createShader(type, source) {
-    const shader = gl.createShader(type);
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
-    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error('Shader compile error:', gl.getShaderInfoLog(shader));
-        gl.deleteShader(shader);
-        return null;
+    const canvas = document.getElementById('webgl');
+    const gl = canvas.getContext('webgl');
+    if (!gl) {
+        alert('WebGL not supported');
     }
-    return shader;
-}
 
-// Create program
-function createProgram(vertexShader, fragmentShader) {
+    // Vertex shader
+    const vertexShaderSource = `
+        attribute vec2 a_position;
+        void main() {
+            gl_Position = vec4(a_position, 0.0, 1.0);
+        }
+    `;
+
+    // Fragment shader
+    const fragmentShaderSource = `
+        precision mediump float;
+        void main() {
+            gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+        }
+    `;
+
+    // Compile shaders
+    function compileShader(source, type) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+            console.error('Shader compilation failed:', gl.getShaderInfoLog(shader));
+            gl.deleteShader(shader);
+            return null;
+        }
+        return shader;
+    }
+
+    const vertexShader = compileShader(vertexShaderSource, gl.VERTEX_SHADER);
+    const fragmentShader = compileShader(fragmentShaderSource, gl.FRAGMENT_SHADER);
+
+    // Create program
     const program = gl.createProgram();
     gl.attachShader(program, vertexShader);
     gl.attachShader(program, fragmentShader);
     gl.linkProgram(program);
+
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error('Program link error:', gl.getProgramInfoLog(program));
-        return null;
+        console.error('Program linking failed:', gl.getProgramInfoLog(program));
+        return;
     }
-    return program;
-}
 
-// Main setup
-const vertexShader = createShader(gl.VERTEX_SHADER, vertexSource);
-const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentSource);
-const program = createProgram(vertexShader, fragmentShader);
-if (!program) {
-    alert('Failed to create program');
-}
+    // Set up vertex data
+    const positions = new Float32Array([
+        0.0, 0.0,
+        1.0, 0.0,
+        0.0, 1.0,
+        1.0, 1.0
+    ]);
 
-// Set up buffer
-const vertices = new Float32Array([
-    0.0, 0.0,
-    1.0, 0.0,
-    0.5, 1.0
-]);
-const vertexBuffer = gl.createBuffer();
- gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
- gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
 
-// Enable attributes
-const positionLocation = gl.getAttribLocation(program, 'a_position');
- gl.enableVertexAttribArray(positionLocation);
- gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+    // Enable attributes
+    const positionLocation = gl.getAttribLocation(program, 'a_position');
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
-// Set uniform
-const colorLocation = gl.getUniformLocation(program, 'u_color');
- gl.uniform4f(colorLocation, 1.0, 0.0, 0.0, 1.0);
-
-// Render loop
-function render() {
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.clear(gl.COLOR_BUFFER_BIT);
+    // Render
     gl.useProgram(program);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
-    requestAnimationFrame(render);
-}
+    gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
 
-render();
 </script>
 </body>
 </html>

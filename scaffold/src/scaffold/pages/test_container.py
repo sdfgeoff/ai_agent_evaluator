@@ -25,8 +25,9 @@ def test_container(source_page: str, test: str, tests: list[TestToRun]):
                 p.add(tests[0].test_parameters.blurb)
             with Tag("h3", test_header) as p:
                 p.add("Initial Prompt:")
-            #with Tag("pre", test_header, class_="prompt") as p:
-            #    p.add(tests[0].test_parameters.initial_prompt)
+            for prompt in tests[0].test_parameters.initial_prompt:
+                with Tag("pre", test_header, class_="prompt") as p:
+                    p.add(prompt.content)
 
         for provider in provider_names:
             tests = sorted(by_provider[provider], key=lambda x: x.model)

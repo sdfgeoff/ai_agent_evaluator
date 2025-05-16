@@ -1,60 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Go-Kart Racing Game</title>
+    <meta charset="UTF-8">
+    <title>3D Go-Kart Racing Game</title>
     <style>
-        body { margin: 0; }
+        body { margin: 0; overflow: hidden; }
         canvas { display: block; }
     </style>
 </head>
 <body>
-<script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
-// Three.js game code here
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+// Scene setup
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x202020);
+
+// Camera
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
 camera.position.set(0, 10, 20);
 
-let renderer = new THREE.WebGLRenderer();
+// Renderer
+const renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-let light = new THREE.DirectionalLight(0xffffff, 1);
+// Lights
+const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 10, 7.5);
 scene.add(light);
 
-// Create road
-let roadGeometry = new THREE.PlaneGeometry(20, 20);
-let roadMaterial = new THREE.MeshStandardMaterial({ color: 0x444444 });
-let road = new THREE.Mesh(roadGeometry, roadMaterial);
-road.rotation.x = -Math.PI/2;
-scene.add(road);
+const ambient = new THREE.AmbientLight(0x404040);
+scene.add(ambient);
 
-// Create car
-let carGeometry = new THREE.BoxGeometry(1, 0.5, 2);
-let carMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
-let car = new THREE.Mesh(carGeometry, carMaterial);
-car.position.y = 0.25;
-scene.add(car);
+// Track (simple circular path)
+const trackGeometry = new THREE.RingGeometry(5, 8, 64);
+const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x333333, side: THREE.DoubleSide });
+const track = new THREE.Mesh(trackGeometry, trackMaterial);
+scene.add(track);
+
+// Go-kart (simple cube)
+const kartGeometry = new THREE.BoxGeometry(1, 0.5, 2);
+const kartMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+const kart = new THREE.Mesh(kartGeometry, kartMaterial);
+kart.position.set(0, 0.25, 0);
+scene.add(kart);
 
 // Controls
-let keys = {};
-window.addEventListener('keydown', (e) => keys[e.key] = true);
-window.addEventListener('keyup', (e) => keys[e.key] = false);
+let speed = 0;
+const keys = {};
 
+window.addEventListener('keydown', (e) => {
+    keys[e.key] = true;
+    if (e.key === ' ') { // Space to reset position
+        kart.position.set(0, 0.25, 0);
+        speed = 0;
+    }
+});
+
+window.addEventListener('keyup', (e) => {
+    keys[e.key] = false;
+});
+
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
-    
-    // Movement logic
-    let speed = 0.1;
-    if (keys['w']) car.position.z -= speed;
-    if (keys['s']) car.position.z += speed;
-    if (keys['a']) car.position.x -= speed;
-    if (keys['d']) car.position.x += speed;
-    
+
+    // Basic movement
+    if (keys['ArrowUp'] || keys['w']) speed += 0.05;
+    if (keys['ArrowDown'] || keys['s']) speed -= 0.05;
+    if (keys['ArrowLeft'] || keys['a']) kart.rotation.y -= 0.05;
+    if (keys['ArrowRight'] || keys['d']) kart.rotation.y += 0.05;
+
+    // Apply friction
+    speed *= 0.98;
+    kart.position.z += speed;
+
+    // Simple collision detection (track boundary)
+    if (Math.abs(kart.position.z) > 7) {
+        kart.position.set(0, 0.25, 0);
+        speed = 0;
+    }
+
     renderer.render(scene, camera);
 }
+
 animate();
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
 </script>
 </body>
 </html>

@@ -35,16 +35,13 @@ pub enum Tools {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TestParameters {
-    pub name: String,
     pub docker_image: String,
-    pub blurb: String,
     pub initial_prompt: Vec<Message>,
     pub allowed_tools: Vec<Tools>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct TestToRun {
-    pub name: String,
     pub test_parameters: TestParameters,
     pub provider: ModelProvider,
     pub model: String,

@@ -1,11 +1,4 @@
-body { font-family: Arial, sans-serif; } .game-board { width: 300px; height: 300px; border: 1px solid black; display: flex; justify-content: center; align-items: center; }
+/* global document */
 
-.game-board .row { display: flex; }
+const gameBoard = document.querySelector('.game-board');
 
-.game-board .cell { width: 100px; height: 100px; border: 1px solid black; display: flex; justify-content: center; align-items: center; }
-
-.game-board .cell:hover { background-color: lightgray; }
-
-.game-board .X { font-size: 48px; color: red; }
-
-.game-board .O { font-size: 48px; color: blue; }

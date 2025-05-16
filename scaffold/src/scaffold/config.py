@@ -16,7 +16,7 @@ class Config(BaseModel):
                 "qwen3-0.6b",
                 "qwen3-4b",
                 "qwen3-30b-a3b",
-                "qwen-3-32b",
+                # "qwen-3-32b",
                 "qwen2.5-14b-instruct",
                 "qwen2.5-7b-instruct-1m",
             ],
@@ -29,14 +29,14 @@ class Config(BaseModel):
         #         "glm-4-9b-0414",
         #     ],
         # ),
-        ModelProvider(
-            name="QWQ",
-            base_url="http://192.168.18.10:1234",
-            token="asdf",
-            models=[
-                "qwq-32b",
-            ],
-        ),
+        # ModelProvider(
+        #     name="QWQ",
+        #     base_url="http://192.168.18.10:1234",
+        #     token="asdf",
+        #     models=[
+        #         "qwq-32b",
+        #     ],
+        # ),
         ModelProvider(
             name="Meta",
             base_url="http://192.168.18.10:1234",

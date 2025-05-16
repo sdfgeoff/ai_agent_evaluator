@@ -1,35 +1,41 @@
-const gameContainer = document.getElementById('game');
+const board = document.getElementById('game-board');
 const statusText = document.getElementById('status');
 const resetButton = document.getElementById('reset');
 
-let board = Array(9).fill(null);
 let currentPlayer = 'X';
+let gameBoard = ['', '', '', '', '', '', '', '', ''];
 let gameActive = true;
 
+const winningCombinations = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+    [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+    [0, 4, 8], [2, 4, 6]             // diagonals
+];
+
 function createBoard() {
-    gameContainer.innerHTML = '';
-    board = Array(9).fill(null);
-    for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.classList.add('cell');
-        cell.dataset.index = i;
-        cell.addEventListener('click', handleCellClick);
-        gameContainer.appendChild(cell);
-    }
+    board.innerHTML = '';
+    gameBoard.forEach((cell, index) => {
+        const cellElement = document.createElement('div');
+        cellElement.classList.add('cell');
+        cellElement.dataset.index = index;
+        cellElement.textContent = cell;
+        cellElement.addEventListener('click', handleCellClick);
+        board.appendChild(cellElement);
+    });
 }
 
 function handleCellClick(e) {
     const index = e.target.dataset.index;
-    if (!gameActive || board[index]) return;
+    if (gameBoard[index] !== '' || !gameActive) return;
 
-    board[index] = currentPlayer;
+    gameBoard[index] = currentPlayer;
     e.target.textContent = currentPlayer;
 
     if (checkWin()) {
         statusText.textContent = `Player ${currentPlayer} wins!`;
         gameActive = false;
-    } else if (board.every(cell => cell)) {
-        statusText.textContent = 'It’s a draw!';
+    } else if (gameBoard.every(cell => cell !== '')) {
+        statusText.textContent = 'It\'s a draw!';
         gameActive = false;
     } else {
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
@@ -38,24 +44,18 @@ function handleCellClick(e) {
 }
 
 function checkWin() {
-    const winPatterns = [
-        [0,1,2], [3,4,5], [6,7,8], // rows
-        [0,3,6], [1,4,7], [2,5,8], // columns
-        [0,4,8], [2,4,6]           // diagonals
-    ];
-
-    return winPatterns.some(pattern => {
-        const [a,b,c] = pattern;
-        return board[a] && board[a] === board[b] && board[a] === board[c];
+    return winningCombinations.some(combination => {
+        const [a, b, c] = combination;
+        return gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c];
     });
 }
 
 resetButton.addEventListener('click', () => {
     currentPlayer = 'X';
+    gameBoard = ['', '', '', '', '', '', '', '', ''];
     gameActive = true;
     statusText.textContent = `Player ${currentPlayer}'s turn`;
     createBoard();
 });
 
-// Initialize the game
 createBoard();

@@ -1,7 +1,0 @@
-{
-	"name": "WebGL Shader Demo",
-    "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
-    "blurb": "Create a demo shader in webgl",
-    "initial_prompt": "Can you set up a webgl demo for me? I'd like an example of a basic webgl shader. Make sure the output is available in index.html, but you can install any packages necessary.",
-    "thumbnail_command": ""
-}

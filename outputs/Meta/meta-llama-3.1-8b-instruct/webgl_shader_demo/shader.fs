@@ -1,0 +1,1 @@
+#version 300 es\nprecision highp float;\nout vec4 FragColor;\nin vec2 vTexcoord;\nmixed vPosition;\nuniform sampler2D texture1;\nvoid main() {\nFragColor = texture(texture1, vTexcoord);\n} \n
