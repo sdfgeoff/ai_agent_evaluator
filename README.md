@@ -74,4 +74,3 @@ The repo consists of three parts:
 
 ## simple-agent
 To allow tests to be run in just about any docker container, the agent is written in rust and compiled to a single staticly linked binary (even using musl rather than glibc!). This means that there is no need for the docker container to have python, npm or anything. It just needs to be a reasonably standard linux container.
-
