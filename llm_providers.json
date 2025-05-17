@@ -1,0 +1,88 @@
+{
+    "providers": [
+        {
+            "name": "Qwen",
+            "base_url": "http://192.168.18.10:1234",
+            "token": "asdf",
+            "models": [
+                {
+                    "key":"qwen3-0.6b",
+                    "enabled": true
+                },
+                {
+                    "key":"qwen3-4b",
+                    "enabled": false
+                },
+                {
+                    "key":"qwen3-30b-a3b",
+                    "enabled": false
+                },
+                {
+                    "key":"qwen-3-32b",
+                    "enabled": false
+                },
+                {
+                    "key":"qwen2.5-14b-instruct",
+                    "enabled": false
+                },
+                {
+                    "key":"qwen2.5-7b-instruct-1m",
+                    "enabled": false
+                }
+            ],
+            "enabled": true
+        },
+        {
+            "name": "THUDM",
+            "base_url": "http://192.168.18.10:1234",
+            "token": "asdf",
+            "models": [
+                {
+                    "key": "glm-4-9b-0414",
+                    "enabled": true
+                }
+            ],
+            "enabled": false
+        },
+        {
+            "name": "QWQ",
+            "base_url": "http://192.168.18.10:1234",
+            "token": "asdf",
+            "models": [
+                {
+                    "key": "qwq-32b",
+                    "enabled": true
+                }
+            ],
+            "enabled": false
+        },
+        {
+            "name": "Meta",
+            "base_url": "http://192.168.18.10:1234",
+            "token": "asdf",
+            "models": [
+                {
+                    "key": "meta-llama-3.1-8b-instruct",
+                    "enabled": true
+                }
+            ],
+            "enabled": false
+        },
+        {
+            "name": "OpenAI",
+            "base_url": "https://api.openai.com",
+            "token": "",
+            "models": [
+                {
+                    "key": "o4-mini",
+                    "enabled": true
+                },
+                {
+                    "key": "o3-mini",
+                    "enabled": true
+                }
+            ],
+            "enabled": false
+        }
+    ]
+}

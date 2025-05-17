@@ -11,5 +11,6 @@
 	"allowed_tools": [
 		"bash",
 		"create_file"
-	]
+	],
+	"tags": ["webgl", "shader"]
 }

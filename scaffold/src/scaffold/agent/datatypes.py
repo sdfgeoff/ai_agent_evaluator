@@ -3,12 +3,16 @@ from typing import List, Literal
 from pydantic import AwareDatetime, BaseModel
 from .provider.openai_types import Message
 
+class Model(BaseModel):
+    key: str
+    enabled: bool
 
 class ModelProvider(BaseModel):
     name: str
     base_url: str
     token: str
-    models: List[str]
+    models: List[Model]
+    enable: bool = True
 
 
 class ResultStats(BaseModel):
@@ -19,7 +23,6 @@ class ResultStats(BaseModel):
 
 class Result(BaseModel):
     stats: ResultStats
-    thumbnail: bytes
 
 
 Tools = Literal["bash", "create_file"]
@@ -42,8 +45,9 @@ class TestConfig(TestParameters):
 
 class TestToRun(BaseModel):
     name: str
-    test_parameters: TestParameters
+    test_parameters: TestConfig
     provider: ModelProvider
-    model: str
+    model: Model
     input_folder: str
     output_folder: str
+    enable: bool = True

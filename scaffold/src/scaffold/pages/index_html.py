@@ -11,7 +11,7 @@ def index_html(
 ) -> str:
     by_test_name: dict[str, list[TestToRun]] = defaultdict(list)
     for test in tests:
-        test_name = test.test_parameters.name
+        test_name = test.name
         by_test_name[test_name].append(test)
 
     # sort test by test name
@@ -31,7 +31,7 @@ def index_html(
                     .pagecontainer {
                         margin: auto;
                         background-color: #f4f4f4;
-                        width: 84em;
+                        max-width: 84em;
                         padding: 2em;
                     }
                     h1 {
@@ -54,9 +54,7 @@ def index_html(
                     }
 
                     .run_container {
-                        display: flex;
                         flex-wrap: wrap;
-                        gap: 20px;
                     }
 
                     .prompt {
@@ -93,6 +91,19 @@ def index_html(
                     .flex-grow-1 {
                         flex-grow: 1;
                     }
+                    .gap-1 {
+                        gap: 1em;
+                    }
+                    .padding-1 {
+                        padding: 1em;
+                    }
+                    .tag {
+                        font-weight: bold;
+                        background-color: #000;
+                        color: #FFe0B2;
+                        border-radius: 5px;
+                        padding: 5px;
+                    }
 
                     """
                 )
@@ -117,9 +128,10 @@ def index_html(
                     h2.add("Table of Contents")
                 with Tag("ul", pagecontainer) as ul:
                     for test in test_names:
+                        test_config = by_test_name[test][0].test_parameters
                         with Tag("li", ul) as li:
                             with Tag("a", li, href=f"#test-{test}") as a:
-                                a.add(test)
+                                a.add(test_config.name)
 
                 with Tag("h1", pagecontainer) as h2:
                     h2.add("Results")

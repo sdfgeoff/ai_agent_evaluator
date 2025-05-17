@@ -19,7 +19,12 @@ def test_container(source_page: str, test: str, tests: list[TestToRun]):
                 "a", test_heading, href=f"#{test}", class_="no-link-underline"
             ) as a:
                 with Tag("h2", a) as h1:
-                    h1.add(test)
+                    h1.add(tests[0].test_parameters.name)
+            
+            with Tag("div", test_heading, class_="d-flex gap-1") as tag_container:
+                for tag in tests[0].test_parameters.tags:
+                    with Tag("div", tag_container, class_="tag") as div:
+                        div.add(tag)
         with Tag("div", test_div, class_="panel-light") as test_header:
             with Tag("p", test_header) as p:
                 p.add(tests[0].test_parameters.blurb)
@@ -30,11 +35,11 @@ def test_container(source_page: str, test: str, tests: list[TestToRun]):
                     p.add(prompt.content)
 
         for provider in provider_names:
-            tests = sorted(by_provider[provider], key=lambda x: x.model)
+            tests = sorted(by_provider[provider], key=lambda x: x.model.key)
 
             with Tag("h3", test_div) as h2:
                 h2.add(provider)
-            with Tag("div", test_div, class_="run_container") as run_container:
+            with Tag("div", test_div, class_="run_container padding-1 d-flex gap-1") as run_container:
                 for run in tests:
                     run_container.add(run_card(source_page, run))
     return str(test_div)

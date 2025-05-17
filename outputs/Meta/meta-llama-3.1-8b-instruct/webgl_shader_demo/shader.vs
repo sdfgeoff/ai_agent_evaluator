@@ -1,1 +1,0 @@
-#version 300 es\nuniform mat4 projection;\nuniform mat4 modelview;\nlayout(location = 0) in vec4 vertex;\nout vec4 vPosition;\nvoid main() {\nvPosition = projection * modelview * vertex;\n} \n

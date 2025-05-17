@@ -10,7 +10,7 @@ def run_card(source_page: str, run: TestToRun):
     )
     with Tag("div", class_="run_card") as run_div:
         with Tag("h4", run_div) as h2:
-            h2.add(run.model)
+            h2.add(run.model.key)
         # iframe of output_folder.index.html
         with Tag("div", run_div, class_="zoom-outer") as zoom_div_outer:
             with Tag("div", zoom_div_outer, class_="zoom-inner") as zoom_div:

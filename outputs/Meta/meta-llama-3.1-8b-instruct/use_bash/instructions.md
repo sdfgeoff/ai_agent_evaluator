@@ -1,1 +1,0 @@
-Find the current time and OS and save this data into index.html
