@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rotating Hexagon with Bouncing Balls</title>
+    <style>body { margin: 0; overflow: hidden; }</style>
+</head>
+<body>
+<canvas id="myCanvas" width="800" height="600"></canvas>
+<script>
+const canvas = document.getElementById('myCanvas');
+const ctx = canvas.getContext('2d');
+
+// Hexagon properties
+const hexRadius = 100;
+let hexAngle = 0;
+
+// Ball properties
+const balls = [];
+for (let i = 0; i < 10; i++) {
+    balls.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        dx: (Math.random() - 0.5) * 4,
+        dy: (Math.random() - 0.5) * 4,
+        radius: 10 + Math.random() * 5
+    });
+}
+
+function drawHexagon() {
+    ctx.save();
+    ctx.translate(canvas.width/2, canvas.height/2);
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+        const angle = hexAngle + i * Math.PI/3;
+        const x = Math.cos(angle) * hexRadius;
+        const y = Math.sin(angle) * hexRadius;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'blue';
+    ctx.fill();
+    ctx.restore();
+}
+
+function drawBalls() {
+    for (const ball of balls) {
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
+        ctx.fillStyle = 'red';
+        ctx.fill();
+    }
+}
+
+function animate() {
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw hexagon
+    drawHexagon();
+
+    // Update and draw balls
+    for (const ball of balls) {
+        ball.x += ball.dx;
+        ball.y += ball.dy;
+
+        // Bounce off walls
+        if (ball.x < ball.radius || ball.x > canvas.width - ball.radius) {
+            ball.dx = -ball.dx;
+        }
+        if (ball.y < ball.radius || ball.y > canvas.height - ball.radius) {
+            ball.dy = -ball.dy;
+        }
+    }
+
+    drawBalls();
+
+    // Rotate hexagon
+    hexAngle += 0.01;
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>

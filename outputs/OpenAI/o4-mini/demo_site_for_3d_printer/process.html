@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post-Filament Change Process - 3D Printing Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <h1>3D Printing Hub</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="calibration.html">Calibration</a></li>
+        <li><a href="filament.html">Filament Management</a></li>
+        <li><a href="process.html">Post-Filament Change</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Main Content -->
+  <main class="container">
+    <section>
+      <h2 class="section-title">Post-Filament Change Workflow</h2>
+      <p>After swapping filaments, proper steps ensure print consistency and avoid nozzle clogs or extrusion issues.</p>
+    </section>
+
+    <section>
+      <h3>1. Warmup & Purge</h3>
+      <ol>
+        <li>Set nozzle temp to new filament's typical printing temperature.</li>
+        <li>Extrude 50-100mm to purge old material completely.</li>
+        <li>Observe color consistency; if residues appear, increase extrusion or use cleaning filament.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h3>2. Retraction & Pressure Adjustment</h3>
+      <ul>
+        <li>Check retraction distance: TPU requires less (1-2mm) compared to PLA (4-6mm).</li>
+        <li>Adjust retraction speed: slower for flexible filaments, faster for stiff ones.</li>
+        <li>Minimize oozing by tuning pressure advance or input shaping if supported.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>3. Print a Calibration Line</h3>
+      <p>Print a single-layer line or small square perimeter to judge flow consistency, adhesion, and squish.</p>
+    </section>
+
+    <section>
+      <h3>4. Temperature Tower</h3>
+      <p>Run a temperature tower to pinpoint ideal extrusion temp for dimensional accuracy and layer adhesion.</p>
+    </section>
+
+    <section>
+      <h3>5. Flow Rate & Speed Calibration</h3>
+      <ol>
+        <li>Print a flow calibration cube and measure wall thickness; adjust extrusion multiplier.</li>
+        <li>Test print speeds: slow for high detail, faster for prototypes. Ensure printer can handle accelerations.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h3>6. Final Test Print</h3>
+      <p>Complete a small functional print (benchy, calibration cube) to confirm all settings.</p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 3D Printing Hub. All rights reserved.</p>
+  </footer>
+</body>
+</html>

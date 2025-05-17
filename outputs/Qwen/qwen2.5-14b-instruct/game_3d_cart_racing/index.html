@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GoKart Racing Game</title>
+    <!-- Include Three.js library -->
+    <script src='https://threejs.org/build/three.js'></script>
+</head>
+<body onload='init()'>
+<script type='module'>
+// Define the init function which will be called when the document loads
+function init() {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    const renderer = new THREE.WebGLRenderer({ canvas: document.createElement('canvas') });
+    
+    // Set up a simple lighting model
+    const light = new THREE.PointLight(0xffffff);
+    light.position.set(-100, 50, 100).normalize();
+    scene.add(light);
+    camera.lookAt(new THREE.Vector3(0, 2, 10));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);   
+    // Create a simple ground plane
+    const geometry = new THREE.PlaneGeometry(50, 50);
+    const material = new THREE.MeshBasicMaterial({ color: 0x777777 });
+    const plane = new THREE.Mesh(geometry, material);
+    plane.rotation.x -= Math.PI / 2;
+    scene.add(plane); 
+    // Create a simple GoKart
+    const gocartGeometry = new THREE.BoxGeometry(1.5, 0.3, 1.5);
+    const gocartMaterial = new THREE.MeshStandardMaterial({ color: 0x87CEEB });
+    const gocart = new THREE.Mesh(gocartGeometry, gocartMaterial);
+    gocart.position.set(0, 0.2, -1); // place the GoKart above the ground
+    scene.add(gocart);
+    
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+    animate();
+}
+</script>
+</body>
+</html>

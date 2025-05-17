@@ -15,7 +15,7 @@ use structured_logger::{Builder, async_json::new_writer};
 
 fn make_provider(url: String, token: String, model: String) -> LLMClient {
     let mut headers = reqwest::header::HeaderMap::new();
-    headers.insert(AUTHORIZATION, token.parse().unwrap());
+    headers.insert(AUTHORIZATION, format!("Bearer {}", token).parse().unwrap());
 
     let http_client = reqwest::Client::builder()
         .default_headers(headers)

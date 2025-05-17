@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotating Hexagon with Bouncing Balls</title>
+  <style>
+    body, html { margin: 0; padding: 0; overflow: hidden; background: #222; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      centerX = w / 2;
+      centerY = h / 2;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Hexagon parameters
+    const hexRadius = Math.min(w, h) * 0.4;
+    const hexVertices = [];
+    const normals = [];
+    for (let i = 0; i < 6; i++) {
+      const angle = Math.PI / 3 * i - Math.PI / 6;
+      const x = Math.cos(angle) * hexRadius;
+      const y = Math.sin(angle) * hexRadius;
+      hexVertices.push({x, y});
+    }
+    // Compute inward normals for each edge
+    for (let i = 0; i < 6; i++) {
+      const p1 = hexVertices[i];
+      const p2 = hexVertices[(i + 1) % 6];
+      // edge vector
+      const ex = p2.x - p1.x;
+      const ey = p2.y - p1.y;
+      // normal (rotate edge by 90deg)
+      let nx = ey;
+      let ny = -ex;
+      // ensure it's inward: test center (0,0) gives positive
+      const dot = nx * (-p1.x) + ny * (-p1.y);
+      if (dot < 0) { nx = -nx; ny = -ny; }
+      const len = Math.hypot(nx, ny);
+      normals.push({nx: nx / len, ny: ny / len, px: p1.x, py: p1.y});
+    }
+
+    // Balls
+    const balls = [];
+    const ballCount = 12;
+    const ballRadius = 10;
+
+    // Point-in-polygon test (convex)
+    function insideHex(x, y) {
+      for (let e of normals) {
+        const d = (x - e.px) * e.nx + (y - e.py) * e.ny;
+        if (d < ballRadius) return false;
+      }
+      return true;
+    }
+    // random ball init
+    for (let i = 0; i < ballCount; i++) {
+      let x, y;
+      do {
+        x = (Math.random() * 2 - 1) * hexRadius;
+        y = (Math.random() * 2 - 1) * hexRadius;
+      } while (!insideHex(x, y));
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2 + Math.random() * 2;
+      balls.push({x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed});
+    }
+
+    let angle = 0;
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      angle += 0.005;
+
+      // draw rotating hexagon
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(angle);
+      // polygon
+      ctx.beginPath();
+      ctx.moveTo(hexVertices[0].x, hexVertices[0].y);
+      for (let v of hexVertices) ctx.lineTo(v.x, v.y);
+      ctx.closePath();
+      ctx.strokeStyle = '#0f0'; ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // update and draw balls in local coords
+      for (let b of balls) {
+        // move
+        b.x += b.vx;
+        b.y += b.vy;
+        // collision with edges
+        for (let e of normals) {
+          const d = (b.x - e.px) * e.nx + (b.y - e.py) * e.ny;
+          if (d < ballRadius) {
+            // push back
+            b.x += (ballRadius - d) * e.nx;
+            b.y += (ballRadius - d) * e.ny;
+            // reflect
+            const vDot = b.vx * e.nx + b.vy * e.ny;
+            b.vx -= 2 * vDot * e.nx;
+            b.vy -= 2 * vDot * e.ny;
+          }
+        }
+        // draw
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#ff3';
+        ctx.fill();
+      }
+
+      ctx.restore();
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>

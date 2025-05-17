@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Go-Kart Racing Game</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Track
+        const trackGeometry = new THREE.PlaneGeometry(20, 20);
+        const trackMaterial = new THREE.MeshBasicMaterial({color: 0xcc9900});
+        const track = new THREE.Mesh(trackGeometry, trackMaterial);
+        track.rotation.x = -Math.PI/2;
+        scene.add(track);
+
+        // Kart
+        const kartGeometry = new THREE.BoxGeometry(1, 0.5, 1);
+        const kartMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+        const kart = new THREE.Mesh(kartGeometry, kartMaterial);
+        kart.position.y = 1;
+        scene.add(kart);
+
+        // Light
+        const light = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(light);
+
+        // Camera initial position
+        camera.position.z = 10;
+        camera.position.y = 3;
+        camera.lookAt(kart.position);
+
+        let velocity = 0;
+        let rotation = 0;
+
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowUp':
+                    velocity = 0.1;
+                    break;
+                case 'ArrowDown':
+                    velocity = -0.1;
+                    break;
+                case 'ArrowLeft':
+                    rotation = 0.05;
+                    break;
+                case 'ArrowRight':
+                    rotation = -0.05;
+                    break;
+            }
+        });
+
+        document.addEventListener('keyup', function(event) {
+            switch(event.key) {
+                case 'ArrowUp':
+                case 'ArrowDown':
+                    velocity = 0;
+                    break;
+                case 'ArrowLeft':
+                case 'ArrowRight':
+                    rotation = 0;
+                    break;
+            }
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            // Update kart position
+            kart.position.x += velocity * Math.cos(kart.rotation.y);
+            kart.position.z += velocity * Math.sin(kart.rotation.y);
+            kart.rotation.y += rotation;
+            // Update camera position
+            camera.position.copy(kart.position);
+            camera.position.z -= 10;
+            camera.position.y = 3;
+            camera.lookAt(kart.position);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>

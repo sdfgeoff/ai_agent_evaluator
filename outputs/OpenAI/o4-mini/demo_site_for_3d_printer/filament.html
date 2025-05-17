@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filament Management - 3D Printing Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <h1>3D Printing Hub</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="calibration.html">Calibration</a></li>
+        <li><a href="filament.html">Filament Management</a></li>
+        <li><a href="process.html">Post-Filament Change</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Main Content -->
+  <main class="container">
+    <section>
+      <h2 class="section-title">Filament Management Essentials</h2>
+      <p>Proper filament handling ensures reliable, high-quality prints.</p>
+    </section>
+
+    <section>
+      <h3>1. Storage & Humidity Control</h3>
+      <ul>
+        <li>Semi-dry Boxes: Store filaments with silica gel packs inside airtight containers.</li>
+        <li>Driers & Ovens: Use filament dryers (45300C) for 4-6 hours for PLA/ABS, up to 12 for hygroscopic materials (Nylon, PVA).</li>
+        <li>Moisture Indicators: Visual hygrometers help monitor humidity levels (<20% RH ideal).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>2. Filament Types & Characteristics</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Print Temp</th>
+            <th>Humidity Sensitivity</th>
+            <th>Properties</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PLA</td>
+            <td>190-2206C</td>
+            <td>Low</td>
+            <td>Biodegradable, easy prints</td>
+          </tr>
+          <tr>
+            <td>ABS</td>
+            <td>220-2506C</td>
+            <td>Low</td>
+            <td>Durable, warping issues</td>
+          </tr>
+          <tr>
+            <td>Nylon</td>
+            <td>240-2606C</td>
+            <td>High</td>
+            <td>Strong, flexible, hygroscopic</td>
+          </tr>
+          <tr>
+            <td>TPU</td>
+            <td>210-2306C</td>
+            <td>Medium</td>
+            <td>Flexible, rubber-like</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>3. Switching Filaments</h3>
+      <ol>
+        <li>Heat nozzle to current filament's temp. Retract filament completely.</li>
+        <li>Clean nozzle: perform cold pull with Nylon or cleaning filament.</li>
+        <li>Insert new filament; extrude 20-30mm to ensure clean flow.</li>
+        <li>Adjust temperature to new material's spec, run purge tower to stabilize flow.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h3>4. Troubleshooting Moisture-Related Issues</h3>
+      <ul>
+        <li>Signs: bubbles, stringing, rough surface.</li>
+        <li>Fixes: dry filament, slow print speed, increase nozzle temp slightly.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 3D Printing Hub. All rights reserved.</p>
+  </footer>
+</body>
+</html>

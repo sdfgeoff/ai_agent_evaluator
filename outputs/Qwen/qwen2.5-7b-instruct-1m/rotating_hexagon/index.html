@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Rotating Hexagon with Bouncing Balls</title>
+<script type="text/javascript">
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+background(255);
+rotate(frameCount * 0.01);
+fill(255, 0, 0);
+strokewidth(3);
+polygon(-60, 0, 3, 3);
+dir = frameCount % 4;
+if (dir == 1) {
+mirrorX();
+}
+if (dir == 2) {
+mirrorY();
+}
+if (dir == 3) {
+mirrorX(); mirrorY();
+}
+noStroke();
+fill(0, 255, 255);
+circle(width / 2, height / 2, 100);
+}
+
+function polygon(x, y, sides, radius) {
+beginShape();
+for (var i = 0; i < sides; i++) {
+vertex(x + radius * cos(i * TWO_PI / sides), y + radius * sin(i * TWO_PI / sides));
+}
+endShape(CLOSE);
+}
+</script>
+<style type="text/css">
+body {margin: auto; width: 400px; height: 400px;}
+#canvas {background-color: #fff; display: block; margin: 20px auto;}</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js"></script>
+</head>
+<body>
+<canvas id='canvas'></canvas>
+</body>
+</html>

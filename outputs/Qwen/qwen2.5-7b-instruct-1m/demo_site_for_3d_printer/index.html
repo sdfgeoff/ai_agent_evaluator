@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Printers Guide</title>
+    <!-- Tailwind CSS is a utility-first CSS framework that allows you to design without ever leaving your markup. -->
+    <link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.18/dist/tailwind.min.css' rel='stylesheet'>
+    <!-- Google Fonts for some custom fonts such as 'Montserrat', which is a beautiful sans-serif font and 'IBM Plex Sans', a modern sans-serif typeface designed by the folks at IBM, with a clean look. -->
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500&display=swap" rel="stylesheet">
+    <!-- ARIA Live Region for screen readers to announce changes in content dynamically as they occur. -->
+    <script src='https://cdn.jsdelivr.net/npm/@ilianaoliveira/aria-live@1'></script>
+</head>
+<body class='text-white bg-orange-400 w-screen h-screen flex items-center justify-center'>
+  <!-- Aria Live Region for screen readers to announce changes in content dynamically as they occur. -->
+  <div id='announce' aria-live='polite'></div>
+
+  <main class='w-full md:w-3/5 p-4 bg-white rounded-lg shadow-lg'>
+    <h1 class='text-center font-semibold text-orange-600'>Understanding 3D Printers: A Comprehensive Guide</h1>
+    <p class='text-center'>In this guide, we will explore the technical aspects of 3D printing. From calibration to filament changes and everything in between, you'll find detailed instructions on how to get the most out of your printer.</p>
+
+    <!-- Page Navigation -->
+    <nav class='mt-4 flex justify-center'>
+      <a href='index.html' class='mx-2 p-2 bg-orange-600 text-white rounded-lg'>Home</a>
+      <a href='calibration.html' class='mx-2 p-2 bg-orange-600 text-white rounded-lg'>Calibration</a>
+      <a href='filament-change.html' class='mx-2 p-2 bg-orange-600 text-white rounded-lg'>Filament Change</a>
+    </nav>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Make a 3d web based game of racing gocarts. Pick a standard rendering technology (Eg balylonjs, playcanvas, three.js). Make sure the result is available in index.html

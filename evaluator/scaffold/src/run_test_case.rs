@@ -46,7 +46,7 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
         output_folder: "/project".to_string(),
     };
 
-    let output = Command::new("docker")
+    let process = Command::new("docker")
         .args(&[
             "run",
             "--rm",
@@ -66,8 +66,10 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
             &test.test_parameters.test_parameters.docker_image,
             &format!("/agent/{}", Path::new(&agent_binary).file_name().unwrap().to_string_lossy()),
         ])
-        .output()
+        .spawn()
         .expect("Failed to execute docker command");
+
+    let output = process.wait_with_output().expect("Failed to read stdout");
 
     if !output.status.success() {
         warn!(

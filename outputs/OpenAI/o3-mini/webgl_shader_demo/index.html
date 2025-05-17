@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic WebGL Shader Demo</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #333; color: #fff; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <canvas id="glCanvas"></canvas>
+    <script>
+        // Get A WebGL context
+        const canvas = document.getElementById("glCanvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const gl = canvas.getContext("webgl");
+        if (!gl) {
+            alert("Unable to initialize WebGL. Your browser may not support it.");
+        }
+
+        // Vertex shader program
+        const vsSource = `
+            attribute vec4 aVertexPosition;
+
+            void main(void) {
+                gl_Position = aVertexPosition;
+            }
+        `;
+
+        // Fragment shader program
+        const fsSource = `
+            precision mediump float;
+            
+            void main(void) {
+                gl_FragColor = vec4(1.0, 0.5, 0.0, 1.0); // Orange color
+            }
+        `;
+
+        // Initialize a shader program; this is where all the lighting for the
+        // vertices and so forth is established.
+        function initShaderProgram(gl, vsSource, fsSource) {
+            const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+            const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+
+            // Create the shader program
+            const shaderProgram = gl.createProgram();
+            gl.attachShader(shaderProgram, vertexShader);
+            gl.attachShader(shaderProgram, fragmentShader);
+            gl.linkProgram(shaderProgram);
+
+            // If creating the shader program failed, alert
+            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                alert('Unable to initialize the shader program: ' + gl.getProgramInfoLog(shaderProgram));
+                return null;
+            }
+
+            return shaderProgram;
+        }
+
+        // creates a shader of the given type, uploads the source and
+        // compiles it.
+        function loadShader(gl, type, source) {
+            const shader = gl.createShader(type);
+
+            // Send the source to the shader object
+            gl.shaderSource(shader, source);
+
+            // Compile the shader program
+            gl.compileShader(shader);
+
+            // See if it compiled successfully
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                alert('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
+                gl.deleteShader(shader);
+                return null;
+            }
+
+            return shader;
+        }
+
+        // Initialize the shader program
+        const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+
+        // Look up where the vertex data needs to go.
+        const programInfo = {
+            program: shaderProgram,
+            attribLocations: {
+                vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+            },
+        };
+
+        // Here's a simple square (two triangles)
+        const positions = [
+            1.0,  1.0,
+           -1.0,  1.0,
+            1.0, -1.0,
+           -1.0, -1.0,
+        ];
+
+        // Create a buffer for the square's positions.
+        const positionBuffer = gl.createBuffer();
+
+        // Select the positionBuffer as the one to apply buffer operations to
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+        // Pass the list of positions into WebGL to build the shape. We do this by creating a Float32Array from the JavaScript array, then use it to fill the current buffer.
+        gl.bufferData(gl.ARRAY_BUFFER,
+                      new Float32Array(positions),
+                      gl.STATIC_DRAW);
+
+        // Draw the scene repeatedly
+        function render() {
+            // Adjust canvas size
+            resizeCanvasToDisplaySize(gl.canvas);
+            gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
+
+            // Clear the canvas
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+
+            // Tell WebGL how to pull out the positions from the position
+            // buffer into the vertexPosition attribute.
+            {
+                const numComponents = 2;  // pull out 2 values per iteration
+                const type = gl.FLOAT;    
+                const normalize = false;  
+                const stride = 0;         
+                const offset = 0;         
+                gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+                gl.vertexAttribPointer(
+                    programInfo.attribLocations.vertexPosition,
+                    numComponents,
+                    type,
+                    normalize,
+                    stride,
+                    offset);
+                gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+            }
+
+            // Tell WebGL to use our program when drawing
+            gl.useProgram(programInfo.program);
+
+            // Draw the square (two triangles)
+            {
+                const offset = 0;
+                const vertexCount = 4;
+                gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
+            }
+        }
+
+        // Call render
+        render();
+
+        // Utility: resize the canvas to the display size
+        function resizeCanvasToDisplaySize(canvas) {
+            const displayWidth  = canvas.clientWidth;
+            const displayHeight = canvas.clientHeight;
+
+            if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+                canvas.width = displayWidth;
+                canvas.height = displayHeight;
+            }
+        }
+    </script>
+</body>
+</html>

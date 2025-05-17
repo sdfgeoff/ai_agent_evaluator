@@ -1,0 +1,13 @@
+<html ><style >
+                body { font-family: Arial, sans-serif; background: grey; }
+                .block { margin: 5px; padding: 5px; white-space: pre-wrap; background: white; }
+
+                .prompt {
+                        white-space: pre-wrap;
+                        background-color: #000;
+                        color: #fff;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                    }
+                </style><body ><div class="block"><strong >user:</strong> I would like you to create an svg image of a sunset through the mountains. Make sure the result is visible in index.html</div><div class="block"><div ><strong >Tool Request:</strong> 404504164 - create_file<div class="prompt">{"content":"&lt;svg width=\"400\" height=\"200\"&gt;&lt;linearGradient id=\"grad1\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\" gradientUnits=\"userSpaceOnUse\"&gt;&lt;stop offset=\"0%\" stop-color=\"#FF7F50\"&gt;&lt;/stop&gt;&lt;stop offset=\"100%\" stop-color=\"#FFD700\"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;&lt;path fill=\"url(#grad1)\" d=\"M 30,60 Q 120,40 190,80 T 300,60\"&gt;&lt;/path&gt;&lt;path fill=\"none\" stroke=\"#0000ff\" stroke-width=\"5\" d=\"M 70,90 L 120,150 L 190,90\"&gt;&lt;/path&gt;&lt;/svg&gt;","file_name":"sunset_through_mountains.svg"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">File created at ./sunset_through_mountains.svg</p></div><div class="block"><div ><strong >Tool Request:</strong> 265467814 - bash<div class="prompt">{"command":"echo '&lt;div style=\"text-align: center;\"&gt;&lt;img src=\"/sunset_through_mountains.svg\"&gt;&lt;/div&gt;' &gt;&gt; index.html"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">{"output":null,"error":null,"exit_code":0}</p></div><div class="block"><div ><strong >Tool Request:</strong> 582177874 - bash<div class="prompt">{"command":"echo '&lt;/html&gt;' &gt;&gt; index.html"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">{"output":null,"error":null,"exit_code":0}</p></div><div class="block"><div ><strong >Tool Request:</strong> 387750302 - task_complete<div class="prompt">{}</div></div></div></body></html>

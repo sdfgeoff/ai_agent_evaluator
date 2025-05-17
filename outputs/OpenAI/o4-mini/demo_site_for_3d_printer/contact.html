@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - 3D Printing Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <nav class="container">
+      <h1>3D Printing Hub</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="calibration.html">Calibration</a></li>
+        <li><a href="filament.html">Filament Management</a></li>
+        <li><a href="process.html">Post-Filament Change</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+    <section>
+      <h2 class="section-title">Get in Touch</h2>
+      <p>Have questions or feedback? Fill out the form below, and we'll get back to you soon.</p>
+    </section>
+
+    <section>
+      <form action="#" method="post" class="container" style="max-width:600px; margin-top:2rem;">
+        <div style="margin-bottom:1rem;">
+          <label for="name" style="display:block; margin-bottom:0.5rem; color:var(--text-color);">Name</label>
+          <input type="text" id="name" name="name" required style="width:100%; padding:0.75rem; border-radius:var(--border-radius); border:1px solid #ccc;">
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label for="email" style="display:block; margin-bottom:0.5rem; color:var(--text-color);">Email</label>
+          <input type="email" id="email" name="email" required style="width:100%; padding:0.75rem; border-radius:var(--border-radius); border:1px solid #ccc;">
+        </div>
+        <div style="margin-bottom:1rem;">
+          <label for="message" style="display:block; margin-bottom:0.5rem; color:var(--text-color);">Message</label>
+          <textarea id="message" name="message" rows="6" required style="width:100%; padding:0.75rem; border-radius:var(--border-radius); border:1px solid #ccc;"></textarea>
+        </div>
+        <button type="submit" style="background:var(--primary); color:#fff; padding:0.75rem 2rem; border:none; border-radius:var(--border-radius); cursor:pointer; font-size:1rem;">Submit</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 3D Printing Hub. All rights reserved.</p>
+  </footer>
+</body>
+</html>

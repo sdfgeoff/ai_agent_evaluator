@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sunset Through the Mountains</title>
+  <style>
+    body { margin: 0; background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  </style>
+</head>
+<body>
+  <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+    <!-- Define gradients -->
+    <defs>
+      <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ff9a9e" />
+        <stop offset="100%" stop-color="#fad0c4" />
+      </linearGradient>
+      <linearGradient id="mountainGradient" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#654321" />
+        <stop offset="100%" stop-color="#2c1a0d" />
+      </linearGradient>
+    </defs>
+
+    <!-- Sky background -->
+    <rect width="800" height="600" fill="url(#skyGradient)" />
+
+    <!-- Sun -->
+    <circle cx="400" cy="400" r="50" fill="#FDB813" opacity="0.85" />
+
+    <!-- Mountain 1 -->
+    <polygon points="0,500 200,300 400,500" fill="url(#mountainGradient)" />
+
+    <!-- Mountain 2 -->
+    <polygon points="300,500 500,250 700,500" fill="url(#mountainGradient)" opacity="0.9" />
+
+    <!-- Mountain 3 (further away) -->
+    <polygon points="150,550 400,350 650,550" fill="#3d2b1f" opacity="0.7" />
+
+    <!-- Reflection on water if needed (for added effect) -->
+    <!-- Optionally, you can create a mirror effect for sun reflection if water was present. -->
+  </svg>
+</body>
+</html>

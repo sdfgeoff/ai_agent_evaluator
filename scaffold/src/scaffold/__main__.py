@@ -35,13 +35,13 @@ def main(args: Args):
     )
 
     # load all the run configs
-    run_configs: list[TestToRun] = []
+    test_to_run_configs: list[TestToRun] = []
     for run_config in run_config_paths:
         try:
             run_config = TestToRun.model_validate(
                 json.load(open(run_config, "r"))
             )
-            run_configs.append(run_config)
+            test_to_run_configs.append(run_config)
         except Exception as e:
             LOG.error(
                 "failed_to_load_test_config",
@@ -49,12 +49,10 @@ def main(args: Args):
                 error=str(e),
             )
             continue
-    
-    print(run_configs)
 
-    create_site(os.path.join(args.output_directory, "index.html"), run_configs)
+    create_site(os.path.join(args.output_directory, "index.html"), test_to_run_configs)
 
-    for test in run_configs:
+    for test in test_to_run_configs:
         generate_html_log_file(test)
 
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .hexagon {
+            animation: rotate 5s linear infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .ball {
+            animation: bounce 1s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <svg class="hexagon" viewBox="0 0 100 86.6">
+        <polygon points="50,0 100,25 100,75 50,100 0,75 0,25" fill="none" stroke="black"/>
+        <!-- Balls -->
+        <circle class="ball" cx="30" cy="40" r="5" fill="red"/>
+        <circle class="ball" cx="70" cy="40" r="5" fill="blue"/>
+    </svg>
+</body>
+</html>

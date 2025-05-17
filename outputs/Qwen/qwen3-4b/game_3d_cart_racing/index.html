@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>GoCart Race</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <script>
+        let scene, camera, renderer;
+        let cart;
+
+        init();
+        animate();
+
+        function init() {
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            document.body.appendChild(renderer.domElement);
+
+            // Track
+            const trackGeometry = new THREE.BoxGeometry(20, 0.5, 20);
+            const trackMaterial = new THREE.MeshStandardMaterial({ color: 0x333333 });
+            const track = new THREE.Mesh(trackGeometry, trackMaterial);
+            scene.add(track);
+
+            // GoCart
+            const cartGeometry = new THREE.BoxGeometry(1, 2, 1);
+            const cartMaterial = new THREE.MeshStandardMaterial({ color: 0xff0000 });
+            cart = new THREE.Mesh(cartGeometry, cartMaterial);
+            scene.add(cart);
+
+            // Lighting
+            const light = new THREE.PointLight(0xffffff, 1);
+            light.position.set(0, 5, 0);
+            scene.add(light);
+
+            // Camera position
+            camera.position.set(0, 2, 10);
+            camera.lookAt(0, 0, 0);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>

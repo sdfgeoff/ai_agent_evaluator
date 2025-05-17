@@ -1,0 +1,13 @@
+<html ><style >
+                body { font-family: Arial, sans-serif; background: grey; }
+                .block { margin: 5px; padding: 5px; white-space: pre-wrap; background: white; }
+
+                .prompt {
+                        white-space: pre-wrap;
+                        background-color: #000;
+                        color: #fff;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                    }
+                </style><body ><div class="block"><strong >user:</strong> I would like you to create an svg image of a sunset through the mountains. Make sure the result is visible in index.html</div><div class="block"><div ><strong >Tool Request:</strong> 160410673 - create_file<div class="prompt">{"content":"&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n    &lt;title&gt;Sunset Through Mountains&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n    &lt;svg width=\"800\" height=\"600\"&gt;\n        &lt;defs&gt;\n            &lt;linearGradient id=\"sunset\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"&gt;\n                &lt;stop offset=\"0%\" stop-color=\"orange\"/&gt;\n                &lt;stop offset=\"100%\" stop-color=\"purple\"/&gt;\n            &lt;/linearGradient&gt;\n        &lt;/defs&gt;\n        &lt;rect width=\"100%\" height=\"100%\" fill=\"url(#sunset)\" /&gt;\n        &lt;!-- Mountains --&gt;\n        &lt;polygon points=\"0,400 200,300 400,400\" fill=\"#555\"/&gt;\n        &lt;polygon points=\"200,350 300,250 400,350\" fill=\"#777\"/&gt;\n        &lt;polygon points=\"300,300 400,200 500,300\" fill=\"#999\"/&gt;\n        &lt;!-- Sun --&gt;\n        &lt;circle cx=\"100\" cy=\"100\" r=\"50\" fill=\"yellow\"/&gt;\n    &lt;/svg&gt;\n&lt;/body&gt;\n&lt;/html&gt;","file_name":"index.html"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">File created at ./index.html</p></div><div class="block"><div ><strong >Tool Request:</strong> 842733335 - task_complete<div class="prompt">{}</div></div></div></body></html>

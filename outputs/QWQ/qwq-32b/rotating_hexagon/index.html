@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.rotating-hexagon {
+  animation: rotate 2s linear infinite;
+}
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+</style>
+</head>
+<body>
+<svg id="canvas" width="400" height="400" style="border:1px solid #000;">
+  <path d="M 200 50 L 323 140 L 323 260 L 200 350 L 77 260 L 77 140 Z" fill="blue" class="rotating-hexagon" />
+</svg>
+<script>
+const svg = document.getElementById('canvas');
+const svgNS = 'http://www.w3.org/2000/svg';
+const balls = [];
+const numBalls = 10;
+const maxSpeed = 2;
+const radius = 10;
+
+function createBall() {
+  const ball = document.createElementNS(svgNS, 'circle');
+  ball.setAttribute('r', radius);
+  const x = Math.random() * (svg.width.baseVal.value - 2 * radius) + radius;
+  const y = Math.random() * (svg.height.baseVal.value - 2 * radius) + radius;
+  ball.setAttribute('cx', x);
+  ball.setAttribute('cy', y);
+  ball.style.fill = `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`;
+  svg.appendChild(ball);
+  return {
+    element: ball,
+    x: x,
+    y: y,
+    dx: (Math.random() * maxSpeed * 2 - maxSpeed),
+    dy: (Math.random() * maxSpeed * 2 - maxSpeed)
+  };
+}
+
+for (let i = 0; i < numBalls; i++) {
+  balls.push(createBall());
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  balls.forEach(b => {
+    b.x += b.dx;
+    b.y += b.dy;
+    
+    if (b.x + radius > svg.width.baseVal.value || b.x - radius < 0) {
+      b.dx *= -1;
+    }
+    if (b.y + radius > svg.height.baseVal.value || b.y - radius < 0) {
+      b.dy *= -1;
+    }
+    
+    b.element.setAttribute('cx', b.x);
+    b.element.setAttribute('cy', b.y);
+  });
+}
+
+animate();
+</script>
+</body>
+</html>

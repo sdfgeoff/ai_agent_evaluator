@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Go-Cart Racing Game</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #info { position: absolute; top: 10px; width: 100%; text-align: center; color: white; font-family: sans-serif; z-index: 1; }
+    </style>
+</head>
+<body>
+    <div id="info">Use Arrow Keys (WASD also supported) to Control the Go-Cart</div>
+    <!-- Include Three.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        let scene, camera, renderer;
+        let goKart, track;
+        let keys = {};
+        let speed = 0;
+        let maxSpeed = 0.5;
+        let acceleration = 0.01;
+        let friction = 0.005;
+        let rotationSpeed = 0.03;
+
+        function init() {
+            // Create scene and camera
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87CEEB); // Light blue sky
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 5, -10);
+            camera.lookAt(0, 0, 0);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 10, 7.5);
+            scene.add(directionalLight);
+
+            // Create ground
+            const groundGeometry = new THREE.PlaneGeometry(200, 200);
+            const groundMaterial = new THREE.MeshPhongMaterial({ color: 0x228B22 }); // green
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            scene.add(ground);
+
+            // Create a simple track using lines (a rectangular track)
+            const trackShape = new THREE.Shape();
+            trackShape.moveTo(-50, -30);
+            trackShape.lineTo(50, -30);
+            trackShape.lineTo(50, 30);
+            trackShape.lineTo(-50, 30);
+            trackShape.lineTo(-50, -30);
+            
+            const trackGeometry = new THREE.ShapeGeometry(trackShape);
+            const trackMaterial = new THREE.MeshBasicMaterial({ color: 0x808080, side: THREE.DoubleSide });
+            track = new THREE.Mesh(trackGeometry, trackMaterial);
+            track.rotation.x = -Math.PI / 2;
+            track.position.y = 0.01; // slight offset above ground
+            scene.add(track);
+
+            // Create the go-cart (simple box representation)
+            const goKartGeometry = new THREE.BoxGeometry(1, 0.5, 2);
+            const goKartMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+            goKart = new THREE.Mesh(goKartGeometry, goKartMaterial);
+            goKart.position.y = 0.25;
+            scene.add(goKart);
+
+            // Camera follows goKart
+            updateCamera();
+            
+            // Event listeners for keys
+            window.addEventListener('keydown', onKeyDown);
+            window.addEventListener('keyup', onKeyUp);
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function onKeyDown(event) {
+            keys[event.key.toLowerCase()] = true;
+        }
+
+        function onKeyUp(event) {
+            keys[event.key.toLowerCase()] = false;
+        }
+
+        function updateCamera() {
+            // Set camera behind the goKart.
+            const relativeCameraOffset = new THREE.Vector3(0, 5, -10);
+            const cameraOffset = relativeCameraOffset.applyMatrix4(goKart.matrixWorld);
+            camera.position.lerp(cameraOffset, 0.05);
+            camera.lookAt(goKart.position);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            updateGame();
+            renderer.render(scene, camera);
+        }
+
+        function updateGame() {
+            // Handle keyboard input
+            // Forward movement: arrow up or 'w'
+            if (keys['arrowup'] || keys['w']) {
+                speed = Math.min(speed + acceleration, maxSpeed);
+            } else if (keys['arrowdown'] || keys['s']) { // reverse control
+                speed = Math.max(speed - acceleration, -maxSpeed/2);
+            } else {
+                // apply friction on no accelerator
+                if (speed > 0) {
+                    speed = Math.max(speed - friction, 0);
+                } else if (speed < 0) {
+                    speed = Math.min(speed + friction, 0);
+                }
+            }
+
+            // Rotation: left/right arrow keys or A/D
+            if ((keys['arrowleft'] || keys['a'])) {
+                goKart.rotation.y += rotationSpeed * (speed >= 0 ? 1 : -1);
+            }
+            if ((keys['arrowright'] || keys['d'])) {
+                goKart.rotation.y -= rotationSpeed * (speed >= 0 ? 1 : -1);
+            }
+
+            // Update goKart position based on its facing
+            let forward = new THREE.Vector3(0, 0, 1);
+            forward.applyAxisAngle(new THREE.Vector3(0,1,0), goKart.rotation.y);
+            goKart.position.add(forward.multiplyScalar(speed));
+
+            // Optional: Boundaries for the track (simple collision with the rectangular track boundaries)
+            if (goKart.position.x < -49) { goKart.position.x = -49; speed = 0; }
+            if (goKart.position.x > 49) { goKart.position.x = 49; speed = 0; }
+            if (goKart.position.z < -29) { goKart.position.z = -29; speed = 0; }
+            if (goKart.position.z > 29) { goKart.position.z = 29; speed = 0; }
+
+            // Update camera to follow the goKart
+            updateCamera();
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>

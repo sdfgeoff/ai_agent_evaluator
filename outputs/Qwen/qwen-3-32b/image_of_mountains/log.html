@@ -1,0 +1,13 @@
+<html ><style >
+                body { font-family: Arial, sans-serif; background: grey; }
+                .block { margin: 5px; padding: 5px; white-space: pre-wrap; background: white; }
+
+                .prompt {
+                        white-space: pre-wrap;
+                        background-color: #000;
+                        color: #fff;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                    }
+                </style><body ><div class="block"><strong >user:</strong> I would like you to create an svg image of a sunset through the mountains. Make sure the result is visible in index.html</div><div class="block"><div ><strong >Tool Request:</strong> 952548561 - create_file<div class="prompt">{"file_name":"index.html","content":"&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n&lt;head&gt;\n  &lt;title&gt;Sunset Over Mountains&lt;/title&gt;\n&lt;/head&gt;\n&lt;body&gt;\n  &lt;svg width=\"100%\" height=\"100vh\" viewBox=\"0 0 100 50\" xmlns=\"http://www.w3.org/2000/svg\"&gt;\n    &lt;defs&gt;\n      &lt;linearGradient id=\"skyGradient\" gradientTransform=\"rotate(90)\"&gt;\n        &lt;stop offset=\"0%\" stop-color=\"#FFD700\" /&gt;\n        &lt;stop offset=\"30%\" stop-color=\"#FFA500\" /&gt;\n        &lt;stop offset=\"100%\" stop-color=\"#87CEEB\" /&gt;\n      &lt;/linearGradient&gt;\n    &lt;/defs&gt;\n    &lt;rect width=\"100%\" height=\"100%\" fill=\"url(#skyGradient)\"/&gt;\n    &lt;!-- Mountains --&gt;\n    &lt;path d=\"M 10 45 L 30 15 L 50 45 Z\" fill=\"#2C3E50\" /&gt;\n    &lt;path d=\"M 40 40 L 60 10 L 80 40 Z\" fill=\"#293F4F\" /&gt;\n    &lt;path d=\"M 70 35 L 90 5 L 110 35 Z\" fill=\"#243B4E\" /&gt;\n  &lt;/svg&gt;\n&lt;/body&gt;\n&lt;/html&gt;"}</div></div></div><div class="block"><strong >Tool Response:</strong><p class="prompt">File created at ./index.html</p></div><div class="block"><div ><strong >Tool Request:</strong> 864612297 - task_complete<div class="prompt">{}</div></div></div></body></html>

@@ -18,9 +18,7 @@ def create_site(output_file: str, tests: list[TestToRun]):
 
 
 def generate_html_log_file(test: TestToRun):
-    print(test.output_folder)
     stats_file = os.path.join(test.output_folder, "stats.json")
-    print(stats_file)
     try:
         stats = open(stats_file, "r")
         stats = ResultStats.model_validate_json(stats.read())

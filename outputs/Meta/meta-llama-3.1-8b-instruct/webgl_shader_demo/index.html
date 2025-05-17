@@ -1,0 +1,23 @@
+<script>
+	var canvas = document.createElement('canvas');
+	document.body.appendChild(canvas);
+
+	var gl = canvas.getContext("2d");
+
+	// Define the vertex and fragment shaders
+	var vertexShaderSource = \"\n	attribute vec2 position;\n\tvoid main() {\n\t\tgl_Position = vec4(position, 0.0, 1.0);\n\t}\";
+	var fragmentShaderSource = \"\n\tuniform vec4 color;\n\tvoid main() {\n\t\tgl_FragColor = color;\n\t}\";
+
+	// Compile the shaders and link them together
+	var vertexShader = gl.createShader(gl.VERTEX_SHADER);\n	gl.shaderSource(vertexShader, vertexShaderSource);\n	gl.compileShader(vertexShader);
+	var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);\n	gl.shaderSource(fragmentShader, fragmentShaderSource);\n	gl.compileShader(fragmentShader);
+	mlProgram = gl.createProgram();\n	gl.attachShader(mProgram, vertexShader);\n	gl.attachShader(mProgram, fragmentShader);\n	gl.linkProgram(mProgram);
+	// Create a vertex buffer object (VBO) to hold our vertex data
+	var vertices = new Float32Array([\n	\t-1.0, -1.0,\n	\t 1.0, -1.0,\n	\t 1.0,  1.0,\n	\t-1.0,  1.0\n	]);
+	var vbo = gl.createBuffer();\n	gl.bindBuffer(gl.ARRAY_BUFFER, vbo);\n	gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+	// Create a uniform to hold our color
+	var uniforms = [gl.getUniformLocation(mProgram, "color")];
+	// Draw the triangle!
+	gl.useProgram(mProgram);
+	gl.uniform4fv(uniforms[0], new Float32Array([1.0, 0.0, 0.0, 1.0]));
+	gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);\n</script>

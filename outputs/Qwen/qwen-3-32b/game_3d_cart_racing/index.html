@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Go-Kart Racing</title>
+</head>
+<body style='margin:0;'>
+    <canvas id='canvas'></canvas>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js'></script>
+    <script>
+        const canvasEl = document.getElementById('canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 100);
+        const renderer = new THREE.WebGLRenderer({canvas: canvasEl, antialias: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // Lighting
+        const light = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(light);
+
+        // Track
+        const trackGeometry = new THREE.PlaneGeometry(20, 20);
+        const trackMaterial = new THREE.MeshBasicMaterial({color: 0x00ff00});
+        const track = new THREE.Mesh(trackGeometry, trackMaterial);
+        track.rotation.x = -Math.PI/2;
+        scene.add(track);
+
+        // Car
+        const carGeometry = new THREE.BoxGeometry(1, 1, 2);
+        const carMaterial = new THREE.MeshBasicMaterial({color: 0xff0000});
+        const car = new THREE.Mesh(carGeometry, carMaterial);
+        car.position.set(0, 1, 0);
+        scene.add(car);
+
+        // Camera setup
+        camera.position.z = 10;
+        camera.lookAt(car.position);
+
+        // Movement
+        let velocity = new THREE.Vector3(0, 0, 0);
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'w': velocity.z -= 0.1; break;
+                case 's': velocity.z += 0.1; break;
+                case 'a': velocity.x -= 0.1; break;
+                case 'd': velocity.x += 0.1; break;
+            }
+        });
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            car.position.add(velocity);
+            camera.lookAt(car.position);
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>

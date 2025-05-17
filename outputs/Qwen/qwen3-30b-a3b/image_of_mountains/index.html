@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sunset Through Mountains</title>
+</head>
+<body>
+    <svg width="800" height="600">
+        <defs>
+            <linearGradient id="sunset" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="orange"/>
+                <stop offset="100%" stop-color="purple"/>
+            </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#sunset)" />
+        <!-- Mountains -->
+        <polygon points="0,400 200,300 400,400" fill="#555"/>
+        <polygon points="200,350 300,250 400,350" fill="#777"/>
+        <polygon points="300,300 400,200 500,300" fill="#999"/>
+        <!-- Sun -->
+        <circle cx="100" cy="100" r="50" fill="yellow"/>
+    </svg>
+</body>
+</html>

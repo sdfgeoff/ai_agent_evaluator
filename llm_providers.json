@@ -11,23 +11,23 @@
                 },
                 {
                     "key":"qwen3-4b",
-                    "enabled": false
+                    "enabled": true
                 },
                 {
                     "key":"qwen3-30b-a3b",
-                    "enabled": false
+                    "enabled": true
                 },
                 {
                     "key":"qwen-3-32b",
-                    "enabled": false
+                    "enabled": true
                 },
                 {
                     "key":"qwen2.5-14b-instruct",
-                    "enabled": false
+                    "enabled": true
                 },
                 {
                     "key":"qwen2.5-7b-instruct-1m",
-                    "enabled": false
+                    "enabled": true
                 }
             ],
             "enabled": true
@@ -39,10 +39,10 @@
             "models": [
                 {
                     "key": "glm-4-9b-0414",
-                    "enabled": true
+                    "enabled": false
                 }
             ],
-            "enabled": false
+            "enabled": true
         },
         {
             "name": "QWQ",
@@ -54,7 +54,7 @@
                     "enabled": true
                 }
             ],
-            "enabled": false
+            "enabled": true
         },
         {
             "name": "Meta",
@@ -66,12 +66,12 @@
                     "enabled": true
                 }
             ],
-            "enabled": false
+            "enabled": true
         },
         {
             "name": "OpenAI",
             "base_url": "https://api.openai.com",
-            "token": "",
+            "token": "OPENAI_API_KEY",
             "models": [
                 {
                     "key": "o4-mini",
@@ -82,7 +82,7 @@
                     "enabled": true
                 }
             ],
-            "enabled": false
+            "enabled": true
         }
     ]
 }

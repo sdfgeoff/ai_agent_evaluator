@@ -150,13 +150,13 @@ fn main() {
             let test_file = std::fs::File::create(format!("{}/test.json", test.output_folder)).unwrap();
             let test_writer = std::io::BufWriter::new(test_file);
             serde_json::to_writer(test_writer, &test).unwrap();
-        } else {
-            info!(
-                model=test.model.key,
-                test=test.name,
-                provider=test.provider.name;
-                "skipping_test",
-            );
-        }
+        } // else {
+        //     info!(
+        //         model=test.model.key,
+        //         test=test.name,
+        //         provider=test.provider.name;
+        //         "skipping_test",
+        //     );
+        // }
     }
 }
