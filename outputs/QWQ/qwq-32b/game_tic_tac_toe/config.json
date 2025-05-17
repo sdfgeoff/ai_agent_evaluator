@@ -2,6 +2,15 @@
 	"name": "Game of tic tac toe",
     "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
     "blurb": "Create a game of tic-tac-toe",
-    "initial_prompt": "Make a game of tic-tac-toe. The game should be playable from index.html, but you can create supporting css/js files.",
-    "thumbnail_command": ""
+    "initial_prompt": [
+		{
+			"content": "Make a game of tic-tac-toe. The game should be playable from index.html, but you can create supporting css/js files.",
+			"role": "user"
+		}
+	],
+	"allowed_tools": [
+		"bash",
+		"create_file"
+	],
+	"tags": ["game", "html"]
 }

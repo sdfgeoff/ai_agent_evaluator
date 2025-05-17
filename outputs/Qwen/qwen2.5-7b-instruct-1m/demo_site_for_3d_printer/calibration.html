@@ -2,37 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Calibrating Your 3D Printer</title>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calibration Guide</title>
+    <!-- Tailwind CSS is a utility-first CSS framework that allows you to design without ever leaving your markup. -->
+    <link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.18/dist/tailwind.min.css' rel='stylesheet'>
     <style>
-        body{
-            background-color: #f5c98e;
-            color: #212529;
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .container{
-            max-width: 1000px;
-            margin: auto;
-            padding: 20px;
-        }
-        h1, h2, p{
-            color: #212529;
-        }
+      body {
+        background-color: orange;
+        color: white;
+        font-family: 'IBM Plex Sans', sans-serif;
+      }
+      h1, p {
+        text-align: center;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
     </style>
 </head>
-<body>
-<div class="container">
-<h1>Calibration</h1>
-<p>Calibrating your 3D printer is crucial to ensure that the parts you print come out as expected. The process involves several steps including leveling the bed, checking the extruder, and running a test print.</p>
+<body class='text-white bg-orange-400 w-screen h-screen flex items-center justify-center'>
 
-<ol>
-<li><strong>Leveling the Bed</strong>: Ensure the printer's build plate is levelled with the help of spirit levels or similar tools.</li>
-<li><strong>Checking the Extruder</strong>: Verify that the extrusion rate is correct and there are no jams. Adjust the flow rate if needed.</li>
-<li><strong>Running a Test Print</strong>: Perform a test print to confirm everything works as expected.</li>
-</ol>
-<p>For more detailed instructions, refer back to the <a href='index.html'>main page</a>.</p>
+<div class="container">
+  <h1>Calibration Guide for Your 3D Printer</h1>
+  <p>To ensure that your prints are precise and of high quality, proper calibration is crucial. Calibration involves adjusting the parameters of your printer to align it with its manufacturer specifications.</p>
+
+  <h2>Steps Involved:</h2>
+  <ul class='list-disc pl-4'>
+    <li><strong>Leveling the Bed:</strong> Ensure that your print bed is perfectly level. This can be done using a calibration tool or simply by adjusting the bed screws until all corners of the bed touch a sheet of paper evenly.</li>
+    <ul class='list-disc pl-4'>
+      <li>If you're using a print mat, ensure it's well-adhered to the bed before starting your print.</li>
+    </ul>
+    <li><strong>Checking Z-Axis:</strong> Adjust the height of the nozzle until it just barely touches the surface of the paper. This ensures that when printing, the first layer is deposited at the correct height.</li>
+    <li><strong>Bed Calibration with Square Test:</strong> Print a square test and measure its dimensions using calipers. This will give you an idea if your printer's calibration is accurate or not.</li>
+  </ul>
 
 </div>
 </body>

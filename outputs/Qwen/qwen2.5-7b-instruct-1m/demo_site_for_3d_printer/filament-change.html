@@ -2,28 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Changing Filament for Your 3D Printer</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filament Change Guide</title>
+    <!-- Tailwind CSS is a utility-first CSS framework that allows you to design without ever leaving your markup. -->
+    <link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.18/dist/tailwind.min.css' rel='stylesheet'>
+    <style>
+      body {
+        background-color: orange;
+        color: white;
+        font-family: 'IBM Plex Sans', sans-serif;
+      }
+      h1, p {
+        text-align: center;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
+    </style>
 </head>
-<body>
-<header>
-    <h1>How to Change Filaments Efficiently</h1>
-</header>
-<nav>
-    <a href="index.html">Home</a> | 
-    <a href="calibration.html">Calibration</a> | 
-    <a href="filament-change.html">Filament Change</a> | 
-    <a href="printing-process.html">Printing Process</a>
-</nav>
+<body class='text-white bg-orange-400 w-screen h-screen flex items-center justify-center'>
 
-<main class="main-content">
-    <h1>Filament Changes</h1>
-    <p>Changing filament is a common task for 3D printing. Here are detailed instructions to follow:</p>
-    <ol>
-        <li><strong>Prepare Your Printer:</strong> Ensure your printer is switched off and has cooled down.</li>
-        <li><strong>Remove the Old Filament:</strong> Unscrew the extruder motor, then gently pull out the old filament. Be cautious not to damage the nozzle.</li>
-        <li><strong>Prepare the New Filament:</strong> Ensure the new filament is cut to a suitable length and fed into the feeder until it starts coming out of the nozzle.</li>
-    </ol>
-</main>
+<div class="container">
+  <h1>Guidance on Changing Filament for Your 3D Printer</h1>
+
+  <p>Changing filament in your printer is an essential task that can be done quickly and efficiently. Here are the steps to follow:</p>
+
+  <h2>Steps Involved:</h2>
+  <ol class='list-decimal pl-4'>
+    <li><strong>Prepare Your Workspace:</strong> Ensure that your workspace is clean and free from any debris.</li>
+    <li><strong>Warm Up the Printer:</strong> Before changing filament, it's important to warm up your printer. This helps in making the process smoother since the hot end will already be at a good temperature for filament extrusion.</li>
+    <ul class='list-disc pl-4'>
+      <li>If you're switching between different types of filament (e.g., ABS and PLA), it's crucial to clean out the hotend thoroughly. Residues from one type might affect prints with another.</li>
+    </ul>
+    <li><strong>Prepare the New Filament:</strong> Cut a few inches off the end of the new filament spool, then gently pull the filament through your extruder gear until it comes out smoothly and without any jams.</li>
+  </ol>
+</div>
 </body>
 </html>

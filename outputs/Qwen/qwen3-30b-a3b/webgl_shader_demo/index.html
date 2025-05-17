@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebGL Demo</title>
+    <title>WebGL Shader Demo</title>
     <style>body { margin: 0; } canvas { display: block; }</style>
 </head>
 <body>
@@ -11,24 +11,26 @@ const canvas = document.getElementById('glCanvas');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+const gl = canvas.getContext('webgl');
 if (!gl) {
-    alert("WebGL not supported, try another browser.");
+    alert('WebGL not supported');
 }
 
 // Vertex shader source code
-const vsSource = 
-`attribute vec2 aVertexPosition;
+const vsSource = ` 
+attribute vec2 a_position;
 void main() {
-    gl_Position = vec4(aVertexPosition, 0.0, 1.0);
-}`;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}
+`;
 
 // Fragment shader source code
-const fsSource = 
-`precision mediump float;
+const fsSource = ` 
+precision mediump float;
 void main() {
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-}`;
+  gl_FragColor = vec4(1, 0, 0, 1); // Red color
+}
+`;
 
 // Compile shader
 function compileShader(source, type) {
@@ -36,30 +38,37 @@ function compileShader(source, type) {
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        console.error('An error occurred compiling the shaders: ', gl.getShaderInfoLog(shader));
+        console.error('An error occurred compiling the shaders: ' + gl.getShaderInfoLog(shader));
         return null;
     }
     return shader;
 }
 
-// Create program
+// Link program
+function createProgram(vertexShader, fragmentShader) {
+    const program = gl.createProgram();
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+        console.error('Unable to initialize the shader program: ' + gl.getProgramInfoLog(program));
+        return null;
+    }
+    return program;
+}
+
+// Create shaders
 const vertexShader = compileShader(vsSource, gl.VERTEX_SHADER);
 const fragmentShader = compileShader(fsSource, gl.FRAGMENT_SHADER);
 
-const program = gl.createProgram();
-gl.attachShader(program, vertexShader);
-gl.attachShader(program, fragmentShader);
-gl.linkProgram(program);
+// Create program
+const program = createProgram(vertexShader, fragmentShader);
 
-if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-    console.error('Unable to initialize the shader program: ', gl.getProgramInfoLog(program));
-}
-
-gl.useProgram(program);
-
-// Set up vertex data (a triangle)
+// Set up buffer for a triangle
 const positionBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+// Define positions for a triangle
 const positions = [
     0.0, 0.5,
     -0.5, -0.5,
@@ -67,15 +76,14 @@ const positions = [
 ];
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-// Set attribute location and enable
-const aVertexPosition = gl.getAttribLocation(program, 'aVertexPosition');
-gl.enableVertexAttribArray(aVertexPosition);
-gl.vertexAttribPointer(aVertexPosition, 2, gl.FLOAT, false, 0, 0);
+// Use the program and set up attributes
+gl.useProgram(program);
+const aPositionLocation = gl.getAttribLocation(program, 'a_position');
+gl.enableVertexAttribArray(aPositionLocation);
+gl.vertexAttribPointer(aPositionLocation, 2, gl.FLOAT, false, 0, 0);
 
-// Clear canvas and draw
-gl.clearColor(0.0, 0.0, 0.0, 1.0);
-gl.clear(gl.COLOR_BUFFER_BIT);
-gl.drawArrays(gl.TRIANGLE_STRIP, 0, 3);
+// Draw the triangle
+gl.drawArrays(gl.TRIANGLES, 0, 3);
 </script>
 </body>
 </html>

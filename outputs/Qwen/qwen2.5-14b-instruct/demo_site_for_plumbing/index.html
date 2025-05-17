@@ -3,48 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plumbing Solutions</title>
-    <!-- Include modern CSS framework like TailwindCSS or Bootstrap for styling -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>Plumbing Services</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header, footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        main h1, main p {
+            color: #333;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
-<header class="text-center py-6 bg-blue-500 text-white">
+<body>
+<header>
     <h1>Plumbing Solutions Inc.</h1>
 </header>
-<nav class="bg-blue-400 flex justify-between items-center p-2">
-    <ul class="flex space-x-3 font-bold text-sm">
-        <li><a href="#about" class="text-gray-50 hover:text-white">About Us</a></li>
-        <li><a href="#services" class="text-gray-50 hover:text-white">Services</a></li>
-        <li><a href="#contact" class="text-gray-50 hover:text-white">Contact</a></li>
+
+<nav class="container">
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
     </ul>
 </nav>
-<main>
-    <!-- About Us Section -->
-    <section id="about" class="p-6">
-        <h2>About Us</h2>
-        <p>We provide professional plumbing services to ensure your home or business stays leak-free and efficient.</p>
+
+<main class="container">
+    <section id="home">
+        <h2>Welcome to Plumbing Solutions Inc.</h2>
+        <p>Your local expert for all plumbing needs. We provide a wide range of services and are committed to customer satisfaction.</p>
     </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-10 bg-white">
+    <section id="services">
         <h2>Our Services</h2>
         <ul>
-            <li>Pipe Installation & Repair</li>
-            <li>Toilet and Faucet Replacement</li>
-            <li>Clogged Drain Clearance</li>
-            <li>Bathroom Remodeling</li>
+            <li>Clogged drains and pipes</li>
+            <li>Toilet repairs</li>
+            <li>Bathroom installations</li>
+            <li>Kitchen plumbing</li>
+            <li>Faucet repairs and replacements</li>
         </ul>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-10 bg-gray-200">
-        <h2>Contact Us</h2>
-        <p>Email: info@plumbingsolutions.com
-        Phone: +1-555-PLUMBING</p>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Plumbing Solutions Inc. has been serving the community for over 15 years, providing reliable and efficient plumbing services.</p>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Information</h2>
+        <address>
+            Address: 456 Plumbing Street\nPhone: +1 (000) 123-4567\nEmail: info@plumbingsolutions.com
+        </address>
     </section>
 </main>
-<footer class="text-center py-6 bg-blue-400 text-white">
-    &copy; 2023 Plumbing Solutions Inc.
+
+<footer>
+    &copy; 2023 Plumbing Solutions Inc. All rights reserved.
 </footer>
 </body>
 </html>

@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebGL Basic Shader Demo</title>
+  <title>Basic WebGL Shader Demo</title>
   <style>
     body, html { margin: 0; padding: 0; overflow: hidden; }
     canvas { display: block; width: 100vw; height: 100vh; }
@@ -12,127 +11,8 @@
 </head>
 <body>
   <canvas id="glcanvas"></canvas>
-  <script>
-    // Get WebGL context
-    const canvas = document.getElementById('glcanvas');
-    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    if (!gl) {
-      alert('WebGL not supported in this browser');
-      throw new Error('WebGL not supported');
-    }
-
-    // Resize canvas to fill window
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    // Vertex shader program
-    const vsSource = `
-      attribute vec4 aVertexPosition;
-      void main(void) {
-        gl_Position = aVertexPosition;
-      }
-    `;
-
-    // Fragment shader program
-    const fsSource = `
-      precision mediump float;
-      uniform float uTime;
-      void main(void) {
-        // Create a pulsing red-green color based on time
-        float r = abs(sin(uTime));
-        float g = abs(cos(uTime));
-        gl_FragColor = vec4(r, g, 0.5, 1.0);
-      }
-    `;
-
-    // Compile shader
-    function loadShader(type, source) {
-      const shader = gl.createShader(type);
-      gl.shaderSource(shader, source);
-      gl.compileShader(shader);
-      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-        const info = gl.getShaderInfoLog(shader);
-        gl.deleteShader(shader);
-        throw new Error('Could not compile WebGL shader.\n\n' + info);
-      }
-      return shader;
-    }
-
-    // Create shader program
-    const vertexShader = loadShader(gl.VERTEX_SHADER, vsSource);
-    const fragmentShader = loadShader(gl.FRAGMENT_SHADER, fsSource);
-    const shaderProgram = gl.createProgram();
-    gl.attachShader(shaderProgram, vertexShader);
-    gl.attachShader(shaderProgram, fragmentShader);
-    gl.linkProgram(shaderProgram);
-    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-      const info = gl.getProgramInfoLog(shaderProgram);
-      throw new Error('Could not initialize shaders.\n\n' + info);
-    }
-    gl.useProgram(shaderProgram);
-
-    // Look up attribute/uniform locations
-    const programInfo = {
-      attribLocations: {
-        vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-      },
-      uniformLocations: {
-        time: gl.getUniformLocation(shaderProgram, 'uTime'),
-      },
-    };
-
-    // Create a buffer for the square's positions
-    const positionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-
-    // Define vertices for a full-screen quad (two triangles)
-    const positions = [
-      -1.0,  1.0,
-      -1.0, -1.0,
-       1.0,  1.0,
-       1.0, -1.0,
-    ];
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-
-    function render(time) {
-      time *= 0.001; // convert to seconds
-
-      // Clear the canvas
-      gl.clearColor(0.0, 0.0, 0.0, 1.0);
-      gl.clear(gl.COLOR_BUFFER_BIT);
-
-      // Tell WebGL how to pull out the positions from the position buffer
-      {
-        const numComponents = 2;
-        const type = gl.FLOAT;
-        const normalize = false;
-        const stride = 0;
-        const offset = 0;
-        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-        gl.vertexAttribPointer(
-          programInfo.attribLocations.vertexPosition,
-          numComponents,
-          type,
-          normalize,
-          stride,
-          offset);
-        gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-      }
-
-      // Set shader uniforms
-      gl.uniform1f(programInfo.uniformLocations.time, time);
-
-      // Draw the quad (two triangles)
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-      requestAnimationFrame(render);
-    }
-    requestAnimationFrame(render);
-  </script>
+  <!-- glMatrix library for matrix operations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

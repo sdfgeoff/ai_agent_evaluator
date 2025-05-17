@@ -2,74 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Calibration Guide</title>
+    <title>Calibration Process</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #fff8f0;
-            color: #333;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #fff8f2;
+            color: #333;
         }
         header {
-            background-color: #ff6b35;
+            background-color: #ffa500;
             color: white;
-            padding: 20px 0;
+            padding: 1rem 0;
             text-align: center;
         }
         nav {
-            background-color: #e65c2a;
-            padding: 10px 0;
+            background-color: #ff7f00;
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
         }
         nav a {
             color: white;
-            margin: 0 15px;
+            margin: 0 1rem;
             text-decoration: none;
             font-weight: bold;
         }
-        .content {
+        .container {
             max-width: 960px;
-            margin: 20px auto;
-            padding: 0 20px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
         h1, h2 {
-            color: #ff6b35;
+            color: #ff5722;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #fff8f2;
+            border-top: 2px solid #ff5722;
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>3D Printer Calibration</h1>
-        <p>Master the critical calibration process</p>
+        <h1>Calibration Process</h1>
+        <p>Complete guide to 3D printer calibration</p>
     </header>
     <nav>
         <a href="index.html">Home</a>
         <a href="calibration.html">Calibration</a>
         <a href="filament.html">Filament Management</a>
     </nav>
-    <div class="content">
-        <h2>Printer Calibration Procedures</h2>
+    <div class="container">
+        <h2>Step-by-Step Calibration</h2>
         <h3>1. Bed Leveling</h3>
-        <p>Use the built-in auto-leveling system or manual adjustment:</p>
-        <ul>
-            <li>Ensure the print bed is clean and free of debris</li>
-            <li>Perform 5-point leveling for accuracy</li>
-            <li>Test with a piece of paper to check clearance</li>
-        </ul>
-        <h3>2. Extruder Calibration</h3>
-        <p>Calibrate the extruder steps/mm:</p>
+        <p>Use the built-in sensors or manual adjustment to ensure proper bed leveling. Follow these steps:</p>
         <ol>
-            <li>Measure 100mm of filament</li>
-            <li>Run 100mm extrusion command</li>
-            <li>Calculate actual movement and adjust E-step value</li>
+            <li>Heat the bed to 60°C</li>
+            <li>Perform auto-leveling if available</li>
+            <li>Check with a piece of paper for consistent resistance</li>
         </ol>
-        <h3>3. Nozzle Height Adjustment</h3>
-        <p>Ensure proper first layer height:</p>
+        <h3>2. Extruder Calibration</h3>
+        <p>Measure and adjust the extrusion rate:</p>
         <ul>
-            <li>Set nozzle at 0.1mm above bed</li>
-            <li>Use a business card to check consistency</li>
-            <li>Verify with test prints</li>
+            <li>Measure 100mm of filament</li>
+            <li>Extrude 100mm at 100% speed</li>
+            <li>Measure actual length and calculate correction factor</li>
         </ul>
+        <h3>3. Temperature Calibration</h3>
+        <p>Verify nozzle and bed temperatures with a calibrated thermometer.</p>
     </div>
+    <footer>
+        <p>&copy; 2023 3D Printers Guide. All rights reserved.</p>
+    </footer>
 </body>
 </html>

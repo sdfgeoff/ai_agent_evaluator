@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rotating Hexagon with Bouncing Balls</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let hexagon = {
+            x: 100, y: 50,
+            width: 100, height: 100,
+            radius: 40
+        };
+
+        function drawHexagon() {
+            ctx.beginPath();
+            ctx.moveTo(hexagon.x - hexagon.width / 2, hexagon.y);
+            ctx.lineTo(hexagon.x + hexagon.width / 2, hexagon.y);
+            ctx.lineTo(hexagon.x, hexagon.y - hexagon.height);
+            ctx.lineTo(hexagon.x - hexagon.width / 2, hexagon.y - hexagon.height);
+            ctx.closePath();
+            ctx.strokeStyle = 'green';
+            ctx.lineWidth = 5;
+            ctx.stroke();
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            drawHexagon();
+        } 
+
+        // Bouncing balls
+        const balls = [
+            { x: 100, y: 80, vx: 0, vy: 0 },
+            { x: 200, y: 30, vx: 0, vy: 0 }
+        ];
+
+        function updateBalls() {
+            balls.forEach(ball => {
+                ball.x += ball.vx;
+                ball.y += ball.vy;
+                
+                // Check for collisions with the canvas boundaries
+                if (ball.x + ball.width > canvas.width || ball.x - ball.width < 0) {
+                    ball.vx *= -1;
+                }
+                if (ball.y + ball.height > canvas.height || ball.y - ball.height < 0) {
+                    ball.vy *= -1;
+                }
+            });
+        } 
+
+        animate();
+    </script>
+</body>
+</html>

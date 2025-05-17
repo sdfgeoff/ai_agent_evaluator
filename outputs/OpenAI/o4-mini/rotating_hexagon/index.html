@@ -1,141 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rotating Hexagon with Bouncing Balls</title>
-    <style>
-        * { margin: 0; padding: 0; }
-        html, body { width: 100%; height: 100%; overflow: hidden; background: #111; }
-        canvas { display: block; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rotating Hexagon with Bouncing Balls</title>
+  <style>
+    body, html { margin: 0; padding: 0; overflow: hidden; background: #222; }
+    canvas { display: block; }
+  </style>
 </head>
 <body>
-<canvas id="canvas"></canvas>
-<script>
-(function() {
+  <canvas id="canvas"></canvas>
+  <script>
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    let width, height, cx, cy;
-
+    let w, h;
     function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-        cx = width / 2;
-        cy = height / 2;
-        R = Math.min(width, height) * 0.4;
-        hexInscribedR = R * Math.cos(Math.PI / 6);
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      centerX = w / 2;
+      centerY = h / 2;
     }
     window.addEventListener('resize', resize);
     resize();
 
-    // Hexagon settings
-    let rotation = 0;
-    const rotationSpeed = Math.PI / 6; // 30° per second
+    // Hexagon parameters
+    const hexRadius = Math.min(w, h) * 0.4;
+    const hexVertices = [];
+    const normals = [];
+    for (let i = 0; i < 6; i++) {
+      const angle = Math.PI / 3 * i - Math.PI / 6;
+      const x = Math.cos(angle) * hexRadius;
+      const y = Math.sin(angle) * hexRadius;
+      hexVertices.push({x, y});
+    }
+    // Compute inward normals for each edge
+    for (let i = 0; i < 6; i++) {
+      const p1 = hexVertices[i];
+      const p2 = hexVertices[(i + 1) % 6];
+      // edge vector
+      const ex = p2.x - p1.x;
+      const ey = p2.y - p1.y;
+      // normal (rotate edge by 90deg)
+      let nx = ey;
+      let ny = -ex;
+      // ensure it's inward: test center (0,0) gives positive
+      const dot = nx * (-p1.x) + ny * (-p1.y);
+      if (dot < 0) { nx = -nx; ny = -ny; }
+      const len = Math.hypot(nx, ny);
+      normals.push({nx: nx / len, ny: ny / len, px: p1.x, py: p1.y});
+    }
 
-    // Balls settings
+    // Balls
     const balls = [];
-    const ballCount = 15;
+    const ballCount = 12;
+    const ballRadius = 10;
+
+    // Point-in-polygon test (convex)
+    function insideHex(x, y) {
+      for (let e of normals) {
+        const d = (x - e.px) * e.nx + (y - e.py) * e.ny;
+        if (d < ballRadius) return false;
+      }
+      return true;
+    }
+    // random ball init
     for (let i = 0; i < ballCount; i++) {
-        const r = 5 + Math.random() * 15;
-        // place inside inscribed circle
-        const angle = Math.random() * 2 * Math.PI;
-        const rr = (hexInscribedR - r) * Math.sqrt(Math.random());
-        const x = cx + rr * Math.cos(angle);
-        const y = cy + rr * Math.sin(angle);
-        const speed = 50 + Math.random() * 100;
-        const vAngle = Math.random() * 2 * Math.PI;
-        balls.push({ x, y, r, vx: speed * Math.cos(vAngle), vy: speed * Math.sin(vAngle), color: `hsl(${Math.random()*360},80%,60%)` });
+      let x, y;
+      do {
+        x = (Math.random() * 2 - 1) * hexRadius;
+        y = (Math.random() * 2 - 1) * hexRadius;
+      } while (!insideHex(x, y));
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 2 + Math.random() * 2;
+      balls.push({x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed});
     }
 
-    let lastTime = 0;
+    let angle = 0;
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      angle += 0.005;
 
-    function drawHexagon(angle) {
+      // draw rotating hexagon
+      ctx.save();
+      ctx.translate(centerX, centerY);
+      ctx.rotate(angle);
+      // polygon
+      ctx.beginPath();
+      ctx.moveTo(hexVertices[0].x, hexVertices[0].y);
+      for (let v of hexVertices) ctx.lineTo(v.x, v.y);
+      ctx.closePath();
+      ctx.strokeStyle = '#0f0'; ctx.lineWidth = 3;
+      ctx.stroke();
+
+      // update and draw balls in local coords
+      for (let b of balls) {
+        // move
+        b.x += b.vx;
+        b.y += b.vy;
+        // collision with edges
+        for (let e of normals) {
+          const d = (b.x - e.px) * e.nx + (b.y - e.py) * e.ny;
+          if (d < ballRadius) {
+            // push back
+            b.x += (ballRadius - d) * e.nx;
+            b.y += (ballRadius - d) * e.ny;
+            // reflect
+            const vDot = b.vx * e.nx + b.vy * e.ny;
+            b.vx -= 2 * vDot * e.nx;
+            b.vy -= 2 * vDot * e.ny;
+          }
+        }
+        // draw
         ctx.beginPath();
-        for (let i = 0; i < 6; i++) {
-            const a = angle + i * Math.PI / 3;
-            const x = cx + R * Math.cos(a);
-            const y = cy + R * Math.sin(a);
-            if (i === 0) ctx.moveTo(x, y);
-            else ctx.lineTo(x, y);
-        }
-        ctx.closePath();
-        ctx.strokeStyle = '#fff';
-        ctx.lineWidth = 3;
-        ctx.stroke();
+        ctx.arc(b.x, b.y, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = '#ff3';
+        ctx.fill();
+      }
 
-        // Return edges (p1->p2) and normals
-        const edges = [];
-        const pts = [];
-        for (let i = 0; i < 6; i++) {
-            const a = angle + i * Math.PI / 3;
-            pts.push({ x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) });
-        }
-        for (let i = 0; i < 6; i++) {
-            const p1 = pts[i];
-            const p2 = pts[(i + 1) % 6];
-            // outward normal
-            const dx = p2.x - p1.x;
-            const dy = p2.y - p1.y;
-            const len = Math.hypot(dx, dy);
-            const nx = dy / len;
-            const ny = -dx / len;
-            edges.push({ p1, p2, nx, ny });
-        }
-        return edges;
+      ctx.restore();
+      requestAnimationFrame(animate);
     }
-
-    function update(dt) {
-        // update balls
-        for (const b of balls) {
-            b.x += b.vx * dt;
-            b.y += b.vy * dt;
-        }
-    }
-
-    function collideWithHex(edges) {
-        for (const b of balls) {
-            for (const e of edges) {
-                // distance from ball center to line
-                const px = b.x - e.p1.x;
-                const py = b.y - e.p1.y;
-                const dist = px * e.nx + py * e.ny;
-                if (dist > -b.r) {
-                    // reflect velocity
-                    const vDotN = b.vx * e.nx + b.vy * e.ny;
-                    b.vx -= 2 * vDotN * e.nx;
-                    b.vy -= 2 * vDotN * e.ny;
-                    // push out of wall
-                    const overlap = b.r + dist;
-                    b.x += -overlap * e.nx;
-                    b.y += -overlap * e.ny;
-                }
-            }
-        }
-    }
-
-    function drawBalls() {
-        for (const b of balls) {
-            ctx.beginPath();
-            ctx.arc(b.x, b.y, b.r, 0, 2 * Math.PI);
-            ctx.fillStyle = b.color;
-            ctx.fill();
-        }
-    }
-
-    function animate(time) {
-        const dt = (time - lastTime) / 1000;
-        lastTime = time;
-        rotation += rotationSpeed * dt;
-        ctx.clearRect(0, 0, width, height);
-        const edges = drawHexagon(rotation);
-        update(dt);
-        collideWithHex(edges);
-        drawBalls();
-        requestAnimationFrame(animate);
-    }
-    requestAnimationFrame(function(ts) { lastTime = ts; requestAnimationFrame(animate); });
-})();
-</script>
+    animate();
+  </script>
 </body>
 </html>

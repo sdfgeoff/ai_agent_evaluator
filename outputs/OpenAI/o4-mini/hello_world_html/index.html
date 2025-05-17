@@ -5,30 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hello World</title>
   <style>
-    /* Reset some defaults */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html, body {
-      height: 100%;
-    }
+    /* Dark theme styling */
     body {
-      background-color: #121212;           /* Dark background */
-      color: #39ff14;                      /* Neon green text */
+      margin: 0;
+      height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
-      font-family: 'Segoe UI', Tahoma, sans-serif;
+      align-items: center;
+      background-color: #121212;
+      color: #FF4081;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
     h1 {
       font-size: 4rem;
-      font-weight: 900;
+      font-weight: bold;
       text-transform: uppercase;
-      text-shadow:
-        0 0 10px rgba(57, 255, 20, 0.7),
-        0 0 20px rgba(57, 255, 20, 0.5);
+      text-shadow: 0 0 10px rgba(255, 64, 129, 0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 64, 129, 0.7);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(255, 64, 129, 1);
+      }
     }
   </style>
 </head>

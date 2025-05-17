@@ -1,18 +1,14 @@
 body {
+    background-color: #f0f0f0;
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f0f0f0;
-}
-
-#game {
-    margin-top: 20px;
 }
 
 #board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-gap: 5px;
-    justify-content: center;
+    margin: 20px auto;
 }
 
 .cell {
@@ -27,8 +23,12 @@ body {
     cursor: pointer;
 }
 
-#message {
-    margin-top: 10px;
+.cell:hover {
+    background-color: #e0e0e0;
+}
+
+#reset {
+    padding: 10px 20px;
     font-size: 18px;
-    color: #333;
+    margin-top: 20px;
 }

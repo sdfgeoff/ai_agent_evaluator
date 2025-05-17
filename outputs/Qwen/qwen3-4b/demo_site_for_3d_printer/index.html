@@ -2,49 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Printer Guide</title>
-    <link rel="stylesheet" href="style.css">
+    <title>3D Printers: A Technical Guide</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #1e1e2f;
+            color: #ffcc4d;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #ff9933;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        nav a {
+            color: #ffcc4d;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #ff9933;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>3D Printer Technical Documentation</h1>
-        <nav>
-            <ul>
-                <li><a href="#calibration">Calibration</a></li>
-                <li><a href="#filament">Filament Change Process</a></li>
-            </ul>
-        </nav>
+        <h1>3D Printers: A Technical Guide</h1>
     </header>
-
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="calibration.html">Calibration</a>
+        <a href="filament-change.html">Filament Change Process</a>
+        <a href="troubleshooting.html">Troubleshooting</a>
+        <a href="about.html">About</a>
+    </nav>
     <main>
-        <section id="introduction">
-            <h2>Welcome to 3D Printer Documentation</h2>
-            <p>This resource provides comprehensive technical information for 3D printer maintenance, operation, and troubleshooting. The main color scheme is orange (#FFA500) with a modern design.</p>
-        </section>
-
-        <section id="calibration">
-            <h2>Calibration Process</h2>
-            <ul>
-                <li><strong>Bed Leveling:</strong> Use the 'bed leveling' tool in Cura or Pronterface to adjust Z-axis height. Recommended method: 3-point leveling with a sheet of paper between the nozzle and bed.</li>
-                <li><strong>Extruder Calibration:</strong> Measure print accuracy by printing calibration cubes. Adjust X/Y travel limits in your printer's firmware if necessary.</li>
-                <li><strong>Temperature Settings:</strong> Calibrate hotend temperatures for PLA (200-240°C), ABS (230-250°C), and PETG (235-245°C) based on material specifications.</li>
-            </ul>
-        </section>
-
-        <section id="filament">
-            <h2>Post-Filament Change Procedure</h2>
-            <ol>
-                <li><strong>Clean Nozzle:</strong> Use isopropyl alcohol to remove residual filament from the nozzle. Check for clogs in the extruder gear.</li>
-                <li><strong>Adjust Retraction:</strong> Increase retraction distance (12-20mm) and speed (40-60mm/s) to prevent oozing after filament change.</li>
-                <li><strong>Test Print:</strong> Perform a 3D printed calibration cube to verify print quality. Check for under-extrusion or over-extrusion issues.</li>
-                <li><strong>Update Firmware:</strong> Ensure printer firmware is up-to-date with the latest bug fixes and feature enhancements.</li>
-            </ol>
-        </section>
+        <h2>Welcome to the 3D Printer Technical Guide</h2>
+        <p>This site provides in-depth information about 3D printing technology, including calibration procedures, post-filament-change workflows, and troubleshooting techniques. The main color is orange (#ffcc4d) with a dark theme for readability.</p>
     </main>
-
-    <footer>
-        <p>© 2023 3D Printer Documentation. All rights reserved.</p>
-    </footer>
 </body>
 </html>

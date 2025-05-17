@@ -5,75 +5,81 @@
     <title>Filament Management</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #fff8f0;
-            color: #333;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #fff8f2;
+            color: #333;
         }
         header {
-            background-color: #ff6b35;
+            background-color: #ffa500;
             color: white;
-            padding: 20px 0;
+            padding: 1rem 0;
             text-align: center;
         }
         nav {
-            background-color: #e65c2a;
-            padding: 10px 0;
+            background-color: #ff7f00;
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
         }
         nav a {
             color: white;
-            margin: 0 15px;
+            margin: 0 1rem;
             text-decoration: none;
             font-weight: bold;
         }
-        .content {
+        .container {
             max-width: 960px;
-            margin: 20px auto;
-            padding: 0 20px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
         h1, h2 {
-            color: #ff6b35;
+            color: #ff5722;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background-color: #fff8f2;
+            border-top: 2px solid #ff5722;
+            margin-top: 2rem;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>Filament Management</h1>
-        <p>Proper filament handling procedures</p>
+        <p>Proper filament handling and change procedures</p>
     </header>
     <nav>
         <a href="index.html">Home</a>
         <a href="calibration.html">Calibration</a>
         <a href="filament.html">Filament Management</a>
     </nav>
-    <div class="content">
-        <h2>Filament Change Process</h2>
-        <h3>1. Prepare Printer</h3>
-        <ul>
-            <li>Heat nozzle to 5°C above melting point</li>
-            <li>Pause print and retract filament</li>
-            <li>Clean nozzle with brass brush if necessary</li>
-        </ul>
-        <h3>2. Change Filament</h3>
+    <div class="container">
+        <h2>Filament Changing Procedure</h2>
         <ol>
-            <li>Unload current filament completely</li>
-            <li>Insert new filament at feeder mechanism</li>
-            <li>Perform 10mm purge to ensure flow</li>
+            <li>Heat nozzle to 10°C above melting point</li>
+            <li>Pull out remaining filament with pliers</li>
+            <li>Clean the extruder gear and tube</li>
+            <li>Load new filament slowly</li>
+            <li>Perform a test print</li>
         </ol>
-        <h3>3. Post-Change Procedures</h3>
+        <h3>Storage Recommendations</h3>
         <ul>
-            <li>Run temperature stability check</li>
-            <li>Perform test print for quality assessment</li>
-            <li>Record filament type and settings</li>
-        </ul>
-        <h2>Filament Storage Tips</h2>
-        <p>Keep filaments dry and protected:</p>
-        <ul>
-            <li>Use airtight containers with desiccant</li>
+            <li>Use desiccant packs in sealed containers</li>
             <li>Store away from direct sunlight</li>
-            <li>Maintain humidity below 45%</li>
+            <li>Maintain humidity below 40%</li>
+        </ul>
+        <h3>Common Issues</h3>
+        <ul>
+            <li>Clogged nozzles: Clean with brass brush and heat</li>
+            <li>Filament grinding: Check extruder tension and gear alignment</li>
+            <li>Overshooting: Adjust flow rate settings</li>
         </ul>
     </div>
+    <footer>
+        <p>&copy; 2023 3D Printers Guide. All rights reserved.</p>
+    </footer>
 </body>
 </html>

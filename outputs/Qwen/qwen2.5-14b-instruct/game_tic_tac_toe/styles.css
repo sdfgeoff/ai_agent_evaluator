@@ -1,28 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
 #game-board {
     display: grid;
-    gap: 10px;
-    width: 300px;
-    height: 300px;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
 }
 
-#game-board div {
-    border-radius: 10%;
-    background-color: #F0F0F0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2em;
-}
-
-button {
-    cursor: pointer;
-    padding: 5px 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-button:hover {
-    background-color: darkgreen;
+cell {
+    width: 100px;
+    height: 100px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 100px; /* Center the text */
+    font-size: 3em;
 }

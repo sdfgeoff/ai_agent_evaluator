@@ -6,144 +6,117 @@
     <title>Modern Plumbing Services</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            min-height: 100vh;
-            background: #f4f4f4;
+            line-height: 1.6;
         }
-        header {
-            background: #003366;
+        .header {
+            background: #007BFF;
             color: white;
-            padding: 2rem 10%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 1em 0;
+            text-align: center;
         }
-        nav {
-            display: flex;
-            gap: 2rem;
+        .nav {
+            background: #0056b3;
+            overflow: hidden;
         }
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('plumbing-hero.jpg') center/cover;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            padding: 0 10%;
-            color: white;
-        }
-        .hero h1 {
-            font-size: 3.5rem;
-        }
-        .services {
-            max-width: 1200px;
-            margin: 4rem auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 0 2rem;
-        }
-        .service {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .service h2 {
-            border-bottom: 2px solid #003366;
-            padding-bottom: 0.5rem;
-        }
-        .contact-form {
-            max-width: 600px;
-            margin: 4rem auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .contact-form label {
-            display: block;
-            margin-top: 1rem;
-        }
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 0.5rem;
-            margin-top: 0.5rem;
-        }
-        .contact-form button {
-            background: #003366;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            cursor: pointer;
-            margin-top: 1rem;
-        }
-        footer {
-            background: #333;
+        .nav a {
+            float: left;
             color: white;
             text-align: center;
-            padding: 1rem 0;
-            position: sticky;
-            bottom: 0;
-            width: 100%;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .nav a:hover {
+            background: #00448f;
+        }
+        .hero {
+            text-align: center;
+            padding: 5em 20px;
+            background: url('plumbing-bg.jpg') no-repeat center;
+            background-size: cover;
+            color: white;
+        }
+        .services {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .service {
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .service h3 {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .cta {
+            background: #28a745;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+            margin-top: 50px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Modern Plumbing</h1>
-        <nav>
-            <a href="#services">Services</a>
-            <a href="#contact">Contact</a>
-        </nav>
+    <header class="header">
+        <h1>Modern Plumbing Solutions</h1>
+        <p>Your Trusted Plumbing Experts</p>
     </header>
+    <div class="nav">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </div>
     <section class="hero">
-        <div>
-            <h1>24/7 Emergency Plumbing</h1>
-            <p>Professional services for all your plumbing needs</p>
+        <h2>24/7 Emergency Plumbing Services</h2>
+        <p>Professional, Reliable, Affordable</p>
+        <a href="#contact" class="cta">Call Now</a>
+    </section>
+    <div class="services" id="services">
+        <h2>Our Services</h2>
+        <div class="service">
+            <h3>Leak Repair</h3>
+            <p>Expert detection and repair of all types of leaks.</p>
+        </div>
+        <div class="service">
+            <h3>Plumbing Installations</h3>
+            <p>Professional installation of fixtures and appliances.</p>
+        </div>
+        <div class="service">
+            <h3>Drain Cleaning</h3>
+            <p>State-of-the-art drain cleaning solutions.</p>
+        </div>
+        <div class="service">
+            <h3>Water Heater Replacement</h3>
+            <p>Efficient water heater installations and repairs.</p>
+        </div>
+    </div>
+    <section id="about">
+        <div class="about-content">
+            <h2>Why Choose Us?</h2>
+            <p>We've been serving the community since 2010 with certified technicians and transparent pricing.</p>
         </div>
     </section>
-    <section id="services" class="services">
-        <div class="service">
-            <h2>Leak Detection</h2>
-            <p>Advanced technology to find hidden leaks quickly</p>
-        </div>
-        <div class="service">
-            <h2>Plumbing Repairs</h2>
-            <p>Fixes for all types of plumbing issues</p>
-        </div>
-        <div class="service">
-            <h2>Installation Services</h2>
-            <p>New fixtures and system installations</p>
-        </div>
-        <div class="service">
-            <h2>Drain Cleaning</h2>
-            <p>Professional drain clearing and maintenance</p>
-        </div>
-    </section>
-    <section class="contact-form" id="contact">
+    <section id="contact">
         <h2>Contact Us</h2>
-        <form>
-            <label>
-                Name:<br>
-                <input type="text" name="name" required>
-            </label>
-            <label>
-                Email:<br>
-                <input type="email" name="email" required>
-            </label>
-            <label>
-                Message:<br>
-                <textarea name="message" rows="4" required></textarea>
-            </label>
-            <button type="submit">Send Message</button>
-        </form>
+        <p>Phone: <strong>(555) 123-4567</strong></p>
+        <p>Email: <strong>info@modernplumbing.com</strong></p>
+        <p>Address: 123 Plumbing Street, Your City, XY 98765</p>
     </section>
     <footer>
         <p>&copy; 2023 Modern Plumbing Services. All rights reserved.</p>

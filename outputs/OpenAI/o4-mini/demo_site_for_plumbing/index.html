@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowMaster Plumbing</title>
+  <title>ACME Plumbing - Reliable Plumbing Services</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #007bff;
-      --secondary: #f8f9fa;
-      --dark: #343a40;
+      --primary-color: #007bff;
+      --secondary-color: #f8f9fa;
+      --dark-color: #343a40;
     }
     * {
       margin: 0;
@@ -17,186 +18,214 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
+      font-family: 'Roboto', sans-serif;
       line-height: 1.6;
-      color: #333;
-      background: var(--secondary);
+      color: var(--dark-color);
+      background-color: var(--secondary-color);
     }
     header {
-      background: var(--dark);
+      background: var(--primary-color);
       color: #fff;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
     }
     .navbar {
-      max-width: 1200px;
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      max-width: 1200px;
+      margin: auto;
       padding: 1rem;
     }
     .navbar a {
       color: #fff;
       text-decoration: none;
       margin-left: 1rem;
-      font-weight: 500;
+      font-weight: 700;
+    }
+    .navbar a:hover {
+      text-decoration: underline;
     }
     .hero {
-      background: url('https://source.unsplash.com/1600x900/?plumbing') center/cover no-repeat;
-      height: 60vh;
+      background: var(--primary-color) center/cover no-repeat;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       color: #fff;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+      padding: 0 1rem;
+      margin-top: 70px;
     }
     .hero h1 {
       font-size: 3rem;
-      max-width: 800px;
     }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-    }
-    .service-card {
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .service-card h3 {
-      margin-bottom: 0.75rem;
-      color: var(--primary);
-    }
-    .service-card p {
-      font-size: 0.95rem;
-      color: #555;
-    }
-    section#about p {
-      margin-top: 1rem;
-      color: #555;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    .form-group input,
-    .form-group textarea {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    .form-group textarea {
-      resize: vertical;
-      min-height: 120px;
+    .hero p {
+      font-size: 1.2rem;
+      margin: 1rem 0;
     }
     .btn {
-      display: inline-block;
-      background: var(--primary);
+      background: var(--primary-color);
       color: #fff;
-      padding: 0.75rem 1.5rem;
+      padding: 0.8rem 1.5rem;
       border: none;
       border-radius: 4px;
-      text-decoration: none;
-      font-size: 1rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      text-decoration: none;
+      font-weight: 700;
     }
     .btn:hover {
       background: #0056b3;
     }
-    footer {
-      background: var(--dark);
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 4rem 1rem;
+    }
+    .section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: var(--dark-color);
+    }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    .service-item {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .service-item h3 {
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    .testimonials {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .testimonial {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .footer {
+      background: var(--dark-color);
       color: #fff;
       text-align: center;
       padding: 1rem;
-      margin-top: 2rem;
     }
-    @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
+    @media(min-width: 768px) {
+      .testimonials {
+        grid-template-columns: repeat(2, 1fr);
       }
+    }
+    .contact-form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .contact-form button {
+      width: 100%;
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="navbar">
-      <a href="#">FlowMaster</a>
-      <nav>
-        <a href="#services">Services</a>
+    <nav class="navbar">
+      <div class="logo"><a href="#">ACME Plumbing</a></div>
+      <div>
         <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
-      </nav>
-    </div>
+      </div>
+    </nav>
   </header>
 
   <section class="hero">
-    <h1>Your Trusted Plumbing Experts</h1>
-  </section>
-
-  <section id="services" class="container services">
-    <div class="service-card">
-      <h3>Installation</h3>
-      <p>Professional installation of fixtures, pipes, and appliances to keep your home running smoothly.</p>
-    </div>
-    <div class="service-card">
-      <h3>Repairs</h3>
-      <p>Quick and reliable repair services for leaks, clogs, broken pipes, and more.</p>
-    </div>
-    <div class="service-card">
-      <h3>Maintenance</h3>
-      <p>Preventative maintenance plans to avoid costly breakdowns and extend the life of your plumbing system.</p>
-    </div>
-    <div class="service-card">
-      <h3>Emergency Service</h3>
-      <p>24/7 emergency response to handle urgent plumbing issues when you need us most.</p>
+    <div>
+      <h1>Reliable Plumbing Solutions</h1>
+      <p>Fast, affordable, and professional plumbing services for your home or business.</p>
+      <a href="#contact" class="btn">Get a Quote</a>
     </div>
   </section>
 
-  <section id="about" class="container">
+  <section id="about" class="section">
     <h2>About Us</h2>
-    <p>FlowMaster Plumbing is a family-owned business with over 20 years of experience in residential and commercial plumbing. Our certified professionals are dedicated to delivering quality workmanship and exceptional customer service on every job.</p>
+    <p>At ACME Plumbing, we have over 20 years of experience offering top-notch plumbing solutions. Our certified technicians are dedicated to ensuring your pipes flow smoothly.</p>
   </section>
 
-  <section id="contact" class="container">
+  <section id="services" class="section">
+    <h2>Our Services</h2>
+    <div class="services">
+      <div class="service-item">
+        <h3>Emergency Repairs</h3>
+        <p>24/7 emergency plumbing repairs to fix leaks, clogs, and pipe bursts.</p>
+      </div>
+      <div class="service-item">
+        <h3>Drain Cleaning</h3>
+        <p>Professional drain cleaning services using state-of-the-art equipment.</p>
+      </div>
+      <div class="service-item">
+        <h3>Water Heater Installation</h3>
+        <p>Expert water heater installation and maintenance for optimal performance.
+      </div>
+      <div class="service-item">
+        <h3>Fixture Upgrades</h3>
+        <p>Upgrade your sinks, faucets, and toilets for a modern look and improved efficiency.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section">
+    <h2>Testimonials</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>"ACME Plumbing saved us during a basement flood. Quick, professional, and affordable!"</p>
+        <strong>- Jane D.</strong>
+      </div>
+      <div class="testimonial">
+        <p>"Highly recommend their drain cleaning service. My pipes haven't been better."</p>
+        <strong>- Mark S.</strong>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
     <h2>Contact Us</h2>
-    <form action="#" method="post">
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Your Name" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="you@example.com" required>
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890" required>
-      </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" placeholder="How can we help you?" required></textarea>
-      </div>
-      <button type="submit" class="btn">Send Message</button>
-    </form>
+    <div class="contact-form">
+      <form action="#" method="post">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="tel" name="phone" placeholder="Your Phone Number" required>
+        <textarea name="message" rows="4" placeholder="How can we help you?" required></textarea>
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </div>
   </section>
 
-  <footer>
-    <p>&copy; 2024 FlowMaster Plumbing. All Rights Reserved.</p>
+  <footer class="footer">
+    &copy; 2024 ACME Plumbing. All Rights Reserved.
   </footer>
 </body>
 </html>

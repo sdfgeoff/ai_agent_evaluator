@@ -3,78 +3,101 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Filament Change | 3D Printing Hub</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Filament Management - 3D Printing Hub</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Header -->
   <header>
-    <div class="container">
+    <nav class="container">
       <h1>3D Printing Hub</h1>
-      <nav>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="calibration.html">Calibration</a></li>
-          <li><a href="filament.html" class="active">Filament Change</a></li>
-          <li><a href="troubleshooting.html">Troubleshooting</a></li>
-        </ul>
-      </nav>
-    </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="calibration.html">Calibration</a></li>
+        <li><a href="filament.html">Filament Management</a></li>
+        <li><a href="process.html">Post-Filament Change</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
   </header>
-
+  <!-- Main Content -->
   <main class="container">
-    <h2>Filament Change Workflow</h2>
+    <section>
+      <h2 class="section-title">Filament Management Essentials</h2>
+      <p>Proper filament handling ensures reliable, high-quality prints.</p>
+    </section>
 
     <section>
-      <h3>1. Pre-Extraction Checks</h3>
+      <h3>1. Storage & Humidity Control</h3>
       <ul>
-        <li>Heat nozzle to printing temperature of the current filament.</li>
-        <li>Retract filament slowly to avoid breakage or grinding.</li>
-        <li>Inspect extruder gears for debris and clean if necessary.</li>
+        <li>Semi-dry Boxes: Store filaments with silica gel packs inside airtight containers.</li>
+        <li>Driers & Ovens: Use filament dryers (45300C) for 4-6 hours for PLA/ABS, up to 12 for hygroscopic materials (Nylon, PVA).</li>
+        <li>Moisture Indicators: Visual hygrometers help monitor humidity levels (<20% RH ideal).</li>
       </ul>
     </section>
 
     <section>
-      <h3>2. Remove Old Filament</h3>
+      <h3>2. Filament Types & Characteristics</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Print Temp</th>
+            <th>Humidity Sensitivity</th>
+            <th>Properties</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>PLA</td>
+            <td>190-2206C</td>
+            <td>Low</td>
+            <td>Biodegradable, easy prints</td>
+          </tr>
+          <tr>
+            <td>ABS</td>
+            <td>220-2506C</td>
+            <td>Low</td>
+            <td>Durable, warping issues</td>
+          </tr>
+          <tr>
+            <td>Nylon</td>
+            <td>240-2606C</td>
+            <td>High</td>
+            <td>Strong, flexible, hygroscopic</td>
+          </tr>
+          <tr>
+            <td>TPU</td>
+            <td>210-2306C</td>
+            <td>Medium</td>
+            <td>Flexible, rubber-like</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h3>3. Switching Filaments</h3>
       <ol>
-        <li>Set temperature: e.g., 200°C for PLA, 240°C for ABS.</li>
-        <li>Use extrusion menu to retract filament by 100mm at 100mm/min.</li>
-        <li>Gently pull filament out by hand once retraction completes.</li>
+        <li>Heat nozzle to current filament's temp. Retract filament completely.</li>
+        <li>Clean nozzle: perform cold pull with Nylon or cleaning filament.</li>
+        <li>Insert new filament; extrude 20-30mm to ensure clean flow.</li>
+        <li>Adjust temperature to new material's spec, run purge tower to stabilize flow.</li>
       </ol>
     </section>
 
     <section>
-      <h3>3. Insert New Filament</h3>
-      <ol>
-        <li>Trim the filament at a 45° angle to ensure a clean tip.</li>
-        <li>Feed filament until you see consistent extrusion at set temperature.</li>
-        <li>Check for air gaps, stringing, or under-extrusion in the first layer.
-      </ol>
-    </section>
-
-    <section>
-      <h3>4. Purge and Prime</h3>
-      <p>
-        Purge at least 50mm of filament to clear remnants of the previous filament.  Use G-code:
-      </p>
-      <pre><code>
-G92 E0        ; Reset extruder position
-G1 E50 F100   ; Extrude 50mm of filament at 100mm/min
-G92 E0        ; Reset extruder position
-      </code></pre>
-    </section>
-
-    <section>
-      <h3>5. Fine-Tuning</h3>
-      <p>
-        Print a small test model (e.g., 20mm cube) to confirm optimal settings. Adjust temperature and flow rate as needed.
-      </p>
+      <h3>4. Troubleshooting Moisture-Related Issues</h3>
+      <ul>
+        <li>Signs: bubbles, stringing, rough surface.</li>
+        <li>Fixes: dry filament, slow print speed, increase nozzle temp slightly.</li>
+      </ul>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2023 3D Printing Hub. All rights reserved.</p>
-    </div>
+    <p>&copy; 2024 3D Printing Hub. All rights reserved.</p>
   </footer>
 </body>
 </html>

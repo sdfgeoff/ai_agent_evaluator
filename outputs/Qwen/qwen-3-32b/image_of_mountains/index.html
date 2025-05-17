@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Sunset over Mountains</title>
+  <title>Sunset Over Mountains</title>
 </head>
 <body>
-<svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="sunsetGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#FF7F50" />
-      <stop offset="30%" stop-color="#FFD700" />
-      <stop offset="100%" stop-color="#9370DB" />
-    </linearGradient>
-  </defs>
-  
-  <!-- Sky background -->
-  <rect width="100%" height="100%" fill="url(#sunsetGradient)" />
-
-  <!-- Mountains -->
-  <path d="M0 300 Q 150 150, 300 300 T 600 300" fill="#2F4F4F" />
-  <path d="M200 250 Q 350 100, 500 250 T 800 250" fill="#2F4F4F" />
-  <rect x="0" y="350" width="800" height="50" fill="#8B4513" />
-</svg>
+  <svg width="100%" height="100vh" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="skyGradient" gradientTransform="rotate(90)">
+        <stop offset="0%" stop-color="#FFD700" />
+        <stop offset="30%" stop-color="#FFA500" />
+        <stop offset="100%" stop-color="#87CEEB" />
+      </linearGradient>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#skyGradient)"/>
+    <!-- Mountains -->
+    <path d="M 10 45 L 30 15 L 50 45 Z" fill="#2C3E50" />
+    <path d="M 40 40 L 60 10 L 80 40 Z" fill="#293F4F" />
+    <path d="M 70 35 L 90 5 L 110 35 Z" fill="#243B4E" />
+  </svg>
 </body>
 </html>
