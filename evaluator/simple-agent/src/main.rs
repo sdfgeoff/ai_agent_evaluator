@@ -15,15 +15,10 @@ use structured_logger::{Builder, async_json::new_writer};
 
 fn make_provider(url: String, token: Option<String>, model: String) -> LLMClient {
     let mut headers = reqwest::header::HeaderMap::new();
-
-    match token {
-        Some(token) => {
-            let tok =
-                std::env::var(token).expect("Failed to retrieve provider token from environment");
-            headers.insert(AUTHORIZATION, format!("Bearer {}", tok).parse().unwrap());
-        }
-        None => {}
-    };
+    if let Some(token) = token {
+        let tok = std::env::var(token).expect("Failed to retrieve provider token from environment");
+        headers.insert(AUTHORIZATION, format!("Bearer {}", tok).parse().unwrap());
+    }
 
     let http_client = reqwest::Client::builder()
         .default_headers(headers)

@@ -151,7 +151,7 @@ fn main() {
     tests_to_run.retain(|test| test.model.enabled);
 
     for test in &tests_to_run {
-        let test_needs_rerun = check_if_test_needs_rerun(&test);
+        let test_needs_rerun = check_if_test_needs_rerun(test);
 
         if test_needs_rerun {
             if let Err(e) = run_test(agent_binary.clone(), test) {

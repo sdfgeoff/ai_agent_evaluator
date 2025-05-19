@@ -54,16 +54,13 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
         "TEST_CONFIG",
         serde_json::to_string(&local_test_config).expect("Failed to serialize test config"),
     );
-    match test.provider.token_env_var {
-        Some(ref token_env_var) => {
-            env_vars.insert(
-                token_env_var,
-                std::env::var(token_env_var)
-                    .map_err(|_| format!("Environment variable {} not set", token_env_var))
-                    .expect("Failed to get environment variable"),
-            );
-        }
-        None => {}
+    if let Some(ref token_env_var) = test.provider.token_env_var {
+        env_vars.insert(
+            token_env_var,
+            std::env::var(token_env_var)
+                .map_err(|_| format!("Environment variable {} not set", token_env_var))
+                .expect("Failed to get environment variable"),
+        );
     }
 
     let volumes = vec![

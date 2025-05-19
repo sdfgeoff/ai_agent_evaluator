@@ -62,7 +62,7 @@ impl ToolManager {
             tool_call_id: call.id,
             role: Role::Tool,
             name: call.function.name.clone(),
-            content: content,
+            content,
         })
     }
 }
