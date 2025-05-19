@@ -1,9 +1,9 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
-use std::{convert, fs};
+use std::fs;
 use std::path::{Path, PathBuf};
 use structopt::StructOpt;
-use log::{info, error};
+use log::error;
 use agent_types::{ModelProvider, TestConfig, TestToRun};
 mod run_test_case;
 use run_test_case::run_test;
@@ -54,6 +54,25 @@ fn convert_to_absolute_path_quitting_if_error(path: &str) -> PathBuf {
     }
 }
 
+fn check_if_test_needs_rerun(
+    test: &TestToRun,
+) -> bool {
+    let existing_config_file = Path::new(&test.output_folder).join("config.json");
+
+    if existing_config_file.exists() {
+        let existing_config = fs::read_to_string(&existing_config_file).unwrap();
+        let new_config = fs::read_to_string(Path::new(&test.input_folder).join("config.json")).unwrap();
+
+        // Parse both configs
+        let existing_config: TestConfig = serde_json::from_str(&existing_config).unwrap();
+        let new_config: TestConfig = serde_json::from_str(&new_config).unwrap();
+        
+        existing_config.test_parameters != new_config.test_parameters
+    } else {
+        true
+    }
+}
+
 
 fn main() {
 
@@ -94,7 +113,7 @@ fn main() {
             continue;
         }
 
-        info!(test_file=test_settings_file.to_str(); "found_test");
+        // info!(test_file=test_settings_file.to_str(); "found_test");
         let test_parameters = load_config(&test_settings_file);
 
         if !test_names.insert(test_parameters.name.clone()) {
@@ -128,35 +147,19 @@ fn main() {
 
 
     for test in &tests_to_run {
-        let existing_config_file = Path::new(&test.output_folder).join("config.json");
+        let test_needs_rerun = check_if_test_needs_rerun(&test);
 
-        let skip = if existing_config_file.exists() {
-            let existing_config = fs::read_to_string(&existing_config_file).unwrap();
-            let new_config = fs::read_to_string(Path::new(&test.input_folder).join("config.json")).unwrap();
-            existing_config == new_config
-        } else {
-            false
-        };
-
-        if !skip {
+        if test_needs_rerun {
             if let Err(e) = run_test(agent_binary.clone(), test) {
                 error!(
                     "Test failed for provider: {}, model: {}, test folder: {:?}, error: {:?}",
                     test.provider.name, test.model.key, test.input_folder, e
                 );
             }
-            
-            // Write the test-to-run result to the output folder
-            let test_file = std::fs::File::create(format!("{}/test.json", test.output_folder)).unwrap();
-            let test_writer = std::io::BufWriter::new(test_file);
-            serde_json::to_writer(test_writer, &test).unwrap();
-        } // else {
-        //     info!(
-        //         model=test.model.key,
-        //         test=test.name,
-        //         provider=test.provider.name;
-        //         "skipping_test",
-        //     );
-        // }
+        }
+        // Write the test-to-run result to the output folder
+        let test_file = std::fs::File::create(format!("{}/test.json", test.output_folder)).unwrap();
+        let test_writer = std::io::BufWriter::new(test_file);
+        serde_json::to_writer(test_writer, &test).unwrap();
     }
 }

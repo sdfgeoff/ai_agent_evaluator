@@ -10,7 +10,7 @@ class Model(BaseModel):
 class ModelProvider(BaseModel):
     name: str
     base_url: str
-    token: str
+    token_env_var: str | None = None
     models: List[Model]
     enable: bool = True
 

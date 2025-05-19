@@ -1,0 +1,16 @@
+{
+	"name": "Write a science fiction novel",
+    "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
+    "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+    "initial_prompt":  [
+		{
+			"content": "Can you write a science fiction novel for me. I want it to be about some explorers setting up a base on a new planet, written in the style of classical sci-fi authors such as Arthur C. Clarke, Isaac Asimov and Robert A. Heinlein. Output the novel into the file index.html",
+			"role": "user"
+		}
+	],
+	"allowed_tools": [
+		"bash",
+		"create_file"
+	],
+	"tags": ["creative_writing"]
+}

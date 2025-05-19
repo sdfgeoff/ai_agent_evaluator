@@ -3,7 +3,7 @@
         {
             "name": "Qwen",
             "base_url": "http://192.168.18.10:1234",
-            "token": "asdf",
+            "token_env_var": null,
             "models": [
                 {
                     "key":"qwen3-0.6b",
@@ -35,7 +35,7 @@
         {
             "name": "THUDM",
             "base_url": "http://192.168.18.10:1234",
-            "token": "asdf",
+            "token_env_var": null,
             "models": [
                 {
                     "key": "glm-4-9b-0414",
@@ -47,7 +47,7 @@
         {
             "name": "QWQ",
             "base_url": "http://192.168.18.10:1234",
-            "token": "asdf",
+            "token_env_var": null,
             "models": [
                 {
                     "key": "qwq-32b",
@@ -59,7 +59,7 @@
         {
             "name": "Meta",
             "base_url": "http://192.168.18.10:1234",
-            "token": "asdf",
+            "token_env_var": null,
             "models": [
                 {
                     "key": "meta-llama-3.1-8b-instruct",
@@ -71,7 +71,7 @@
         {
             "name": "OpenAI",
             "base_url": "https://api.openai.com",
-            "token": "OPENAI_API_KEY",
+            "token_env_var": "OPENAI_API_KEY",
             "models": [
                 {
                     "key": "o4-mini",

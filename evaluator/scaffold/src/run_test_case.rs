@@ -1,8 +1,8 @@
-use std::fs;
+use std::{collections::HashMap, fs};
 use std::process::Command;
 use std::path::Path;
 use log::{info, warn};
-use agent_types::{ResultStats, TestToRun};
+use agent_types::TestToRun;
 use std::path::PathBuf;
 
 pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
@@ -46,26 +46,44 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
         output_folder: "/project".to_string(),
     };
 
+    let mut env_vars = HashMap::new();
+    env_vars.insert("TEST_CONFIG", serde_json::to_string(&local_test_config).expect("Failed to serialize test config"));
+    match test.provider.token_env_var {
+        Some(ref token_env_var) => {
+            env_vars.insert(token_env_var, std::env::var(token_env_var).map_err(|_| {
+                format!("Environment variable {} not set", token_env_var)
+            }).expect("Failed to get environment variable"));
+        }
+        None => {}
+    }
+  
+    let volumes = vec![
+        format!("{}:/project:rw", test.output_folder),
+        format!("{}:/agent:ro", agent_folder.to_string_lossy()),
+    ];
+
+    let mut args: Vec<String> = Vec::new();
+
+    args.push("run".to_string());
+    args.push("--rm".to_string());
+    
+    for volume in volumes {
+        args.push("-v".to_string());
+        args.push(volume);
+    }
+    args.push("-w".to_string());
+    args.push("/agent".to_string());
+    for (key, value) in env_vars {
+        args.push("-e".to_string());
+        args.push(format!("{}={}", key, value));
+    }
+    args.push("--name".to_string());
+    args.push(docker_name.clone());
+    args.push(test.test_parameters.test_parameters.docker_image.clone());
+    args.push(format!("/agent/{}", Path::new(&agent_binary).file_name().unwrap().to_string_lossy()));
+
     let process = Command::new("docker")
-        .args(&[
-            "run",
-            "--rm",
-            "-v",
-            &format!("{}:/project", test.output_folder),
-            "-v",
-            &format!("{}:/agent", agent_folder.to_string_lossy().to_string()),
-            "-w",
-            "/agent",
-            "-e",
-            &format!(
-                "TEST_CONFIG={}",
-                serde_json::to_string(&local_test_config).expect("Failed to serialize test config")
-            ),
-            "--name",
-            &docker_name,
-            &test.test_parameters.test_parameters.docker_image,
-            &format!("/agent/{}", Path::new(&agent_binary).file_name().unwrap().to_string_lossy()),
-        ])
+        .args(&args)
         .spawn()
         .expect("Failed to execute docker command");
 

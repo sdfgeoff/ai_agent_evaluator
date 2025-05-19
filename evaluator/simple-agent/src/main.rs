@@ -13,9 +13,16 @@ mod default_tools;
 
 use structured_logger::{Builder, async_json::new_writer};
 
-fn make_provider(url: String, token: String, model: String) -> LLMClient {
+fn make_provider(url: String, token: Option<String>, model: String) -> LLMClient {
     let mut headers = reqwest::header::HeaderMap::new();
-    headers.insert(AUTHORIZATION, format!("Bearer {}", token).parse().unwrap());
+    
+    match token {
+        Some(token) => {
+            let tok = std::env::var(token).expect("Failed to retrieve provider token from environment");
+            headers.insert(AUTHORIZATION, format!("Bearer {}", tok).parse().unwrap());
+        }
+        None => {}
+    };
 
     let http_client = reqwest::Client::builder()
         .default_headers(headers)
@@ -38,7 +45,7 @@ async fn run_test(test: TestToRun) {
         std::process::exit(1);
     }
 
-    let provider = make_provider(test.provider.base_url.clone(), test.provider.token.clone(), test.model.key.clone());
+    let provider = make_provider(test.provider.base_url.clone(), test.provider.token_env_var.clone(), test.model.key.clone());
 
     let mut tool_manager = tool_manager::ToolManager::new();
     if test.test_parameters.test_parameters.allowed_tools.contains(&Tools::Bash) {
