@@ -1,5 +1,5 @@
 use agent_types::llm_types::{ChatParameters, ChatResponse};
-use log::{warn};
+use log::warn;
 
 pub struct OpenAiClient {
     client: reqwest::Client,

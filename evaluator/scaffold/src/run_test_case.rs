@@ -1,9 +1,9 @@
-use std::{collections::HashMap, fs};
-use std::process::Command;
-use std::path::Path;
-use log::{info, warn};
 use agent_types::TestToRun;
+use log::{info, warn};
+use std::path::Path;
 use std::path::PathBuf;
+use std::process::Command;
+use std::{collections::HashMap, fs};
 
 pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
     info!(
@@ -27,7 +27,10 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
 
     // Spin up docker container
     let name = format!("{}_{}_{}", test.name, test.provider.name, test.model.key);
-    let docker_name: String = name.chars().filter(|c| c.is_alphanumeric() || *c == '_' || *c == '-').collect();
+    let docker_name: String = name
+        .chars()
+        .filter(|c| c.is_alphanumeric() || *c == '_' || *c == '-')
+        .collect();
     let agent_folder = Path::new(&agent_binary).parent().unwrap();
 
     info!(
@@ -47,16 +50,22 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
     };
 
     let mut env_vars = HashMap::new();
-    env_vars.insert("TEST_CONFIG", serde_json::to_string(&local_test_config).expect("Failed to serialize test config"));
+    env_vars.insert(
+        "TEST_CONFIG",
+        serde_json::to_string(&local_test_config).expect("Failed to serialize test config"),
+    );
     match test.provider.token_env_var {
         Some(ref token_env_var) => {
-            env_vars.insert(token_env_var, std::env::var(token_env_var).map_err(|_| {
-                format!("Environment variable {} not set", token_env_var)
-            }).expect("Failed to get environment variable"));
+            env_vars.insert(
+                token_env_var,
+                std::env::var(token_env_var)
+                    .map_err(|_| format!("Environment variable {} not set", token_env_var))
+                    .expect("Failed to get environment variable"),
+            );
         }
         None => {}
     }
-  
+
     let volumes = vec![
         format!("{}:/project:rw", test.output_folder),
         format!("{}:/agent:ro", agent_folder.to_string_lossy()),
@@ -66,7 +75,7 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
 
     args.push("run".to_string());
     args.push("--rm".to_string());
-    
+
     for volume in volumes {
         args.push("-v".to_string());
         args.push(volume);
@@ -80,7 +89,13 @@ pub fn run_test(agent_binary: PathBuf, test: &TestToRun) -> Result<(), String> {
     args.push("--name".to_string());
     args.push(docker_name.clone());
     args.push(test.test_parameters.test_parameters.docker_image.clone());
-    args.push(format!("/agent/{}", Path::new(&agent_binary).file_name().unwrap().to_string_lossy()));
+    args.push(format!(
+        "/agent/{}",
+        Path::new(&agent_binary)
+            .file_name()
+            .unwrap()
+            .to_string_lossy()
+    ));
 
     let process = Command::new("docker")
         .args(&args)

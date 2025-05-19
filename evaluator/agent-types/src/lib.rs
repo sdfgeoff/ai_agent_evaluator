@@ -17,16 +17,13 @@ pub struct ModelProvider {
     pub enabled: bool,
 }
 
-
 /// Parameters for a test that will need a rerun if they have changed.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct TestParameters {
-
     pub docker_image: String,
     pub initial_prompt: Vec<llm_types::Message>,
     pub allowed_tools: Vec<Tools>,
 }
-
 
 /// The parametrs of a test as stored on disk used to configure a test.
 /// Some parameters will not cause a rerun (eg name). All parametesr that
@@ -40,7 +37,6 @@ pub struct TestConfig {
     #[serde(flatten)]
     pub test_parameters: TestParameters,
 }
-
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "snake_case")]

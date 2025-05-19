@@ -46,11 +46,13 @@ impl ToolManager {
         let content = match tool {
             Some(tool) => {
                 info!("Calling tool: {}", call.function.name);
-                let res = tokio::time::timeout(std::time::Duration::from_secs(60), tool.call(arguments)).await;
+                let res =
+                    tokio::time::timeout(std::time::Duration::from_secs(60), tool.call(arguments))
+                        .await;
                 match res {
                     Ok(Ok(result)) => result,
                     Ok(Err(err)) => Value::String(format!("ERROR: {}", err)),
-                    Err(elapsed) => Value::String(format!("ERROR: Timeout after {:?}", elapsed))
+                    Err(elapsed) => Value::String(format!("ERROR: Timeout after {:?}", elapsed)),
                 }
             }
             None => Value::String(format!("ERROR: Tool `{}` not found", call.function.name)),

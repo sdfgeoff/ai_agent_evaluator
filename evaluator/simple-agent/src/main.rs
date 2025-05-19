@@ -15,10 +15,11 @@ use structured_logger::{Builder, async_json::new_writer};
 
 fn make_provider(url: String, token: Option<String>, model: String) -> LLMClient {
     let mut headers = reqwest::header::HeaderMap::new();
-    
+
     match token {
         Some(token) => {
-            let tok = std::env::var(token).expect("Failed to retrieve provider token from environment");
+            let tok =
+                std::env::var(token).expect("Failed to retrieve provider token from environment");
             headers.insert(AUTHORIZATION, format!("Bearer {}", tok).parse().unwrap());
         }
         None => {}
@@ -45,15 +46,25 @@ async fn run_test(test: TestToRun) {
         std::process::exit(1);
     }
 
-    let provider = make_provider(test.provider.base_url.clone(), test.provider.token_env_var.clone(), test.model.key.clone());
+    let provider = make_provider(
+        test.provider.base_url.clone(),
+        test.provider.token_env_var.clone(),
+        test.model.key.clone(),
+    );
 
     let mut tool_manager = tool_manager::ToolManager::new();
-    if test.test_parameters.test_parameters.allowed_tools.contains(&Tools::Bash) {
+    if test
+        .test_parameters
+        .test_parameters
+        .allowed_tools
+        .contains(&Tools::Bash)
+    {
         let bash_tool = default_tools::BashTool {};
         tool_manager.add_tool(Box::pin(bash_tool));
     }
     if test
-        .test_parameters.test_parameters
+        .test_parameters
+        .test_parameters
         .allowed_tools
         .contains(&Tools::CreateFile)
     {
@@ -64,7 +75,12 @@ async fn run_test(test: TestToRun) {
     let mut agent = agent::Agent::new(provider, tool_manager);
 
     let start_time = chrono::Utc::now();
-    let result = agent.run(test.test_parameters.test_parameters.initial_prompt.clone(), 100).await;
+    let result = agent
+        .run(
+            test.test_parameters.test_parameters.initial_prompt.clone(),
+            100,
+        )
+        .await;
     let end_time = chrono::Utc::now();
 
     if result.is_err() {

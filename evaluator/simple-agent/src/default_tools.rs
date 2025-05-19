@@ -1,11 +1,8 @@
-use std::pin::Pin;
+use crate::tool_manager::ToolAndCallable;
 use agent_types::llm_types::{ToolDefinition, ToolFunction, ToolFunctionType};
-use crate::{
-    
-    tool_manager::ToolAndCallable,
-};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
+use std::pin::Pin;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]

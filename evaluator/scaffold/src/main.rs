@@ -1,14 +1,13 @@
+use agent_types::{ModelProvider, TestConfig, TestToRun};
+use log::error;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 use structopt::StructOpt;
-use log::error;
-use agent_types::{ModelProvider, TestConfig, TestToRun};
 mod run_test_case;
 use run_test_case::run_test;
-use structured_logger::{Builder};
-
+use structured_logger::Builder;
 
 #[derive(Debug, StructOpt)]
 struct Args {
@@ -18,30 +17,30 @@ struct Args {
     #[structopt(long, help = "Path to the llm_providers config file")]
     llm_providers_config: String,
 
-    #[structopt(long, help = "Path to the test input directory", default_value = "inputs")]
+    #[structopt(
+        long,
+        help = "Path to the test input directory",
+        default_value = "inputs"
+    )]
     input_directory: String,
 
-    #[structopt(long, help = "Path to the test output directory", default_value = "outputs")]
+    #[structopt(
+        long,
+        help = "Path to the test output directory",
+        default_value = "outputs"
+    )]
     output_directory: String,
 }
-
-
-
-
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ProviderConfig {
     pub providers: Vec<ModelProvider>,
 }
 
-
-
-
 fn load_config(file_path: &Path) -> TestConfig {
     let file_content = fs::read_to_string(file_path).expect("Failed to read config file");
     serde_json::from_str(&file_content).expect("Failed to parse config file")
 }
-
 
 fn convert_to_absolute_path_quitting_if_error(path: &str) -> PathBuf {
     let absolute_path = fs::canonicalize(path);
@@ -54,28 +53,25 @@ fn convert_to_absolute_path_quitting_if_error(path: &str) -> PathBuf {
     }
 }
 
-fn check_if_test_needs_rerun(
-    test: &TestToRun,
-) -> bool {
+fn check_if_test_needs_rerun(test: &TestToRun) -> bool {
     let existing_config_file = Path::new(&test.output_folder).join("config.json");
 
     if existing_config_file.exists() {
         let existing_config = fs::read_to_string(&existing_config_file).unwrap();
-        let new_config = fs::read_to_string(Path::new(&test.input_folder).join("config.json")).unwrap();
+        let new_config =
+            fs::read_to_string(Path::new(&test.input_folder).join("config.json")).unwrap();
 
         // Parse both configs
         let existing_config: TestConfig = serde_json::from_str(&existing_config).unwrap();
         let new_config: TestConfig = serde_json::from_str(&new_config).unwrap();
-        
+
         existing_config.test_parameters != new_config.test_parameters
     } else {
         true
     }
 }
 
-
 fn main() {
-
     Builder::with_level("info")
         // .with_target_writer("*", new_writer(tokio::io::stdout()))
         .init();
@@ -92,13 +88,13 @@ fn main() {
     let mut test_names = HashSet::new();
 
     // Parse the provider config json file
-    let provider_config_file = convert_to_absolute_path_quitting_if_error(&args.llm_providers_config);
-    let provider_config_content = fs::read_to_string(provider_config_file)
-        .expect("Failed to read provider config file");
+    let provider_config_file =
+        convert_to_absolute_path_quitting_if_error(&args.llm_providers_config);
+    let provider_config_content =
+        fs::read_to_string(provider_config_file).expect("Failed to read provider config file");
     let provider_config: ProviderConfig = serde_json::from_str(&provider_config_content)
         .expect("Failed to parse provider config file");
     let providers = provider_config.providers;
-
 
     for entry in test_folders {
         let entry = entry.expect("Failed to read directory entry");
@@ -128,7 +124,11 @@ fn main() {
                     .join(test_folder.file_name().unwrap());
 
                 tests_to_run.push(TestToRun {
-                    name: test_folder.file_name().unwrap().to_string_lossy().to_string(),
+                    name: test_folder
+                        .file_name()
+                        .unwrap()
+                        .to_string_lossy()
+                        .to_string(),
                     test_parameters: test_parameters.clone(),
                     provider: provider.clone(),
                     model: model.clone(),
@@ -139,12 +139,16 @@ fn main() {
         }
     }
 
-    tests_to_run.sort_by(|a, b| a.provider.name.cmp(&b.provider.name).then(a.model.key.cmp(&b.model.key)));
+    tests_to_run.sort_by(|a, b| {
+        a.provider
+            .name
+            .cmp(&b.provider.name)
+            .then(a.model.key.cmp(&b.model.key))
+    });
     // Remove any with the provider disabled
-    tests_to_run.retain(|test| { test.provider.enabled });
+    tests_to_run.retain(|test| test.provider.enabled);
     // Remove any with the model disabled
-    tests_to_run.retain(|test| { test.model.enabled });
-
+    tests_to_run.retain(|test| test.model.enabled);
 
     for test in &tests_to_run {
         let test_needs_rerun = check_if_test_needs_rerun(&test);
