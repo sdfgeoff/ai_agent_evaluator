@@ -21,16 +21,14 @@ const SummaryList: React.FC<SummaryProps> = ({ tests }) => {
         new Set(tests.map((test) => test.provider))
     );
 
-    // Extract unique model keys based on the selected provider
-    const uniqueModelKeys = Array.from(
-        new Set(
-            tests
-                .filter((test) =>
-                    providerFilter ? test.provider === providerFilter : true
-                )
-                .map((test) => test.model_key)
-        )
-    );
+    // Group model keys by provider
+    const modelKeysByProvider = tests.reduce((acc, test) => {
+        if (!acc[test.provider]) {
+            acc[test.provider] = new Set<string>();
+        }
+        acc[test.provider].add(test.model_key);
+        return acc;
+    }, {} as Record<string, Set<string>>);
 
     const filteredTests = tests.filter((test) => {
         const matchesTag = tagFilter ? test.test_metadata.tags.includes(tagFilter) : true;
@@ -99,11 +97,17 @@ const SummaryList: React.FC<SummaryProps> = ({ tests }) => {
                         onChange={(e) => setModelKeyFilter(e.target.value)}
                     >
                         <option value="">All</option>
-                        {uniqueModelKeys.map((modelKey) => (
-                            <option key={modelKey} value={modelKey}>
-                                {modelKey}
-                            </option>
-                        ))}
+                        {Object.entries(modelKeysByProvider).map(
+                            ([provider, modelKeys]) => (
+                                <optgroup key={provider} label={provider}>
+                                    {Array.from(modelKeys).map((modelKey) => (
+                                        <option key={modelKey} value={modelKey}>
+                                            {modelKey}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            )
+                        )}
                     </select>
                 </label>
             </div>
