@@ -975,6 +975,7 @@ name = "scaffold"
 version = "0.1.0"
 dependencies = [
  "agent-types",
+ "chrono",
  "fs_extra",
  "log",
  "serde",

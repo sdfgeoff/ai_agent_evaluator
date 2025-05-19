@@ -25,15 +25,24 @@ pub struct TestParameters {
     pub allowed_tools: Vec<Tools>,
 }
 
+/// The parameters of a test that do not need a rerun if they have changed.
+/// This includes the name, blurb, tags and any other parameters that
+/// do not affect the test execution.
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct TestMetadata {
+    pub name: String,
+    pub blurb: String,
+    pub tags: Vec<String>,
+}
+
 /// The parametrs of a test as stored on disk used to configure a test.
 /// Some parameters will not cause a rerun (eg name). All parametesr that
 /// will cause a rerun should be contained in the test_parameters: TestParameters
 /// field rather than directly in this struct.
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TestConfig {
-    pub name: String,
-    pub blurb: String,
-    pub tags: Vec<String>,
+    #[serde(flatten)]
+    pub metadata: TestMetadata,
     #[serde(flatten)]
     pub test_parameters: TestParameters,
 }
