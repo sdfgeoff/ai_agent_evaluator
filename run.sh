@@ -12,13 +12,10 @@ cargo build --target x86_64-unknown-linux-musl --bin simple-agent
 cargo run --bin scaffold -- \
     --agent-binary ../evaluator/target/x86_64-unknown-linux-musl/debug/simple-agent \
     --input-directory ../inputs \
-    --output-directory ../outputs \
+    --output-directory ../site/public/test_results \
     --llm-providers-config ../llm_providers.json
 
 cd ../;
 
-# # Run the scaffold
-cd scaffold/src && uv run -m scaffold \
-    --output-directory ../../outputs \
-
-# cd evaluator/packages/scaffold/src && uv sync && uv run -m scaffold 
+# Build the site
+cd site && npm run build && cd ../

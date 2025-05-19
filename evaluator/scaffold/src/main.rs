@@ -1,4 +1,4 @@
-use agent_types::{ModelProvider, TestConfig, TestToRun};
+use agent_types::{FinishReason, ModelProvider, ResultStats, TestConfig, TestMetadata, TestToRun};
 use log::error;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
@@ -8,6 +8,8 @@ use structopt::StructOpt;
 mod run_test_case;
 use run_test_case::run_test;
 use structured_logger::Builder;
+use chrono::{Date, DateTime, Utc};
+
 
 #[derive(Debug, StructOpt)]
 struct Args {
@@ -71,6 +73,62 @@ fn check_if_test_needs_rerun(test: &TestToRun) -> bool {
     }
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+struct TestSummary {
+    test_metadata: TestMetadata,
+    
+    provider: String,
+    model_key: String,
+
+    output_folder: String,
+
+    run_date: Option<DateTime<Utc>>,
+    finish_reason: Option<FinishReason>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+struct Summary {
+    tests: Vec<TestSummary>,
+}
+
+fn generate_test_summary(
+    output_directory: &PathBuf,
+    test: &TestToRun,
+) -> TestSummary {
+
+    // Load result stats from the test output folder
+    let stats_file = Path::new(&test.output_folder)
+        .join("stats.json");
+    let stats_content = fs::read_to_string(stats_file)
+        .ok();
+
+    let parse = |content: String| {
+        serde_json::from_str::<ResultStats>(&content)
+            .expect("Failed to parse stats file")
+    };
+    let stats: Option<ResultStats> = stats_content.map(parse);
+
+    let run_date: Option<DateTime<Utc>> = stats
+        .as_ref()
+        .and_then(|s| s.run_date);
+    let finish_reason: Option<FinishReason> = stats
+        .as_ref()
+        .and_then(|s| s.finish_reason.clone());
+
+    TestSummary {
+        test_metadata: test.test_parameters.metadata.clone(),
+        provider: test.provider.name.clone(),
+        model_key: test.model.key.clone(),
+        output_folder: Path::new(&test.output_folder)
+            .strip_prefix(output_directory)
+            .unwrap()
+            .to_string_lossy()
+            .to_string(),
+        run_date,
+        finish_reason,
+    }
+}
+
 fn main() {
     Builder::with_level("info")
         // .with_target_writer("*", new_writer(tokio::io::stdout()))
@@ -84,7 +142,7 @@ fn main() {
 
     let test_folders = fs::read_dir(input_directory).expect("Failed to read input directory");
 
-    let mut tests_to_run = Vec::new();
+    let mut all_tests = Vec::new();
     let mut test_names = HashSet::new();
 
     // Parse the provider config json file
@@ -112,8 +170,8 @@ fn main() {
         // info!(test_file=test_settings_file.to_str(); "found_test");
         let test_parameters = load_config(&test_settings_file);
 
-        if !test_names.insert(test_parameters.name.clone()) {
-            panic!("Duplicate test name: {}", test_parameters.name);
+        if !test_names.insert(test_parameters.metadata.name.clone()) {
+            panic!("Duplicate test name: {}", test_parameters.metadata.name);
         }
 
         for provider in &providers {
@@ -123,7 +181,7 @@ fn main() {
                     .join(model.key.clone())
                     .join(test_folder.file_name().unwrap());
 
-                tests_to_run.push(TestToRun {
+                all_tests.push(TestToRun {
                     name: test_folder
                         .file_name()
                         .unwrap()
@@ -139,16 +197,18 @@ fn main() {
         }
     }
 
-    tests_to_run.sort_by(|a, b| {
+    all_tests.sort_by(|a, b| {
         a.provider
             .name
             .cmp(&b.provider.name)
             .then(a.model.key.cmp(&b.model.key))
     });
+    let mut tests_to_run = all_tests.clone();
     // Remove any with the provider disabled
     tests_to_run.retain(|test| test.provider.enabled);
     // Remove any with the model disabled
     tests_to_run.retain(|test| test.model.enabled);
+
 
     for test in &tests_to_run {
         let test_needs_rerun = check_if_test_needs_rerun(test);
@@ -166,4 +226,19 @@ fn main() {
         let test_writer = std::io::BufWriter::new(test_file);
         serde_json::to_writer(test_writer, &test).unwrap();
     }
+
+    // Generate a summary of the tests.
+    let summary = Summary {
+        tests: tests_to_run
+            .iter()
+            .map(
+                |test| generate_test_summary(&output_directory, &test),
+            )
+            .collect(),
+    };
+    // Write the summary to a json file
+    let summary_file = std::fs::File::create(output_directory.join("summary.json")).unwrap();
+    let summary_writer = std::io::BufWriter::new(summary_file);
+    serde_json::to_writer(summary_writer, &summary).unwrap();
+
 }
