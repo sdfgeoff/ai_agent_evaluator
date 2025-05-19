@@ -20,4 +20,5 @@ jobs:
           toolchain: stable
 
       - name: Run cargo fmt --check
+        working-directory: evaluator
         run: cargo fmt --check

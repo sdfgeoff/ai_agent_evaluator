@@ -20,4 +20,5 @@ jobs:
           toolchain: stable
 
       - name: Run cargo clippy
+        working-directory: evaluator
         run: cargo clippy -- -D warnings
