@@ -1,0 +1,1632 @@
+{
+  "tests": [
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/hello_world_html",
+      "run_date": "2025-05-20T11:23:40.129066785Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/demo_site_for_3d_printer",
+      "run_date": "2025-05-20T11:23:44.452214365Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/demo_site_for_plumbing",
+      "run_date": "2025-05-20T11:24:09.655229776Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/game_3d_cart_racing",
+      "run_date": "2025-05-20T11:24:20.081488043Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/game_tic_tac_toe",
+      "run_date": "2025-05-20T11:24:26.707753247Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/image_of_mountains",
+      "run_date": "2025-05-20T11:24:31.408126717Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/rotating_hexagon",
+      "run_date": "2025-05-20T11:24:35.055234694Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/use_bash",
+      "run_date": "2025-05-20T11:24:46.013980621Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/webgl_shader_demo",
+      "run_date": "2025-05-20T11:24:49.284296387Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Google",
+      "model_key": "gemma-3-4b-it-qat-GGUF",
+      "output_folder": "Google/gemma-3-4b-it-qat-GGUF/write_scifi_novel",
+      "run_date": "2025-05-20T11:24:52.256117249Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/hello_world_html",
+      "run_date": "2025-05-17T03:29:58.313148061Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/demo_site_for_3d_printer",
+      "run_date": null,
+      "finish_reason": null
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/demo_site_for_plumbing",
+      "run_date": "2025-05-17T03:30:38.797776489Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/game_3d_cart_racing",
+      "run_date": "2025-05-17T03:30:49.746919753Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/game_tic_tac_toe",
+      "run_date": "2025-05-17T03:30:59.223553726Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/image_of_mountains",
+      "run_date": "2025-05-17T10:43:37.165672892Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/rotating_hexagon",
+      "run_date": "2025-05-17T03:31:12.656842753Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/use_bash",
+      "run_date": "2025-05-17T03:31:33.135858675Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/webgl_shader_demo",
+      "run_date": "2025-05-17T03:31:35.565219784Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Meta",
+      "model_key": "meta-llama-3.1-8b-instruct",
+      "output_folder": "Meta/meta-llama-3.1-8b-instruct/write_scifi_novel",
+      "run_date": "2025-05-18T02:51:33.994571142Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/hello_world_html",
+      "run_date": "2025-05-17T10:32:46.449881633Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T10:32:52.336589115Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/demo_site_for_plumbing",
+      "run_date": "2025-05-17T10:33:33.884724189Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/game_3d_cart_racing",
+      "run_date": "2025-05-17T10:33:45.728229793Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/game_tic_tac_toe",
+      "run_date": "2025-05-17T10:34:03.169529066Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/image_of_mountains",
+      "run_date": "2025-05-17T10:34:26.300155460Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/rotating_hexagon",
+      "run_date": "2025-05-17T10:34:38.103420789Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/use_bash",
+      "run_date": "2025-05-17T10:34:53.115943282Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/webgl_shader_demo",
+      "run_date": "2025-05-17T10:35:06.201686037Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o3-mini",
+      "output_folder": "OpenAI/o3-mini/write_scifi_novel",
+      "run_date": "2025-05-19T00:22:52.971207196Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/hello_world_html",
+      "run_date": "2025-05-17T10:35:18.484867696Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T10:35:26.435151751Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/demo_site_for_plumbing",
+      "run_date": "2025-05-17T10:36:27.693911167Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/game_3d_cart_racing",
+      "run_date": "2025-05-17T10:37:11.509822750Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/game_tic_tac_toe",
+      "run_date": "2025-05-17T10:37:54.264640092Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/image_of_mountains",
+      "run_date": "2025-05-17T10:38:21.745712964Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/rotating_hexagon",
+      "run_date": "2025-05-17T10:38:31.716514351Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/use_bash",
+      "run_date": "2025-05-17T10:39:00.638435928Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/webgl_shader_demo",
+      "run_date": "2025-05-17T10:39:19.579911414Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "OpenAI",
+      "model_key": "o4-mini",
+      "output_folder": "OpenAI/o4-mini/write_scifi_novel",
+      "run_date": "2025-05-19T00:17:42.884217669Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/hello_world_html",
+      "run_date": "2025-05-17T03:32:12.045266077Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T03:44:12.603258795Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/demo_site_for_plumbing",
+      "run_date": "2025-05-17T03:59:57.985328828Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/game_3d_cart_racing",
+      "run_date": "2025-05-17T04:08:00.041402034Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/game_tic_tac_toe",
+      "run_date": "2025-05-17T04:26:06.745166623Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/image_of_mountains",
+      "run_date": "2025-05-17T04:56:03.707033727Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/rotating_hexagon",
+      "run_date": "2025-05-17T05:03:09.562896359Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/use_bash",
+      "run_date": "2025-05-17T05:19:06.813569600Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/webgl_shader_demo",
+      "run_date": "2025-05-17T05:31:34.827180522Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "QWQ",
+      "model_key": "qwq-32b",
+      "output_folder": "QWQ/qwq-32b/write_scifi_novel",
+      "run_date": "2025-05-18T02:51:45.613587803Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/hello_world_html",
+      "run_date": "2025-05-17T05:46:32.589603005Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T05:53:02.619410237Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/demo_site_for_plumbing",
+      "run_date": "2025-05-17T06:12:39.383216365Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/game_3d_cart_racing",
+      "run_date": "2025-05-17T06:20:31.889380566Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/game_tic_tac_toe",
+      "run_date": "2025-05-17T06:31:32.644328068Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/image_of_mountains",
+      "run_date": "2025-05-17T07:00:53.055383438Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/rotating_hexagon",
+      "run_date": "2025-05-17T07:07:48.930555789Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/use_bash",
+      "run_date": "2025-05-17T07:30:47.264316854Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/webgl_shader_demo",
+      "run_date": "2025-05-17T07:48:07.590557123Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen-3-32b",
+      "output_folder": "Qwen/qwen-3-32b/write_scifi_novel",
+      "run_date": "2025-05-18T03:01:46.733338264Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/hello_world_html",
+      "run_date": "2025-05-17T08:11:28.970352229Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T08:12:38.313819536Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/demo_site_for_plumbing",
+      "run_date": "2025-05-17T08:13:09.441232815Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/game_3d_cart_racing",
+      "run_date": "2025-05-17T08:13:58.340350130Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/game_tic_tac_toe",
+      "run_date": "2025-05-17T08:14:21.656377714Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/image_of_mountains",
+      "run_date": "2025-05-17T08:15:22.689642539Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/rotating_hexagon",
+      "run_date": "2025-05-17T08:15:47.611661993Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/use_bash",
+      "run_date": "2025-05-17T08:17:04.289476605Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/webgl_shader_demo",
+      "run_date": "2025-05-17T08:17:12.369670523Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-14b-instruct",
+      "output_folder": "Qwen/qwen2.5-14b-instruct/write_scifi_novel",
+      "run_date": "2025-05-18T03:12:28.456061589Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/hello_world_html",
+      "run_date": "2025-05-17T08:17:50.711674969Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T08:18:22.576903507Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/demo_site_for_plumbing",
+      "run_date": "2025-05-17T08:18:55.749602554Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/game_3d_cart_racing",
+      "run_date": "2025-05-17T08:19:10.160072595Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/game_tic_tac_toe",
+      "run_date": "2025-05-17T08:19:22.614941166Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/image_of_mountains",
+      "run_date": "2025-05-17T08:19:32.402950985Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/rotating_hexagon",
+      "run_date": "2025-05-17T08:19:38.977005507Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/use_bash",
+      "run_date": "2025-05-17T08:19:47.975375790Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/webgl_shader_demo",
+      "run_date": "2025-05-17T08:19:51.376501290Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen2.5-7b-instruct-1m",
+      "output_folder": "Qwen/qwen2.5-7b-instruct-1m/write_scifi_novel",
+      "run_date": "2025-05-18T03:13:37.344798621Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/hello_world_html",
+      "run_date": "2025-05-17T02:48:37.609329249Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T02:48:41.848403307Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/demo_site_for_plumbing",
+      "run_date": "2025-05-17T02:48:44.914242381Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/game_3d_cart_racing",
+      "run_date": "2025-05-17T02:48:54.126900434Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/game_tic_tac_toe",
+      "run_date": "2025-05-17T02:48:58.678529867Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/image_of_mountains",
+      "run_date": "2025-05-17T02:49:01.900758266Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/rotating_hexagon",
+      "run_date": "2025-05-17T02:49:07.157932589Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/use_bash",
+      "run_date": "2025-05-17T02:49:32.278334498Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/webgl_shader_demo",
+      "run_date": "2025-05-17T02:49:34.317045073Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-0.6b",
+      "output_folder": "Qwen/qwen3-0.6b/write_scifi_novel",
+      "run_date": "2025-05-18T03:14:10.697601971Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/hello_world_html",
+      "run_date": "2025-05-17T02:59:49.176846103Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T03:02:07.590855813Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/demo_site_for_plumbing",
+      "run_date": "2025-05-17T03:04:19.938932339Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/game_3d_cart_racing",
+      "run_date": "2025-05-17T03:05:35.897538690Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/game_tic_tac_toe",
+      "run_date": "2025-05-17T03:07:18.389056326Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/image_of_mountains",
+      "run_date": "2025-05-17T03:09:47.974173037Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/rotating_hexagon",
+      "run_date": "2025-05-17T03:11:01.015837263Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/use_bash",
+      "run_date": "2025-05-17T03:12:29.835527293Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/webgl_shader_demo",
+      "run_date": "2025-05-17T03:14:47.382663248Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-30b-a3b",
+      "output_folder": "Qwen/qwen3-30b-a3b/write_scifi_novel",
+      "run_date": "2025-05-18T03:14:18.359090226Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Hello World HTML",
+        "blurb": "Can the model create a simple html webpage",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/hello_world_html",
+      "run_date": "2025-05-17T03:16:06.138044812Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for 3d printer",
+        "blurb": "Can the model create a simple webpage with informational content from it's own memory?",
+        "tags": [
+          "html",
+          "internal-knowledge"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/demo_site_for_3d_printer",
+      "run_date": "2025-05-17T03:16:40.142452806Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Demo site for plumbing",
+        "blurb": "Can the model create a simple html webpage with some demo content",
+        "tags": [
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/demo_site_for_plumbing",
+      "run_date": "2025-05-17T03:17:43.370782674Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game 3d cart racing",
+        "blurb": "Create a 3d cart racing game using some webgl based technology",
+        "tags": [
+          "3d",
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/game_3d_cart_racing",
+      "run_date": "2025-05-17T03:18:10.887559629Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Game of tic tac toe",
+        "blurb": "Create a game of tic-tac-toe",
+        "tags": [
+          "game",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/game_tic_tac_toe",
+      "run_date": "2025-05-17T03:18:36.406389578Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "Image of Mountains - svg",
+        "blurb": "Create an image of some mountains as an svg",
+        "tags": [
+          "svg",
+          "image"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/image_of_mountains",
+      "run_date": "2025-05-17T03:19:02.450307610Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Rotating Hexagon",
+        "blurb": "Rotating hexagon in plain HTML",
+        "tags": [
+          "html",
+          "game"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/rotating_hexagon",
+      "run_date": "2025-05-17T03:19:44.615055986Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Use Bash",
+        "blurb": "Extract current data using bash",
+        "tags": [
+          "bash",
+          "html"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/use_bash",
+      "run_date": "2025-05-17T03:20:11.921844838Z",
+      "finish_reason": "task_complete_tool"
+    },
+    {
+      "test_metadata": {
+        "name": "WebGL Shader Demo",
+        "blurb": "Create a demo shader in webgl",
+        "tags": [
+          "webgl",
+          "shader"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/webgl_shader_demo",
+      "run_date": "2025-05-17T03:20:30.285365193Z",
+      "finish_reason": "empty_content"
+    },
+    {
+      "test_metadata": {
+        "name": "Write a science fiction novel",
+        "blurb": "How good is the AI model at writing long-form text? This variant has a not-very detailed prompt, leaving it to the model to draw from it's own knowledge",
+        "tags": [
+          "creative_writing"
+        ]
+      },
+      "provider": "Qwen",
+      "model_key": "qwen3-4b",
+      "output_folder": "Qwen/qwen3-4b/write_scifi_novel",
+      "run_date": "2025-05-18T03:16:24.451253794Z",
+      "finish_reason": "task_complete_tool"
+    }
+  ]
+}
