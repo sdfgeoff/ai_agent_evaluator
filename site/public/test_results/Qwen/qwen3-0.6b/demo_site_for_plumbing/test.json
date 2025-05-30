@@ -1,1 +1,60 @@
-{"name":"demo_site_for_plumbing","test_parameters":{"name":"Demo site for plumbing","blurb":"Can the model create a simple html webpage with some demo content","tags":["html"],"docker_image":"ghcr.io/astral-sh/uv:python3.13-bookworm","initial_prompt":[{"role":"user","content":"I'd like to create a plain HTML site for a plumbing business. Make it look modern. Output it into index.html","images":null}],"allowed_tools":["bash","create_file"]},"provider":{"name":"Qwen","base_url":"http://192.168.18.10:1234","token_env_var":null,"models":[{"key":"qwen3-0.6b","enabled":true},{"key":"qwen3-4b","enabled":true},{"key":"qwen3-30b-a3b","enabled":true},{"key":"qwen-3-32b","enabled":true},{"key":"qwen2.5-14b-instruct","enabled":true},{"key":"qwen2.5-7b-instruct-1m","enabled":true}],"enabled":true},"model":{"key":"qwen3-0.6b","enabled":true},"input_folder":"/home/geoffrey/.Data/Projects/ai-agent-evaluator/inputs/demo_site_for_plumbing","output_folder":"/home/geoffrey/.Data/Projects/ai-agent-evaluator/site/public/test_results/Qwen/qwen3-0.6b/demo_site_for_plumbing"}
+{
+  "name": "demo_site_for_plumbing",
+  "test_parameters": {
+    "name": "Demo site for plumbing",
+    "blurb": "Can the model create a simple html webpage with some demo content",
+    "tags": [
+      "html"
+    ],
+    "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
+    "initial_prompt": [
+      {
+        "role": "user",
+        "content": "I'd like to create a plain HTML site for a plumbing business. Make it look modern. Output it into index.html",
+        "images": null
+      }
+    ],
+    "allowed_tools": [
+      "bash",
+      "create_file"
+    ]
+  },
+  "provider": {
+    "name": "Qwen",
+    "base_url": "http://192.168.18.10:1234",
+    "token_env_var": null,
+    "models": [
+      {
+        "key": "qwen3-0.6b",
+        "enabled": true
+      },
+      {
+        "key": "qwen3-4b",
+        "enabled": true
+      },
+      {
+        "key": "qwen3-30b-a3b",
+        "enabled": true
+      },
+      {
+        "key": "qwen-3-32b",
+        "enabled": true
+      },
+      {
+        "key": "qwen2.5-14b-instruct",
+        "enabled": true
+      },
+      {
+        "key": "qwen2.5-7b-instruct-1m",
+        "enabled": true
+      }
+    ],
+    "enabled": true
+  },
+  "model": {
+    "key": "qwen3-0.6b",
+    "enabled": true
+  },
+  "input_folder": "/home/geoffrey/.Data/Projects/ai-agent-evaluator/inputs/demo_site_for_plumbing",
+  "output_folder": "/home/geoffrey/.Data/Projects/ai-agent-evaluator/site/public/test_results/Qwen/qwen3-0.6b/demo_site_for_plumbing"
+}

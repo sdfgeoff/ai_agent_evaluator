@@ -1,40 +1,17 @@
-import { useState, useEffect } from 'react'
-import type { Summary } from './models'
-import SummaryList from './summary_list'
-
-type LoadState<T> = {
-  state: 'Pending'
-} | {
-  state: 'Loading'
-} | {
-  state: 'Loaded'
-  data: T
-} | {
-  state: 'Error'
-  error: any
-}
+import type { RunStats, Summary, TestToRun } from './models'
+import SummaryList from './SummaryList'
+import { RunSummary } from './RunSummary'
+import { useResource } from './useResource'
 
 function App() {
-  const [summary, setSummary] = useState<LoadState<Summary>>({ state: 'Pending' })
-
-  useEffect(() => {
-    const fetchSummary = async () => {
-      try {
-        setSummary({ state: 'Loading' })
-        const response = await fetch('test_results/summary.json')
-        const data = await response.json()
-        setSummary({ state: 'Loaded', data })
-      } catch (error) {
-        console.error('Error loading summary.json:', error)
-        setSummary({ state: 'Error', error })
-      }
-    }
-
-    fetchSummary()
-  }, [])
+  const summary = useResource<Summary>('test_results/summary.json')
+  const viewTest = new URLSearchParams(window.location.search).get('view_test')
+  const stats = useResource<RunStats>(viewTest ? `test_results/${viewTest}/stats.json` : undefined)
+  const testToRun = useResource<TestToRun>(viewTest ? `test_results/${viewTest}/test.json` : undefined)
 
   return (
-      <div className="pagecontainer">
+    <div className="pagecontainer">
+      {!viewTest && <>
         <h1>Simple Agent Benchmark</h1>
         <h2>What is this?</h2>
         <p>
@@ -60,8 +37,12 @@ function App() {
         {summary.state == 'Loaded' && (
           <SummaryList tests={summary.data.tests} />
         )}
+      </>}
+      {testToRun.state === "Loaded" && stats.state === "Loaded" && (
+        <RunSummary stats={stats.data} test_to_run={testToRun.data} />
+      )}
 
-      </div>
+    </div>
   )
 }
 

@@ -25,7 +25,7 @@ const RunCard: React.FC<RunCardProps> = ({ run }) => {
                 </div>
                 <div className="flex-grow-1"></div>
                 <div>
-                    <a href={`test_results/${run.output_folder}/log.html`}>Message Log</a>
+                    <a href={`?view_test=${run.output_folder}`}>View Details</a>
                 </div>
             </div>
         </div>

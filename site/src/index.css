@@ -59,8 +59,20 @@ h1 {
 .flex-grow-1 {
   flex-grow: 1;
 }
+.flex-grow-0 {
+  flex-grow: 0;
+}
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
 .gap-1 {
   gap: 1em;
+}
+.padding-1{
+  padding: 1em;
+}
+.flex-column {
+  flex-direction: column;
 }
 .padding-1 {
   padding: 1em;
@@ -71,4 +83,57 @@ h1 {
   color: #FFe0B2;
   border-radius: 5px;
   padding: 5px;
+}
+
+
+.pre {
+  white-space: pre-wrap;
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+
+.bg-user {
+  background-color: #A8D3E6; /* Darker light blue */
+}
+
+.bg-tool-request {
+  background-color: #E6D99F; /* Darker light yellow */
+}
+
+.bg-tool-response {
+  background-color: #B8D9B8; /* Darker light green */
+}
+
+.bg-assistant {
+  background-color: #E6A6B3; /* Darker light pink */
+}
+
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.bubble {
+  display: inline-block;
+  padding: 10px;
+  width: 5em;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.rounded-left {
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
+}
+
+.rounded-right {
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
 }

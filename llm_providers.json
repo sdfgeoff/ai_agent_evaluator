@@ -83,6 +83,18 @@
                 }
             ],
             "enabled": true
+        },
+        {
+            "name": "Google",
+            "base_url": "http://192.168.18.10:1234",
+            "token_env_var": null,
+            "models": [
+                {
+                    "key": "gemma-3-4b-it-qat-GGUF",
+                    "enabled": true
+                }
+            ],
+            "enabled": true
         }
     ]
 }

@@ -93,7 +93,7 @@ async fn run_test(test: TestToRun) {
     // Write stats to stats.json in the output folder
     let stats_file = std::fs::File::create(format!("{}/stats.json", test.output_folder)).unwrap();
     let stats_writer = std::io::BufWriter::new(stats_file);
-    serde_json::to_writer(stats_writer, &result_stats).unwrap();
+    serde_json::to_writer_pretty(stats_writer, &result_stats).unwrap();
 }
 
 #[tokio::main]

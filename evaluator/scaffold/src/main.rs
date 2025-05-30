@@ -224,7 +224,7 @@ fn main() {
         // Write the test-to-run result to the output folder
         let test_file = std::fs::File::create(format!("{}/test.json", test.output_folder)).unwrap();
         let test_writer = std::io::BufWriter::new(test_file);
-        serde_json::to_writer(test_writer, &test).unwrap();
+        serde_json::to_writer_pretty(test_writer, &test).unwrap();
     }
 
     // Generate a summary of the tests.
@@ -239,6 +239,6 @@ fn main() {
     // Write the summary to a json file
     let summary_file = std::fs::File::create(output_directory.join("summary.json")).unwrap();
     let summary_writer = std::io::BufWriter::new(summary_file);
-    serde_json::to_writer(summary_writer, &summary).unwrap();
+    serde_json::to_writer_pretty(summary_writer, &summary).unwrap();
 
 }
