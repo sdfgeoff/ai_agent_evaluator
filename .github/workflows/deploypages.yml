@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-  #  branches: ["master"]
+    branches: ["master"]
 
   pull_request:
 
@@ -44,6 +44,6 @@ jobs:
         with:
           # Upload entire repository
           path: './site/dist'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      #- name: Deploy to GitHub Pages
+      #  id: deployment
+      #  uses: actions/deploy-pages@v4
