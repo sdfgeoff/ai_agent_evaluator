@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rotating Hexagon with Bouncing Balls</title>
+  <style>
+text { font-family: sans-serif; }
+</style>
+</head>
+<body>
+  <div id="container">
+    <!-- Hexagon and balls will be added here -->
+  </div>
+
+  <script>
+    const container = document.getElementById('container');
+    const hexagonSize = 200;
+    const ballColor = 'blue';
+    const ballRadius = 10;
+    let balls = [];
+    let animationFrameId;
+
+    function createHexagon() {
+      const hexagon = document.createElement('div');
+      hexagon.style.width = hexagonSize + 'px';
+      hexagon.style.height = hexagonSize + 'px';
+      hexagon.style.borderStyle = 'solid';
+      hexagon.style.borderColor = 'black';
+      hexagon.style.borderRadius = '50%';
+      hexagon.style.position = 'relative';
+      hexagon.style.margin = '20px auto';
+      container.appendChild(hexagon);
+    }
+
+    function createBall() {
+      const ball = document.createElement('div');
+      ball.style.width = 2 * ballRadius + 'px';
+      ball.style.height = 2 * ballRadius + 'px';
+      ball.style.borderRadius = '50%';
+      ball.style.backgroundColor = ballColor;
+      ball.style.position = 'absolute';
+      ball.style.left = Math.random() * (hexagonSize - ballRadius) + 'px';
+      ball.style.top = Math.random() * (hexagonSize - ballRadius) + 'px';
+      container.appendChild(ball);
+    }
+
+    function animate() {
+      balls.forEach((ball, index) => {
+        ball.style.left = (Math.random() * (hexagonSize - ballRadius)) + 'px';
+        ball.style.top = (Math.random() * (hexagonSize - ballRadius)) + 'px';
+      });
+      animationFrameId = requestAnimationFrame(animate);
+    }
+
+    function startAnimation() {
+      createHexagon();
+      for (let i = 0; i < 10; i++) {
+        createBall();
+      }
+      animate();
+    }
+
+    startAnimation();
+  </script>
+</body>
+</html>
