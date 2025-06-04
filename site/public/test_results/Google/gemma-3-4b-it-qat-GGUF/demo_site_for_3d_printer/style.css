@@ -1,0 +1,20 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4d03c; /* Orange background */
+}
+h1, h2, h3 { 
+  color: #e67e22; /* Darker orange for headings */
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  background-color: #f4d03c; /* Orange on hover */
+}
+section {
+  padding: 20px;
+  margin-bottom: 20px;
+}

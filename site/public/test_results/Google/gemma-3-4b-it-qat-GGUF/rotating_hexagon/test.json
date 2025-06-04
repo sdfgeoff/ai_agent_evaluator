@@ -1,0 +1,41 @@
+{
+  "name": "rotating_hexagon",
+  "test_parameters": {
+    "name": "Rotating Hexagon",
+    "blurb": "Rotating hexagon in plain HTML",
+    "tags": [
+      "html",
+      "game"
+    ],
+    "docker_image": "ghcr.io/astral-sh/uv:python3.13-bookworm",
+    "initial_prompt": [
+      {
+        "role": "user",
+        "content": "Create a HTML page containing a rotating hexagon with bouncing balls inside it. Save it to `index.html`",
+        "images": null
+      }
+    ],
+    "allowed_tools": [
+      "bash",
+      "create_file"
+    ]
+  },
+  "provider": {
+    "name": "Google",
+    "base_url": "http://192.168.18.10:1234",
+    "token_env_var": null,
+    "models": [
+      {
+        "key": "gemma-3-4b-it-qat-GGUF",
+        "enabled": true
+      }
+    ],
+    "enabled": true
+  },
+  "model": {
+    "key": "gemma-3-4b-it-qat-GGUF",
+    "enabled": true
+  },
+  "input_folder": "/home/geoffrey/.Data/Projects/ai-agent-evaluator/inputs/rotating_hexagon",
+  "output_folder": "/home/geoffrey/.Data/Projects/ai-agent-evaluator/site/public/test_results/Google/gemma-3-4b-it-qat-GGUF/rotating_hexagon"
+}
