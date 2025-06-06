@@ -59,10 +59,10 @@ export const RunSummary: React.FC<{ test_to_run: TestToRun; stats: RunStats; run
         Output
       </h2>
       <div className="padding-y-1">
-      <a href={`/test_results/${run_summary.output_folder}/index.html`}>Open Fullscreen</a><br/>
-      <a href={`/test_results/${run_summary.output_folder}.zip`}>Download Zip</a>
+      <a href={`./test_results/${run_summary.output_folder}/index.html`}>Open Fullscreen</a><br/>
+      <a href={`./test_results/${run_summary.output_folder}.zip`}>Download Zip</a>
       </div>
-      <iframe src={`/test_results/${run_summary.output_folder}/index.html`} title="Test Output" style={{
+      <iframe src={`./test_results/${run_summary.output_folder}/index.html`} title="Test Output" style={{
         width: '100%',
         height: '75vh',
       }}></iframe>
