@@ -7,11 +7,15 @@ use std::path::{Path, PathBuf};
 use structopt::StructOpt;
 mod run_test_case;
 use chrono::{DateTime, Utc};
+use log::{info, warn};
 use run_test_case::run_test;
 use structured_logger::Builder;
 
 mod html_screenshot;
 use html_screenshot::capture_screenshot;
+
+mod zip_folder;
+use zip_folder::zip_folder;
 
 #[derive(Debug, StructOpt)]
 struct Args {
@@ -209,33 +213,56 @@ fn main() {
                     "Test failed for provider: {}, model: {}, test folder: {:?}, error: {:?}",
                     test.provider.name, test.model.key, test.input_folder, e
                 );
+                continue;
             }
-        }
 
-        // Generate an image of index.html in the output folder if it exists
-        let index_html_path = Path::new(&test.output_folder).join("index.html");
-        let index_html_image_path = Path::new(&test.output_folder).join("index.png");
-        if index_html_path.exists() {
-            if let Err(e) = capture_screenshot(
-                &format!("file://{}", index_html_path.to_string_lossy()),
-                &index_html_image_path.to_string_lossy(),
-            ) {
-                error!(
-                    "Failed to capture screenshot for test: {}, error: {:?}",
-                    test.name, e
+            // Generate an image of index.html in the output folder if it exists
+            let index_html_path = Path::new(&test.output_folder).join("index.html");
+            let index_html_image_path = Path::new(&test.output_folder).join("index.png");
+            if index_html_path.exists() {
+                info!("generating_screenshot");
+
+                if let Err(e) = capture_screenshot(
+                    &format!("file://{}", index_html_path.to_string_lossy()),
+                    &index_html_image_path.to_string_lossy(),
+                ) {
+                    error!(
+                        test_name = test.name,
+                        error = e.to_string();
+                        "Failed to capture screenshot"
+                    );
+                }
+            } else {
+                warn!(
+                    test_name = test.name;
+                    "index.html not found, skipping screenshot"
                 );
             }
-        } else {
-            error!(
-                "index.html not found for test: {}, skipping screenshot.",
-                test.name
-            );
         }
 
         // Write the test-to-run result to the output folder
         let test_file = std::fs::File::create(format!("{}/test.json", test.output_folder)).unwrap();
         let test_writer = std::io::BufWriter::new(test_file);
         serde_json::to_writer_pretty(test_writer, &test).unwrap();
+
+        let zip_input_folder = Path::new(&test.output_folder);
+        let zip_output_file = zip_input_folder.with_extension("zip");
+        if let Err(e) = zip_folder(
+            zip_input_folder.to_str().unwrap(),
+            zip_output_file.to_str().unwrap(),
+        ) {
+            error!(
+                zip_input_folder=zip_input_folder.to_str().unwrap(),
+                error = e.to_string();
+                "Failed to zip folder"
+            );
+        } else {
+            info!(
+                zip_input_folder = zip_input_folder.to_str().unwrap(),
+                zip_output_file = zip_output_file.to_str().unwrap();
+                "Zipped folder successfully"
+            );
+        }
     }
 
     // Generate a summary of the tests.

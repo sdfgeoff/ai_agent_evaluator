@@ -56,7 +56,7 @@ const SummaryList: React.FC<SummaryProps> = ({ tests }) => {
     const testNames = Object.keys(byTestName).sort();
 
     return (
-        <>  <div className="padding-2">
+        <>  <div className="padding-2 d-flex flex-column gap-1">
             <h2>Filters</h2>
             <div>
                 <label>

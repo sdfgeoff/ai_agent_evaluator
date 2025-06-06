@@ -1,5 +1,5 @@
 import React from "react";
-import RunCard, { Card } from "./run_card";
+import { Card } from "./run_card";
 import type { TestSummary } from "./models";
 import { Tags } from "./Tags";
 
@@ -13,20 +13,6 @@ const TestContainer: React.FC<TestContainerProps> = ({
     testName,
     tests,
 }) => {
-    const byProvider: Record<string, TestSummary[]> = tests.reduce(
-        (acc, run) => {
-            const providerName = run.provider;
-            if (!acc[providerName]) {
-                acc[providerName] = [];
-            }
-            acc[providerName].push(run);
-            return acc;
-        },
-        {} as Record<string, TestSummary[]>
-    );
-
-    const providerNames = Object.keys(byProvider).sort();
-
     return (
         <div id={`test-${testName}`}>
             <div className="panel padding-2">

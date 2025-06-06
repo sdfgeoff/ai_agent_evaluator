@@ -19,7 +19,7 @@ function App() {
         <div className="panel padding-2">
           <h1>Simple Agent Benchmark</h1>
         </div>
-        <div className="padding-2">
+        <div className="padding-2 d-flex flex-column gap-1">
 
           <h2>What is this?</h2>
           <p>
@@ -40,7 +40,8 @@ function App() {
             file, which will be embedded here. To aid in figuring out what is
             going on, the complete message log is also available, and can be
             viewed by clicking the 'View Message Log' link.
-          </p></div>
+          </p>
+        </div>
 
         {summary.state == 'Loaded' && (
           <SummaryList tests={summary.data.tests} />
@@ -55,7 +56,7 @@ function App() {
             <p>The requested test does not exist or has not been run yet.</p>
           </div>
         )}
-        </>}
+      </>}
 
     </div>
   )
