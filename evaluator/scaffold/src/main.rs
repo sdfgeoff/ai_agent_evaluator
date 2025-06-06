@@ -207,37 +207,38 @@ fn main() {
     for test in &tests_to_run {
         let test_needs_rerun = check_if_test_needs_rerun(test);
 
-        if test_needs_rerun {
-            if let Err(e) = run_test(agent_binary.clone(), test) {
+        if !test_needs_rerun {
+            continue;
+        }
+        if let Err(e) = run_test(agent_binary.clone(), test) {
+            error!(
+                "Test failed for provider: {}, model: {}, test folder: {:?}, error: {:?}",
+                test.provider.name, test.model.key, test.input_folder, e
+            );
+            continue;
+        }
+
+        // Generate an image of index.html in the output folder if it exists
+        let index_html_path = Path::new(&test.output_folder).join("index.html");
+        let index_html_image_path = Path::new(&test.output_folder).join("index.png");
+        if index_html_path.exists() {
+            info!("generating_screenshot");
+
+            if let Err(e) = capture_screenshot(
+                &format!("file://{}", index_html_path.to_string_lossy()),
+                &index_html_image_path.to_string_lossy(),
+            ) {
                 error!(
-                    "Test failed for provider: {}, model: {}, test folder: {:?}, error: {:?}",
-                    test.provider.name, test.model.key, test.input_folder, e
-                );
-                continue;
-            }
-
-            // Generate an image of index.html in the output folder if it exists
-            let index_html_path = Path::new(&test.output_folder).join("index.html");
-            let index_html_image_path = Path::new(&test.output_folder).join("index.png");
-            if index_html_path.exists() {
-                info!("generating_screenshot");
-
-                if let Err(e) = capture_screenshot(
-                    &format!("file://{}", index_html_path.to_string_lossy()),
-                    &index_html_image_path.to_string_lossy(),
-                ) {
-                    error!(
-                        test_name = test.name,
-                        error = e.to_string();
-                        "Failed to capture screenshot"
-                    );
-                }
-            } else {
-                warn!(
-                    test_name = test.name;
-                    "index.html not found, skipping screenshot"
+                    test_name = test.name,
+                    error = e.to_string();
+                    "Failed to capture screenshot"
                 );
             }
+        } else {
+            warn!(
+                test_name = test.name;
+                "index.html not found, skipping screenshot"
+            );
         }
 
         // Write the test-to-run result to the output folder
