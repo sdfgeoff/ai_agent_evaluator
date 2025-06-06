@@ -10,6 +10,9 @@ use chrono::{DateTime, Utc};
 use run_test_case::run_test;
 use structured_logger::Builder;
 
+mod html_screenshot;
+use html_screenshot::capture_screenshot;
+
 #[derive(Debug, StructOpt)]
 struct Args {
     #[structopt(long, help = "Path to the agent binary")]
@@ -208,6 +211,27 @@ fn main() {
                 );
             }
         }
+
+        // Generate an image of index.html in the output folder if it exists
+        let index_html_path = Path::new(&test.output_folder).join("index.html");
+        let index_html_image_path = Path::new(&test.output_folder).join("index.png");
+        if index_html_path.exists() {
+            if let Err(e) = capture_screenshot(
+                &format!("file://{}", index_html_path.to_string_lossy()),
+                &index_html_image_path.to_string_lossy(),
+            ) {
+                error!(
+                    "Failed to capture screenshot for test: {}, error: {:?}",
+                    test.name, e
+                );
+            }
+        } else {
+            error!(
+                "index.html not found for test: {}, skipping screenshot.",
+                test.name
+            );
+        }
+
         // Write the test-to-run result to the output folder
         let test_file = std::fs::File::create(format!("{}/test.json", test.output_folder)).unwrap();
         let test_writer = std::io::BufWriter::new(test_file);

@@ -56,7 +56,7 @@ const SummaryList: React.FC<SummaryProps> = ({ tests }) => {
     const testNames = Object.keys(byTestName).sort();
 
     return (
-        <>
+        <>  <div className="padding-2">
             <h2>Filters</h2>
             <div>
                 <label>
@@ -122,7 +122,7 @@ const SummaryList: React.FC<SummaryProps> = ({ tests }) => {
                     );
                 })}
             </ul>
-            <h1>Results</h1>
+        </div>
             {testNames.map((testName) => (
                 <TestContainer
                     key={testName}

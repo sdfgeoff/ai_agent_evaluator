@@ -45,17 +45,17 @@ export const MessageView: React.FC<{ message: Message; }> = ({ message }) => {
 
   return <div className="d-flex">
     <div>
-      <Bubble className={`${iconSide == 'left' ? bgClass : ''} rounded-left`}>
+      <Bubble className={`${iconSide == 'left' ? bgClass : ''} rounded-left padding-1`}>
         {iconSide == 'left' && message.role}
       </Bubble>
     </div>
     <div className={`message padding-1 flex-grow-1 ${bgClass}`}>
       {'tool_calls' in message && (
-        <div className="tool-calls">
+        <div className="d-flex gap-1 flex-column">
           {message.tool_calls.map((call, index) => (
             <div key={index}>
               <strong>Tool Request: {call.function.name} - {call.id} </strong>
-              <div className="pre">
+              <div className="pre padding-1">
                 {JSON.stringify(call.function.arguments)}
               </div>
             </div>
@@ -68,7 +68,7 @@ export const MessageView: React.FC<{ message: Message; }> = ({ message }) => {
         </div>
       )}
       {'content' in message && (
-        <div className="pre">
+        <div className="pre padding-1">
           {typeof message.content === 'string' ? message.content : JSON.stringify(message.content)}
         </div>
       )}
@@ -81,7 +81,7 @@ export const MessageView: React.FC<{ message: Message; }> = ({ message }) => {
       )}
     </div>
     <div>
-      <Bubble className={`${iconSide == 'right' ? bgClass : ''} rounded-right`}>
+      <Bubble className={`${iconSide == 'right' ? bgClass : ''} rounded-right padding-1`}>
         {iconSide == 'right' && message.role}
       </Bubble>
     </div>

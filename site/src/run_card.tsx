@@ -1,27 +1,61 @@
 import React from "react";
 import type { TestSummary } from "./models";
 
+
+interface CardProps {
+    title: string;
+    image: string;
+    link: string;
+    
+}
+
+export const Card : React.FC<CardProps> = ({ title, image, link }) => {
+    return (
+        <a className="run_card no-link-underline rounded-1 hover-bg-panel padding-0_5" style={{
+            width: "240px",
+            height: "160px",
+            display: 'block',
+            overflow: 'hidden',
+        }} href={link} title={title}>
+            <div className="text-center font-weight-bold padding-1" style={{
+                overflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+            }}>
+                {title}
+            </div>
+                <img
+                    src={image}
+                    style={{
+                        objectFit: 'contain',
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                    }}
+
+                />
+            </a>
+    );
+}
+
 interface RunCardProps {
     run: TestSummary
 }
 
 const RunCard: React.FC<RunCardProps> = ({ run }) => {
+    const html_url = `test_results/${run.output_folder}/index.html`;
     return (
         <div className="run_card">
             <h4>{run.model_key}</h4>
-            <div className="zoom-outer">
-                <div className="zoom-inner">
-                    <iframe
-                        src={`test_results/${run.output_folder}/index.html`}
-                        width="1920"
-                        height="1080"
-                        title="Run Output"
-                    ></iframe>
-                </div>
-            </div>
+            <a href={html_url}>
+            <img
+                src={`test_results/${run.output_folder}/index.png`}
+                width="240"
+                height="135"
+                title="Screenshot of the output"
+            />
+            </a>
             <div className="d-flex">
                 <div>
-                    <a href={`test_results/${run.output_folder}/index.html`}>Fullscreen</a>
+                    <a href={html_url}>View Site</a>
                 </div>
                 <div className="flex-grow-1"></div>
                 <div>
